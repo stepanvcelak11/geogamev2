@@ -55,6 +55,24 @@ Od verze 82 si hra sama drží záchrannou kopii postupu:
   místo tichého selhání.
 - Po vložení zálohy jde vrátit předchozí stav: **Nastavení → Vrátit obnovu**.
 
+## Co je nového ve verzi 86
+
+- **Hrací deska je velká.** Nápověda tutoriálu a lišta vybraného stanoviska
+  si ukrajovaly z výšky desky a políčko kvůli nim spadlo ze 42 na 25 px.
+  Nápověda teď desku překrývá stejně jako panel a pruh pro lištu se drží,
+  jen když ta lišta opravdu je.
+- **Terč na konci trasy má popisek NULOVÝ BOD**, začátek trasy **ODSUD**.
+  Byla to jediná věc na desce, o kterou jde prohra, a neměla vysvětlení.
+- **Měřická čísla stanic z cesty zmizela.** Byla to ozdoba, ale hráč je četl
+  jako údaj; jedno padalo těsně vedle terče a vypadalo jako odznak na něm.
+- **Výběr měřické metody ukáže všech sedm.** Dřív jen ty, které hráč umí —
+  o zbylých pěti se nedalo dozvědět, že existují. Zamčené jsou šedé a je
+  u nich napsáno, ve které oblasti a za kolik pohárů se odemknou.
+- **Okno území zhublo.** Mělo čtyři vždy otevřené sekce a pět velkých tlačítek
+  pod sebou; hlavní akce byla až čtvrtá. Teď je nahoře sestava a hned pod ní
+  start, zadání a cíle se rozbalují jedním řádkem a další režimy mají
+  vlastní blok.
+
 ## Co je nového ve verzi 85
 
 - **Mezníky** — druhá měna. Nedá se koupit ani nepadá z beden: dostaneš ji za tři
