@@ -25,12 +25,32 @@ if(location.protocol==='file:'){
 <meta name="description" content="Merge tower defense v geodetickém světě. Braň bodové pole před chybami měření.">
 <style>
 :root, html[data-theme="day"]{
-  --ink:#141a3a; --ink2:#ffffff; --ink3:#eef4fb; --grid:#d3e3f3; --line:#e4eefa;
-  --onBg:#ffffff; --onBgDim:#a9bce0; --deep:#0b1030; --deep2:#1b2560;
-  --stroke:#101a44; --stroke2:#233163;
-  --paper:#12233f; --dim:#5b7194; --scrim:rgba(255,255,255,.95); --scrim2:rgba(219,232,242,.96);
-  --tape:#f0426e; --laser:#00d9b8; --brass:#ffc21f; --sky:#3d8bff; --moss:#25d366; --violet:#a95cff;
+  /* obrys a deska */
+  --stroke:#0b1236; --stroke2:#1c2a63; --outline:#0b1236;
+  --deep:#0a0f2e; --deep2:#202c74;
+  /* plochy odlitku - studeny plast, ne cista bila */
+  --ink:#141a3a; --ink2:#f3f7ff; --ink2b:#d6e1f5; --ink2c:#b6c6e2;
+  --ink3:#e6eefb; --grid:#c4d5ec; --line:#dde8f8;
+  --onBg:#ffffff; --onBgDim:#aec2e8;
+  --paper:#101c33; --dim:#4a6183; --onPlast:#141a3a; --onDeep:#ffffff;
+  --scrim:rgba(255,255,255,.96); --scrim2:rgba(222,233,246,.97);
+  /* akcenty: SVETLO / TELO / LEM. Lem je vzdy tmavsi sourozenec tehoz odstinu. */
+  --tape:#ff3d6e;   --tapeL:#ff86a4;  --tapeD:#b8103f;
+  --laser:#00e6c0;  --laserL:#6ef7dd; --laserD:#00695c;
+  --brass:#ffc21f;  --brassL:#ffe08a; --brassD:#8a5200;
+  --sky:#3d8bff;    --skyL:#8fc0ff;   --skyD:#1447a8;
+  --moss:#2ad86a;   --mossL:#84f0aa;  --mossD:#0c7a3a;
+  --violet:#a95cff; --violetL:#d0a5ff;--violetD:#5f21b8;
+  --rust:#f0752a;   --rustL:#ffab6b;  --rustD:#a83c05;
+  --vest:#ef7215;   --vestD:#a83c05;
+  /* plastovy mixin - prepisuji ho barevne varianty */
+  --plA:#ffffff; --plB:#dbe6f7; --plC:#b6c6e2;
+  --rim:rgba(255,255,255,.60); --lipA:rgba(255,255,255,.28);
   --btnA:#ffffff; --btnB:#e7f0fb; --btnBr:#b9cfe6;
+  /* PISMO v akcentni barve. Zakladni odstiny jsou vyplne (zlata ma proti
+     bile 1,6:1), na text se pouzivaji tyhle. */
+  --tapeT:#b8103f; --laserT:#00695c; --brassT:#8a5200; --skyT:#1447a8;
+  --mossT:#0c7a3a; --violetT:#5f21b8; --rustT:#a83c05;
   --elev1:0 4px 0 var(--stroke),0 7px 14px rgba(6,12,32,.42),
     inset 0 2px 0 rgba(255,255,255,.9),inset 0 -3px 0 rgba(11,16,48,.10);
   --elev2:0 6px 0 var(--stroke),0 12px 26px rgba(6,12,32,.5),
@@ -39,23 +59,58 @@ if(location.protocol==='file:'){
   --r1:14px; --r2:20px; --r3:26px;
 }
 html[data-theme="hc"]{
-  --ink:#ffffff; --ink2:#ffffff; --ink3:#eef2f5; --grid:#7d8f9c; --line:#c2ced6;
-  --paper:#06131c; --dim:#3d5464; --scrim:rgba(255,255,255,.98); --scrim2:rgba(255,255,255,.99);
-  --tape:#d2003c; --laser:#00726a; --brass:#a35a00; --sky:#005fb8; --moss:#0a7a3c; --violet:#5a2ec2;
-  --btnA:#ffffff; --btnB:#e8eef3; --btnBr:#5f7482;
-  --elev1:0 0 0 1px rgba(6,19,28,.18); --elev2:0 0 0 2px rgba(6,19,28,.22);
+  --stroke:#000000; --stroke2:#000000; --outline:#000000;
+  --deep:#ffffff; --deep2:#ffffff;
+  --ink:#ffffff; --ink2:#ffffff; --ink2b:#ffffff; --ink2c:#eef2f5;
+  --ink3:#eef2f5; --grid:#5f7482; --line:#8a9aa4;
+  --paper:#06131c; --dim:#33474f; --onBg:#06131c; --onBgDim:#33474f;
+  --onPlast:#06131c; --onDeep:#06131c;
+  --scrim:#ffffff; --scrim2:#ffffff;
+  --tape:#c00030;  --tapeL:#c00030;  --tapeD:#c00030;
+  --laser:#00625a; --laserL:#00625a; --laserD:#00625a;
+  --brass:#8a4a00; --brassL:#8a4a00; --brassD:#8a4a00;
+  --sky:#00509e;   --skyL:#00509e;   --skyD:#00509e;
+  --moss:#0a6b34;  --mossL:#0a6b34;  --mossD:#0a6b34;
+  --violet:#4d2aa8;--violetL:#4d2aa8;--violetD:#4d2aa8;
+  --rust:#a03c00;  --rustL:#a03c00;  --rustD:#a03c00;
+  --vest:#a03c00;  --vestD:#a03c00;
+  --plA:#ffffff; --plB:#ffffff; --plC:transparent;
+  --rim:transparent; --lipA:transparent;
+  --tapeT:#c00030; --laserT:#00625a; --brassT:#8a4a00; --skyT:#00509e;
+  --mossT:#0a6b34; --violetT:#4d2aa8; --rustT:#a03c00;
+  --btnA:#ffffff; --btnB:#ffffff; --btnBr:#000000;
+  --elev1:0 0 0 3px #000; --elev2:0 0 0 3px #000; --inset:none;
 }
+/* V kontrastnim motivu zadne vnitrni svetlo ani mekke prechody. */
+html[data-theme="hc"] button:before,html[data-theme="hc"] .plast:before{display:none}
 html[data-theme="hc"] body{background-image:none}
 html[data-theme="hc"] .pgHead h2{background:none;color:var(--paper);-webkit-text-fill-color:var(--paper)}
 html[data-theme="hc"] .secTitle{color:var(--paper)}
 html[data-theme="night"]{
-  --ink:#0a1626; --ink2:#132539; --ink3:#1b3a52; --grid:#254963; --line:#1d3c52;
-  --paper:#eef6fc; --dim:#a3c2d6; --scrim:rgba(10,22,38,.95); --scrim2:rgba(10,22,38,.97);
-  --tape:#ff5c86; --laser:#28dcc8; --brass:#ffc85c; --sky:#7fd4ff; --moss:#66e08c; --violet:#b07bff;
-  --btnA:#153542; --btnB:#0d2531; --btnBr:#245263;
-  --elev1:0 1px 2px rgba(0,0,0,.45);
-  --elev2:0 4px 16px rgba(0,0,0,.55);
-  --inset:inset 0 1px 0 rgba(255,255,255,.06);
+  --stroke:#04101c; --stroke2:#13303f; --outline:#04101c;
+  --deep:#03080f; --deep2:#0d1c2b;
+  --ink:#08131f; --ink2:#183048; --ink2b:#0e1f30; --ink2c:#0a1725;
+  --ink3:#1b3a52; --grid:#27506b; --line:#1d3c52;
+  --paper:#eef6fc; --dim:#9dbcd2; --onBg:#eef6fc; --onBgDim:#7d9dbb;
+  --onPlast:#eef6fc; --onDeep:#ffffff;
+  --scrim:rgba(12,26,42,.96); --scrim2:rgba(9,20,33,.97);
+  --tape:#ff5c86;   --tapeL:#ff9cb6;  --tapeD:#a01044;
+  --laser:#28dcc8;  --laserL:#7ff0e2; --laserD:#07786c;
+  --brass:#ffc85c;  --brassL:#ffe4a6; --brassD:#a56800;
+  --sky:#5cc0ff;    --skyL:#a8dcff;   --skyD:#0f4a80;
+  --moss:#4fe08c;   --mossL:#9df3bb;  --mossD:#0a6b38;
+  --violet:#b07bff; --violetL:#d6b6ff;--violetD:#4d1a9c;
+  --rust:#ff9350;   --rustL:#ffbf90;  --rustD:#993205;
+  --vest:#ff9138;   --vestD:#993205;
+  --plA:#1e3a54; --plB:#122437; --plC:#0a1725;
+  --rim:rgba(255,255,255,.14); --lipA:rgba(255,255,255,.07);
+  --btnA:#183c4c; --btnB:#0d2531; --btnBr:#2b6076;
+  /* V noci je plast tmavy, takze text musi byt naopak SVETLY. */
+  --tapeT:#ff9cb6; --laserT:#7ff0e2; --brassT:#ffe4a6; --skyT:#a8dcff;
+  --mossT:#9df3bb; --violetT:#d6b6ff; --rustT:#ffbf90;
+  --elev1:0 4px 0 var(--stroke),0 8px 16px rgba(0,0,0,.5);
+  --elev2:0 6px 0 var(--stroke),0 12px 24px rgba(0,0,0,.6);
+  --inset:inset 0 2px 0 var(--rim);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 /* lesk přes horní hranu karet */
@@ -67,16 +122,66 @@ html[data-theme="night"]{
 #profile,.dq,.slot,.todoI,.ach,.starRew,.aslot,.dslot,#seasonBox,#sprintCard,#bossCard,
 #chalCard,.foldSec{position:relative;overflow:hidden}
 /* displejové písmo pro nadpisy a čísla: systémová tučná gro­teska s fallbackem */
-:root{--display:'Arial Black','Helvetica Neue',Impact,system-ui,sans-serif}
+:root{
+  /* Nadpisy: kulaty, hrackovity rez. Arial Rounded MT Bold na iOS JE,
+     Arial Black a Impact tam NEJSOU - proto to dosud padalo na Helveticu. */
+  --display:'Arial Rounded MT Bold','Avenir Next Heavy','Avenir Next','Helvetica Neue',Arial,sans-serif;
+  --label:'Avenir Next Condensed','Avenir Next','Helvetica Neue',Arial,sans-serif;
+  --num:'Avenir Next','Helvetica Neue',Arial,sans-serif;
+}
 .heroTxt h1,.pgHead h2,.big,#go,.playBig b,.seLv,.tbChip b,#hud .v,
 .rtN,.rtTr,.crN,.seNum,.rnm,#roadLvl,.res b,.dq .qn,.shT b{
-  font-family:var(--display);letter-spacing:-.01em}
+  font-family:var(--display);letter-spacing:-.005em}
+/* Cisla maji vlastni rez s tabulkovymi ciframi a tenky obrys, aby drzela
+   tvar i na svetlem plastu. */
+.tbChip b,#hud .v,.rtTr,.seNum{font-family:var(--num);font-weight:800;
+  font-variant-numeric:tabular-nums;letter-spacing:0}
+/* Verzalkove mikropopisky */
+.ph,.res .k,.pfRank,.qzProg,.seLabels,#navBar button,.modeChip{
+  font-family:var(--label);text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+#navBar button,.seLabels{overflow:hidden;text-overflow:ellipsis}
 #hud .v,.tbChip b,.rtTr{font-feature-settings:'tnum' 1;font-variant-numeric:tabular-nums}
-html,body{margin:0;background:var(--ink);
-  background-image:linear-gradient(180deg,var(--deep2),var(--deep));
-  background-attachment:fixed;color:var(--paper);
+html,body{margin:0;background:var(--deep);color:var(--paper);
   font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;overscroll-behavior:none;user-select:none;
   -webkit-font-smoothing:antialiased}
+/* Deska, na ktere vsechny odlitky lezi. Tri staticke vrstvy, vykreslene
+   jednou; drive to byl background-attachment:fixed na body, coz iOS Safari
+   prekresluje pri kazdem posunu. */
+#bgPlast{position:fixed;inset:0;z-index:-1;pointer-events:none;contain:strict;
+  background:
+    radial-gradient(88% 42% at 50% 0%,
+      color-mix(in srgb,var(--tint,#00e6c0) 34%,transparent),transparent 66%),
+    radial-gradient(126% 92% at 50% -12%,#263480 0%,#151d56 46%,#090d2a 100%)}
+html[data-theme="night"] #bgPlast{background:
+  radial-gradient(88% 42% at 50% 0%,
+    color-mix(in srgb,var(--tint,#28dcc8) 22%,transparent),transparent 66%),
+  radial-gradient(126% 92% at 50% -12%,#0d1c2b 0%,#071320 46%,#03080f 100%)}
+/* Mericka sit: 34 px drobna, kazda pata cara silnejsi. */
+#bgPlast:after{content:'';position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.055) 0 1px,transparent 1px 34px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.055) 0 1px,transparent 1px 34px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.10) 0 1.5px,transparent 1.5px 170px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.10) 0 1.5px,transparent 1.5px 170px);
+  mask-image:radial-gradient(112% 78% at 50% 6%,#000 22%,transparent 78%);
+  -webkit-mask-image:radial-gradient(112% 78% at 50% 6%,#000 22%,transparent 78%)}
+/* Noniova stupnice pri levem okraji. Zamerne asymetricky - symetrie by
+   z toho udelala ramecek, asymetrie stupnici. */
+#bgPlast:before{content:'';position:absolute;left:0;top:0;bottom:0;width:11px;opacity:.5;
+  background:
+    repeating-linear-gradient(180deg,var(--brassL) 0 1.5px,transparent 1.5px 8px),
+    repeating-linear-gradient(180deg,var(--brassL) 0 2px,transparent 2px 40px),
+    linear-gradient(90deg,var(--brassD) 0,var(--brass) 38%,#5a3f12 100%);
+  background-size:5px 8px,11px 40px,100% 100%;background-repeat:repeat-y;
+  border-right:1px solid rgba(11,18,54,.7);box-shadow:2px 0 6px rgba(0,0,0,.35)}
+html[data-theme="hc"] #bgPlast{background:#fff}
+html[data-theme="hc"] #bgPlast:after,html[data-theme="hc"] #bgPlast:before{display:none}
+/* Barevne mistnosti - pet stranek prestane byt petkrat totez. */
+body[data-pg="0"]{--tint:#a95cff}
+body[data-pg="1"]{--tint:#3d8bff}
+body[data-pg="2"]{--tint:#00e6c0}
+body[data-pg="3"]{--tint:#f0752a}
+body[data-pg="4"]{--tint:#ffc21f}
 .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
 .screen{display:none;max-width:520px;margin:0 auto;padding:10px 13px 26px}
 .screen#title{max-width:none;padding:0}
@@ -85,21 +190,69 @@ svg.i{width:15px;height:15px;flex:none;stroke:currentColor;fill:none;
   stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 
 /* ---------- tlačítka ---------- */
-button{font-family:inherit;font-size:13px;font-weight:500;color:var(--paper);
-  background:linear-gradient(180deg,var(--btnA),var(--btnB));
-  border:1px solid var(--btnBr);border-radius:var(--r1);padding:11px 12px;cursor:pointer;
-  box-shadow:var(--elev1),var(--inset);
-  transition:transform .07s ease,box-shadow .12s ease,opacity .12s ease;
-  display:inline-flex;align-items:center;justify-content:center;gap:7px}
-button:active:not(:disabled){transform:translateY(1px);
-  box-shadow:inset 0 2px 5px rgba(0,0,0,.14)}
-button:disabled{opacity:.4;box-shadow:none;cursor:default}
-button:focus-visible{outline:2px solid var(--laser);outline-offset:2px}
-.big{width:100%;padding:15px;font-size:14.5px;letter-spacing:.02em;margin-top:9px;border-radius:var(--r2)}
-.big.key{color:#fff;border-color:transparent;background:var(--laser);
-  background:linear-gradient(180deg,color-mix(in srgb,var(--laser) 88%,#fff),var(--laser));
-  box-shadow:0 2px 8px color-mix(in srgb,var(--laser) 35%,transparent),var(--inset)}
-html[data-theme="night"] .big.key{color:#06111a}
+/* ODLITY PLAST: sest vrstev v jednom box-shadow, zadny prvek navic.
+   Lem 9 px se pri stisku srazi na 3 a cesta pod tlacitkem z 5 na 1 -
+   to je cely ten "cvak". */
+button,.plast{
+  position:relative;isolation:isolate;
+  font-family:inherit;font-size:13px;font-weight:700;color:var(--onPlast);
+  border:3px solid var(--stroke);border-radius:var(--r1);
+  padding:12px 13px;min-height:44px;cursor:pointer;
+  background:linear-gradient(180deg,var(--plA) 0%,var(--plA) 34%,var(--plB) 100%);
+  box-shadow:
+    inset 0 3px 0 var(--rim),
+    inset 0 -9px 0 var(--plC),
+    inset 0 0 0 1px var(--lipA),
+    0 5px 0 var(--stroke),
+    0 9px 16px rgba(6,12,32,.42);
+  transition:transform .06s ease,box-shadow .09s ease;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+}
+button:before,.plast:before{
+  content:'';position:absolute;inset:2px;border-radius:inherit;
+  pointer-events:none;z-index:-1;
+  background:radial-gradient(120% 78% at 26% -14%,
+    rgba(255,255,255,.60),rgba(255,255,255,.16) 46%,transparent 68%);
+}
+button>*,.plast>*{position:relative;z-index:1}
+button:active:not(:disabled){
+  transform:translateY(4px);
+  box-shadow:
+    inset 0 2px 0 var(--rim),
+    inset 0 -3px 0 var(--plC),
+    0 1px 0 var(--stroke),
+    0 3px 7px rgba(6,12,32,.40);
+}
+button:disabled{opacity:.42;box-shadow:0 0 0 1px var(--stroke);cursor:default}
+button:focus-visible{outline:3px solid var(--brass);outline-offset:3px}
+/* Barevne varianty - tri promenne na variantu. */
+.b-go   {--plA:var(--mossL);   --plB:var(--moss);   --plC:var(--mossD);   color:#06280f}
+.b-key  {--plA:var(--laserL);  --plB:var(--laser);  --plC:var(--laserD);  color:#032b25}
+.b-buy  {--plA:var(--brassL);  --plB:var(--brass);  --plC:var(--brassD);  color:#3a2400}
+.b-alt  {--plA:var(--skyL);    --plB:var(--sky);    --plC:var(--skyD);    color:#fff}
+.b-warn {--plA:var(--tapeL);   --plB:var(--tape);   --plC:var(--tapeD);   color:#fff}
+.b-epic {--plA:var(--violetL); --plB:var(--violet); --plC:var(--violetD); color:#fff}
+.b-ghost{--plA:var(--ink3);    --plB:var(--ink2b);  --plC:var(--ink2c)}
+/* Ryhovani odlisi mosaz od "zluteho tlacitka" - jeden prechod, stoji nulu. */
+.b-buy{background-image:
+  repeating-linear-gradient(90deg,rgba(255,255,255,.11) 0 1px,transparent 1px 5px),
+  linear-gradient(180deg,var(--plA) 0%,var(--plA) 34%,var(--plB) 100%)}
+.b-go,.b-alt,.b-warn,.b-epic{text-shadow:0 2px 0 rgba(11,18,54,.45)}
+/* Prejezd svetla po hlavnim tlacitku. Animace v souboru CHYBELA, takze
+   .playBig:before na ni odkazoval do prazdna. */
+@keyframes shine{0%{transform:translateX(-145%)}55%,100%{transform:translateX(420%)}}
+/* Hlavni tlacitko: silnejsi lem i cesta, hlubsi stisk. */
+.big{width:100%;padding:16px;font-size:15px;letter-spacing:.02em;margin-top:9px;
+  border-radius:var(--r2)}
+.big.key{--plA:var(--laserL);--plB:var(--laser);--plC:var(--laserD);color:#032b25;
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,.55),
+    inset 0 -11px 0 var(--laserD),
+    0 7px 0 var(--stroke),
+    0 12px 22px rgba(6,12,32,.45)}
+.big.key:active:not(:disabled){transform:translateY(6px);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.45),inset 0 -3px 0 var(--laserD),
+             0 1px 0 var(--stroke),0 3px 7px rgba(6,12,32,.4)}
 .ghost{background:var(--ink3);box-shadow:var(--elev1);border-color:var(--grid);color:var(--paper)}
 
 /* ---------- úvod ---------- */
@@ -111,8 +264,8 @@ html[data-theme="night"] .big.key{color:#06111a}
 #bgArt svg{filter:saturate(1.12)}
 #pagerWrap,#topBar,#navBar{position:relative;z-index:1}
 #topBar{position:sticky;top:0;z-index:11;display:flex;gap:7px;justify-content:center;
-  padding:calc(8px + env(safe-area-inset-top,0px)) 10px 6px;background:linear-gradient(180deg,rgba(13,18,48,.92),rgba(13,18,48,0));
-  backdrop-filter:blur(8px)}
+  padding:calc(8px + env(safe-area-inset-top,0px)) 10px 6px;
+  background:linear-gradient(180deg,rgba(10,15,44,.97),rgba(10,15,44,0))}
 .tbChip{display:flex;align-items:center;gap:6px;padding:5px 12px 5px 8px;border-radius:999px;
   border:2px solid var(--stroke);text-shadow:0 1px 0 rgba(11,16,48,.6);font-size:12.5px;font-weight:900;color:#fff;
   box-shadow:0 3px 0 rgba(10,20,45,.45),0 5px 12px rgba(6,12,32,.4)}
@@ -155,11 +308,18 @@ body{touch-action:manipulation;-webkit-touch-callout:none}
   background:linear-gradient(120deg,var(--laser),var(--sky));border:3px solid rgba(255,255,255,.9);
   box-shadow:0 6px 0 rgba(10,20,45,.35),0 12px 26px rgba(6,12,32,.4);color:#fff}
 .pgHead span{color:#fff;opacity:.95;text-shadow:0 1px 2px rgba(11,16,48,.55);font-weight:700}
-.pgHead h2{font-size:26px;-webkit-text-stroke:0;
-  text-shadow:-2px 0 var(--stroke),2px 0 var(--stroke),0 -2px var(--stroke),0 2px var(--stroke),
-    0 5px 0 rgba(11,16,48,.45);font-weight:900;margin:0;letter-spacing:-.02em;color:#fff;
-  text-transform:uppercase;text-shadow:0 3px 0 rgba(10,20,45,.35)}
-.pgHead span{font-size:11.5px;color:var(--dim)}
+.pgHead h2,.heroTxt h1,.playBig b{font-family:var(--display);font-weight:700;
+  text-transform:uppercase;letter-spacing:.012em;color:#fff;paint-order:stroke fill;
+  text-shadow:
+    -2px -2px 0 var(--stroke), 2px -2px 0 var(--stroke),
+    -2px  2px 0 var(--stroke), 2px  2px 0 var(--stroke),
+    -3px  0   0 var(--stroke), 3px  0   0 var(--stroke),
+     0   -3px 0 var(--stroke), 0    3px 0 var(--stroke),
+     0    4px 0 rgba(11,18,54,.34)}
+.pgHead h2{font-size:27px;-webkit-text-stroke:0;margin:0;line-height:1}
+html[data-theme="hc"] .pgHead h2,html[data-theme="hc"] .heroTxt h1{
+  color:var(--onDeep);text-shadow:none;paint-order:normal}
+.pgHead span{font-size:11.5px}
 .pgNote{font-size:12.5px;color:var(--onBgDim);line-height:1.6;margin:9px 0 4px}
 #shopFree{margin-bottom:4px}
 .shopFree{display:flex;align-items:center;gap:11px;border:3px solid var(--stroke);border-radius:var(--r2);
@@ -175,12 +335,25 @@ body{touch-action:manipulation;-webkit-touch-callout:none}
 .sfB{font-size:11px;font-weight:900;background:var(--stroke);color:#fff;border-radius:999px;padding:6px 11px}
 #shopGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .shopCard{border:3px solid var(--stroke);border-radius:16px;overflow:hidden;position:relative;
-  background:linear-gradient(180deg,color-mix(in srgb,var(--rc) 55%,#fff) 0 58%,
-    color-mix(in srgb,var(--rc) 12%,#fff) 58%);
-  box-shadow:0 5px 0 var(--stroke),0 8px 16px rgba(6,12,32,.45);
+  background:linear-gradient(180deg,
+    var(--rcL,var(--ink2)) 0%,var(--rcL,var(--ink2)) 34%,
+    var(--rc,var(--ink2b)) 100%);
+  color:var(--onPlast);
+  box-shadow:inset 0 3px 0 rgba(255,255,255,.5),
+             inset 0 -8px 0 color-mix(in srgb,var(--rc,var(--ink2c)) 62%,var(--stroke)),
+             0 5px 0 var(--stroke),0 8px 16px rgba(6,12,32,.45);
   display:flex;flex-direction:column;padding-bottom:8px}
 .shopCard:after{content:'';position:absolute;left:0;right:0;top:0;height:34%;
   background:linear-gradient(180deg,rgba(255,255,255,.45),transparent);pointer-events:none}
+/* Ram vzacnosti - jen u vzacneho a lepsiho, aby mel co rozlisovat. */
+.shopCard.rar-r{box-shadow:inset 0 0 0 2px var(--rar),
+  inset 0 3px 0 rgba(255,255,255,.5),0 5px 0 var(--stroke),0 8px 16px rgba(6,12,32,.45)}
+.shopCard.rar-e{box-shadow:inset 0 0 0 3px var(--rar),
+  inset 0 3px 0 rgba(255,255,255,.5),0 5px 0 var(--stroke),0 8px 16px rgba(6,12,32,.45),
+  0 0 16px color-mix(in srgb,var(--rar) 45%,transparent)}
+.shopCard.rar-l{box-shadow:inset 0 0 0 3px var(--rar),
+  inset 0 3px 0 rgba(255,255,255,.6),0 5px 0 var(--stroke),0 8px 16px rgba(6,12,32,.45),
+  0 0 22px color-mix(in srgb,var(--rar) 60%,transparent)}
 .shopCard.got{filter:grayscale(.65);opacity:.6}
 .shArt{height:78px;display:flex;align-items:center;justify-content:center}
 .shArt canvas{width:50px;height:50px;filter:drop-shadow(0 3px 0 rgba(11,16,48,.3))}
@@ -192,15 +365,23 @@ body{touch-action:manipulation;-webkit-touch-callout:none}
 .shT{padding:0 8px;text-align:center;min-height:38px}
 .shT b{font-size:11.5px;font-weight:900;display:block;line-height:1.2;color:var(--paper)}
 .shT s{text-decoration:none;font-size:9.5px;color:var(--dim);display:block;margin-top:2px}
-.shBuy{margin:6px 8px 0;font-size:11px;font-weight:900;padding:8px 2px;border-radius:11px}
+.shBuy{--plA:var(--brassL);--plB:var(--brass);--plC:var(--brassD);color:#3a2400;margin:6px 8px 0;font-size:11px;font-weight:900;padding:8px 2px;border-radius:11px}
 .shBuy i{font-style:normal;font-size:9px;opacity:.7}
+/* Lista beden mela pruhledne pozadi, takze pres ni prosvital obsah stranky
+   a vypadalo to jako prekryv. Ted ma vlastni plochu. */
 #chestBar{position:fixed;left:10px;right:10px;bottom:calc(148px + env(safe-area-inset-bottom,0px));
-  z-index:12;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:520px;margin:0 auto}
+  z-index:12;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:520px;margin:0 auto;
+  padding:7px;border:3px solid var(--stroke);border-radius:20px;
+  background:linear-gradient(180deg,#1a2358,#0d1338);
+  box-shadow:0 6px 0 #060b24,0 12px 22px rgba(4,8,24,.6)}
+html[data-theme="night"] #chestBar{background:linear-gradient(180deg,#10283a,#071522)}
+html[data-theme="hc"] #chestBar{background:#fff;box-shadow:0 0 0 3px #000}
 #chestBar.hide{display:none}
-.cbSlot{border:3px solid var(--stroke);border-radius:15px;padding:6px 3px 5px;text-align:center;overflow:visible;
-  background:linear-gradient(180deg,color-mix(in srgb,var(--cc,#8ea3c9) 45%,#fff),
-    color-mix(in srgb,var(--cc,#8ea3c9) 12%,#fff));
-  box-shadow:0 4px 0 var(--stroke),0 6px 12px rgba(6,12,32,.45);cursor:pointer;position:relative}
+.cbSlot{border:3px solid var(--stroke);border-radius:15px;padding:6px 3px 5px;text-align:center;
+  overflow:visible;position:relative;cursor:pointer;color:var(--onPlast);
+  background:linear-gradient(180deg,var(--cc,var(--ink2)) 0%,var(--cc,var(--ink2)) 32%,
+    color-mix(in srgb,var(--cc,var(--ink2)) 58%,var(--stroke)) 100%);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.4),0 4px 0 var(--stroke),0 6px 12px rgba(6,12,32,.45)}
 .cbSlot.empty{background:rgba(255,255,255,.10);border-style:dashed;box-shadow:none;cursor:default}
 .cbArt{position:relative;width:46px;height:40px;margin:0 auto 2px}
 .cbArt svg{width:100%;height:100%;overflow:visible}
@@ -225,7 +406,7 @@ body{touch-action:manipulation;-webkit-touch-callout:none}
 .cbName{font-size:7.5px;font-weight:800;color:var(--dim);margin-top:2px;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cbT{font-size:8.5px;font-weight:900;color:var(--paper);line-height:1.15}
-.cbSlot.empty .cbT{color:rgba(255,255,255,.7)}
+.cbSlot.empty .cbT{color:var(--onDeep);opacity:.8}
 .cbSlot.ready{box-shadow:0 4px 0 var(--stroke),0 0 0 3px color-mix(in srgb,var(--brass) 65%,transparent),
   0 0 18px color-mix(in srgb,var(--brass) 45%,transparent)}
 .cbSlot.empty .cbArt{opacity:.28;filter:grayscale(1)}
@@ -250,8 +431,9 @@ body{touch-action:manipulation;-webkit-touch-callout:none}
 .playBig:active{transform:translateY(3px) scaleY(.96);box-shadow:0 2px 0 var(--stroke)}
 #navBar{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));
   z-index:12;display:grid;grid-template-columns:1fr 1fr 1.25fr 1fr 1fr;gap:3px;padding:7px;
-  background:rgba(13,18,48,.92);border:2px solid rgba(255,255,255,.16);border-radius:24px;
-  backdrop-filter:blur(14px);box-shadow:0 8px 24px rgba(4,8,24,.55);
+  background:linear-gradient(180deg,#1a2358,#0d1338);
+  border:3px solid var(--stroke);border-radius:24px;
+  box-shadow:0 6px 0 #060b24,0 12px 22px rgba(4,8,24,.6);
   max-width:520px;margin:0 auto}
 #navBar button{color:#8ba0cc;background:none;border:0;font-size:9.5px}
 #navBar svg.fi{filter:drop-shadow(0 2px 0 rgba(11,16,48,.55))}
@@ -293,11 +475,13 @@ svg.ni{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:1.8;
 .heroTxt{position:absolute;left:0;right:0;bottom:0;padding:16px 17px 17px}
 .heroTxt .eyebrow{font-size:9.5px;letter-spacing:.16em;color:var(--brass);
   text-transform:uppercase;font-weight:600}
-.heroTxt h1{font-size:35px;line-height:.94;margin:7px 0 0;font-weight:700;letter-spacing:-.03em}
+.heroTxt h1{font-size:38px;line-height:.92;margin:7px 0 0;font-weight:700;letter-spacing:-.005em}
 .heroTxt p{font-size:12.5px;color:var(--dim);line-height:1.55;margin:9px 0 0;max-width:30em}
 #profile{display:flex;align-items:center;gap:12px;border:3px solid var(--stroke);
-  background:linear-gradient(150deg,color-mix(in srgb,var(--brass) 18%,#fff),#fff);
-  border-radius:var(--r2);padding:12px;margin-top:12px;box-shadow:var(--elev1)}
+  background:linear-gradient(180deg,var(--brassL) 0%,var(--brassL) 30%,var(--brass) 100%);
+  border-radius:var(--r2);padding:12px;margin-top:12px;color:#3a2400;
+  box-shadow:inset 0 3px 0 rgba(255,255,255,.55),inset 0 -8px 0 var(--brassD),
+             0 5px 0 var(--stroke),0 9px 16px rgba(6,12,32,.38)}
 html[data-theme="night"] #profile{background:linear-gradient(150deg,
   color-mix(in srgb,var(--brass) 26%,#132539),#132539)}
 .pfIc{width:46px;height:46px;flex:none;border-radius:14px;display:flex;align-items:center;
@@ -317,16 +501,39 @@ html[data-theme="night"] #profile{background:linear-gradient(150deg,
 .pfS{font-size:10.5px;color:var(--dim);margin-top:4px}
 .pfX{font-size:10.5px;color:var(--dim);margin-top:5px}
 .res{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
-.res>div{background:var(--ink2);border:1px solid var(--grid);border-radius:var(--r1);
-  padding:9px 11px;box-shadow:var(--elev1)}
+.res>div{padding:9px 11px}
 .res .k{font-size:9px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
 .res .v{font-size:18px;margin-top:3px;font-weight:600}
-.secTitle{font-size:11.5px;letter-spacing:.08em;color:var(--onBg);
-  text-shadow:0 2px 0 rgba(11,16,48,.75);text-transform:uppercase;
-  margin:18px 0 9px;font-weight:900;display:flex;align-items:center;gap:8px}
-.secTitle:after{content:'';flex:1;height:2px;border-radius:2px;
-  background:linear-gradient(90deg,rgba(255,255,255,.35),transparent)}
-.secTitle span{color:var(--onBgDim);font-weight:600;letter-spacing:0;text-transform:none;font-size:11px}
+/* Nadpis nikdy nespoleha na to, co je pod nim. Bud ma vlastni OBRYS
+   (lezi primo na desce), nebo vlastni PLOCHU (lezi v karte). Nic mezi tim -
+   presne tim vznikala vada, kdy byl bily nadpis v bilem okne neviditelny. */
+.h-cut{font-family:var(--display);font-weight:700;text-transform:uppercase;
+  letter-spacing:.012em;color:#fff;paint-order:stroke fill;
+  text-shadow:
+    -2px -2px 0 var(--stroke), 2px -2px 0 var(--stroke),
+    -2px  2px 0 var(--stroke), 2px  2px 0 var(--stroke),
+    -3px  0   0 var(--stroke), 3px  0   0 var(--stroke),
+     0   -3px 0 var(--stroke), 0    3px 0 var(--stroke),
+     0    4px 0 rgba(11,18,54,.34)}
+html[data-theme="hc"] .h-cut{color:var(--onDeep);text-shadow:none;paint-order:normal}
+/* STITEK - nese si svou plochu, takze je citelny na bile i na tmave. */
+.secTitle{display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--display);font-size:11.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:#3a2400;text-shadow:none;font-weight:700;
+  background:linear-gradient(180deg,var(--brassL),var(--brass));
+  border:2.5px solid var(--stroke);border-radius:10px;padding:5px 11px 6px;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.55),
+             inset 0 -4px 0 var(--brassD),0 3px 0 var(--stroke);
+  margin:20px 0 10px}
+.secTitle span{background:rgba(11,18,54,.14);border-radius:6px;padding:1px 6px;
+  font-family:var(--num);font-weight:700;font-size:10px;
+  color:rgba(11,18,54,.78);letter-spacing:0;text-transform:none}
+.secTitle:after{display:none}
+/* Svetle plochy (okna, panely) prepisou barvu nadpisu. Bily text s tmavym
+   stinem je citelny jen na tmavem pozadi stranky - v bilem okne z nej
+   zbyval pouhy stin a nadpis vypadal, ze mizi. */
+.ov .box, .pan, .foot{--nadpisC:var(--paper);--nadpisS:none;
+  --nadpisDim:var(--dim);--nadpisLinka:var(--grid)}
 .navRow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
 .navRow.four{grid-template-columns:1fr 1fr 1fr 1fr}
 #tkArea{position:relative;background:var(--ink2);border:1px solid var(--grid);
@@ -364,7 +571,7 @@ html[data-theme="night"] .introBtns .key{color:#0a1626}
 .lgDay .lgR{font-size:10px;margin-top:5px;line-height:1.35;font-weight:600}
 .lgDay.past{opacity:.5}
 .lgDay.now{border-color:var(--brass);background:linear-gradient(160deg,
-  color-mix(in srgb,var(--brass) 25%,#fff),#fff);
+  var(--brassL),var(--brass));
   box-shadow:0 0 0 2px color-mix(in srgb,var(--brass) 35%,transparent),var(--elev2)}
 #hintBox{position:fixed;inset:0;z-index:32;display:none;align-items:center;justify-content:center;
   padding:24px;background:rgba(10,30,45,.5);backdrop-filter:blur(3px)}
@@ -397,7 +604,7 @@ html[data-theme="night"] .introBtns .key{color:#0a1626}
   background:var(--ink3)}
 .lvBrief{margin-top:10px;border-left:3px solid var(--sky);background:var(--ink3);
   border-radius:0 12px 12px 0;padding:10px 12px;font-size:11.5px;line-height:1.6;color:var(--dim)}
-.lvBrief b{display:block;color:var(--sky);font-size:10px;letter-spacing:.08em;
+.lvBrief b{display:block;color:var(--skyT);font-size:11px;letter-spacing:.08em;
   text-transform:uppercase;margin-bottom:4px}
 .lvGoals{display:flex;flex-direction:column;gap:6px}
 .lvG{display:flex;align-items:center;gap:9px;border:1px solid var(--grid);background:var(--ink2);
@@ -415,7 +622,7 @@ html[data-theme="night"] .introBtns .key{color:#0a1626}
 .lvD span{font-size:9px;color:var(--dim);display:block;margin-top:3px}
 .lvD.off{opacity:.35;filter:grayscale(1)}
 .lvA{width:100%;display:flex;gap:6px;margin-top:4px}
-.lvA span{flex:1;display:flex;align-items:center;gap:5px;font-size:10px;color:var(--sky);
+.lvA span{flex:1;display:flex;align-items:center;gap:5px;font-size:11px;color:var(--skyT);
   background:color-mix(in srgb,var(--sky) 12%,transparent);border-radius:10px;padding:6px 8px}
 .lvA svg{width:14px;height:14px}
 .lvBan{margin-top:10px;border-left:3px solid var(--tape);background:color-mix(in srgb,var(--tape) 10%,transparent);
@@ -428,8 +635,7 @@ html[data-theme="night"] .introBtns .key{color:#0a1626}
 .lvMeta{font-size:11.5px;color:var(--dim);margin-top:5px}
 .tiBox{padding:0;overflow:hidden}
 .tiBanner{display:flex;gap:14px;align-items:center;padding:16px 16px 14px;
-  background:linear-gradient(150deg,color-mix(in srgb,var(--rc) 55%,#fff),
-             color-mix(in srgb,var(--rc) 18%,#fff));position:relative}
+  background:linear-gradient(180deg,var(--rcL,var(--ink2)) 0 34%,var(--rc,var(--ink2b)));position:relative}
 html[data-theme="night"] .tiBanner{background:linear-gradient(150deg,
   color-mix(in srgb,var(--rc) 45%,#132539),color-mix(in srgb,var(--rc) 12%,#132539))}
 .tiBanner:after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--grid)}
@@ -480,7 +686,7 @@ html[data-theme="night"] .tiRarChip{color:#0a1626}
 .tiBar div{flex:1;height:10px;border-radius:6px;background:var(--ink3);overflow:hidden;
   border:1px solid var(--line)}
 .tiBar i{display:block;height:100%;background:linear-gradient(90deg,var(--rc),
-  color-mix(in srgb,var(--rc) 55%,#fff))}
+  var(--rcL,var(--ink2)))}
 .tiBar b{width:38px;text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
 .tiSect{margin:16px 16px 7px}
 .tiP,.tiFact,#tiTiers,#tiUp{margin-left:16px;margin-right:16px}
@@ -521,14 +727,13 @@ html[data-theme="night"] .tiRar span{color:#06111a}
 .dq.ready{border-color:var(--brass);box-shadow:0 0 0 2px color-mix(in srgb,var(--brass) 28%,transparent)}
 #deckRow{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
 .dslot{border:3px solid var(--stroke);border-radius:14px;padding:8px 3px 6px;
-  background:linear-gradient(180deg,color-mix(in srgb,var(--dc,#8ea3c9) 45%,#fff) 0 58%,
-    color-mix(in srgb,var(--dc,#8ea3c9) 10%,#fff) 58%);text-align:center;box-shadow:var(--elev1);cursor:pointer;position:relative;
+  background:linear-gradient(180deg,var(--dcL,var(--ink2)) 0 34%,var(--dc,var(--ink2b)));text-align:center;box-shadow:var(--elev1);cursor:pointer;position:relative;
   transition:transform .08s}
 .dslot:active{transform:translateY(1px)}
-.dslot.empty{border-style:dashed;border-color:rgba(255,255,255,.4);opacity:.9;
-  background:rgba(255,255,255,.10)}
-.dslot.empty .dn{color:rgba(255,255,255,.8)}
-.dslot.empty .dplus{color:rgba(255,255,255,.85)}
+.dslot.empty{border-style:dashed;border-color:rgba(255,255,255,.5);opacity:1;
+  background:rgba(11,18,54,.35)}
+.dslot.empty .dn{color:var(--onBg);opacity:.9;text-shadow:0 1px 0 rgba(11,18,54,.7)}
+.dslot.empty .dplus{color:var(--onBg);opacity:1;text-shadow:0 1px 0 rgba(11,18,54,.7)}
 .dslot canvas{width:38px;height:38px;display:block;margin:0 auto;
   filter:drop-shadow(0 2px 0 rgba(11,16,48,.28))}
 .dslot .dn{font-size:8.5px;font-weight:900;line-height:1.1;margin-top:4px;height:18px;
@@ -558,7 +763,7 @@ html[data-theme="night"] .tiRar span{color:#06111a}
 .ptrow .prar{font-size:9px;border-radius:999px;padding:2px 7px;color:#fff;font-weight:700}
 html[data-theme="night"] .ptrow .prar{color:#06111a}
 #chalCard{border:2px solid var(--violet);border-radius:var(--r2);padding:12px;
-  background:linear-gradient(160deg,color-mix(in srgb,var(--violet) 16%,#fff),#fff);
+  background:linear-gradient(180deg,var(--violetL) 0 34%,var(--violet));
   box-shadow:var(--elev2)}
 html[data-theme="night"] #chalCard{background:linear-gradient(160deg,
   color-mix(in srgb,var(--violet) 26%,#132539),#132539)}
@@ -591,13 +796,13 @@ html[data-theme="night"] #chalCard{background:linear-gradient(160deg,
 .todoI s{text-decoration:none;font-size:10.5px;color:var(--dim);display:block;margin-top:3px}
 .todoI span{color:var(--dim);font-size:18px}
 #bossCard{border:2px solid var(--tape);border-radius:var(--r2);padding:12px;
-  background:linear-gradient(160deg,color-mix(in srgb,var(--tape) 14%,#fff),#fff);
+  background:linear-gradient(180deg,var(--tapeL) 0 34%,var(--tape));
   box-shadow:var(--elev2);margin-bottom:4px}
 html[data-theme="night"] #bossCard{background:linear-gradient(160deg,
   color-mix(in srgb,var(--tape) 24%,#132539),#132539)}
 #bossCard button{margin-top:10px;border-color:var(--tape);color:var(--tape)}
 #sprintCard{border:2px solid var(--sky);border-radius:var(--r2);padding:12px;
-  background:linear-gradient(160deg,color-mix(in srgb,var(--sky) 14%,#fff),#fff);
+  background:linear-gradient(180deg,var(--skyL) 0 34%,var(--sky));
   box-shadow:var(--elev2)}
 html[data-theme="night"] #sprintCard{background:linear-gradient(160deg,
   color-mix(in srgb,var(--sky) 24%,#132539),#132539)}
@@ -652,21 +857,24 @@ html[data-theme="night"] #sprintCard{background:linear-gradient(160deg,
 .rlS{color:var(--brass);font-size:11px;letter-spacing:1px;flex:none}
 .rlRow.ok .rlT b{color:var(--moss)}
 .stCell{border:1px solid var(--grid);border-radius:var(--r1);padding:10px 6px;text-align:center;
-  background:linear-gradient(160deg,color-mix(in srgb,var(--sc) 18%,#fff),#fff);
-  border-color:color-mix(in srgb,var(--sc) 35%,#fff);box-shadow:var(--elev1)}
+  background:linear-gradient(180deg,color-mix(in srgb,var(--sc) 45%,var(--ink2)) 0 34%,var(--sc));
+  border-color:color-mix(in srgb,var(--sc) 45%,var(--ink2));box-shadow:var(--elev1)}
 html[data-theme="night"] .stCell{background:linear-gradient(160deg,
   color-mix(in srgb,var(--sc) 25%,#132539),#132539)}
 .stCell b{display:block;font-size:17px;font-weight:800;color:var(--sc)}
 .stCell span{font-size:9.5px;color:var(--dim);line-height:1.3;display:block;margin-top:3px}
 #slotRow{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
 .slot{border:3px solid var(--stroke);border-radius:var(--r2);
-  background:linear-gradient(165deg,color-mix(in srgb,var(--cc,#fff) 22%,#fff),#fff);
-  padding:9px 5px;text-align:center;box-shadow:var(--elev1);cursor:pointer;
+  background:linear-gradient(180deg,var(--cc,var(--ink2)) 0%,var(--cc,var(--ink2)) 32%,
+    color-mix(in srgb,var(--cc,var(--ink2)) 62%,var(--stroke)) 100%);
+  padding:9px 5px;text-align:center;cursor:pointer;color:var(--onPlast);
+  box-shadow:inset 0 3px 0 var(--rim),0 5px 0 var(--stroke),0 9px 16px rgba(6,12,32,.38);
   transition:transform .08s,box-shadow .15s}
 .slot:active{transform:translateY(1px)}
-.slot.empty{opacity:.75;border-style:dashed;border-color:rgba(255,255,255,.35);
+.slot.empty{opacity:1;border-style:dashed;border-color:rgba(255,255,255,.5);
+  background:rgba(11,18,54,.35);
   background:rgba(255,255,255,.10);cursor:default;box-shadow:none;color:#fff}
-.slot.empty .sn{color:rgba(255,255,255,.75)}
+.slot.empty .sn{color:var(--onBg);opacity:.9;text-shadow:0 1px 0 rgba(11,18,54,.7)}
 .slot .sbox{width:40px;height:34px;margin:0 auto 6px;position:relative}
 .slot .sbody{position:absolute;left:2px;right:2px;bottom:0;height:22px;background:var(--cc);
   border-radius:5px;box-shadow:inset 0 -5px 0 rgba(0,0,0,.16)}
@@ -686,8 +894,7 @@ html[data-theme="night"] .stCell{background:linear-gradient(160deg,
 .slot.ready .st b{color:var(--laser)}
 .slot.idle .st b{color:var(--brass)}
 .slot.unlocking .st{color:var(--sky)}
-.arenaBar{margin-top:12px;background:var(--ink2);border:1px solid var(--grid);
-  border-radius:var(--r1);padding:10px 12px;box-shadow:var(--elev1)}
+.arenaBar{margin-top:12px;padding:10px 12px}
 .arenaBar .ab1{display:flex;justify-content:space-between;align-items:baseline;
   font-size:12.5px;font-weight:600;margin-bottom:8px;gap:8px}
 .arenaBar #arenaNext{font-size:10.5px;color:var(--dim);font-weight:400}
@@ -745,10 +952,14 @@ html[data-theme="night"] #seasonBox{background:linear-gradient(160deg,
 .seLabels .l1{background:linear-gradient(180deg,#fff,#dbe7f6);color:var(--paper)}
 .seLabels .l2{background:linear-gradient(180deg,#c79bff,#7b3ff0);color:#fff}
 .seCol{flex:0 0 78px;text-align:center;position:relative}
-.seNum{font-size:10px;font-weight:900;color:#fff;margin-bottom:5px;
+.seNum{font-size:11px;font-weight:900;color:var(--onDeep);margin-bottom:5px;
+  text-shadow:0 1px 0 rgba(11,18,54,.75);
   background:#39468a;border:2px solid var(--stroke);border-radius:999px;padding:2px 0}
 .seCol.open .seNum{background:linear-gradient(180deg,var(--laser),var(--sky))}
-.seCol.now .seNum{color:var(--violet)}
+.seCol.now .seNum{background:linear-gradient(180deg,var(--violetL),var(--violet));color:#1a0940}
+html[data-theme="hc"] .seNum{background:#fff;color:#06131c;text-shadow:none}
+html[data-theme="hc"] .seCol.open .seNum,html[data-theme="hc"] .seCol.now .seNum{
+  background:#06131c;color:#fff}
 .seCell{font-size:9px;font-weight:800;line-height:1.2;border-radius:12px;padding:8px 4px;
   margin-bottom:6px;min-height:46px;display:flex;align-items:center;justify-content:center;
   border:3px solid var(--stroke);background:linear-gradient(180deg,#fff,#dfeaf7);
@@ -873,8 +1084,8 @@ html[data-theme="night"] #seasonBox{background:linear-gradient(160deg,
 .rtNm{font-size:8.5px;color:#cfe0ff;text-shadow:0 1px 0 rgba(11,16,48,.7);line-height:1.15;margin-top:2px;padding:0 3px;
   height:22px;overflow:hidden}
 .roadWrap{position:relative;padding:14px 12px 14px 52px;border-radius:var(--r3);
-  background:linear-gradient(160deg,color-mix(in srgb,var(--brass) 12%,#fff),
-    color-mix(in srgb,var(--sky) 10%,#fff));
+  background:linear-gradient(160deg,color-mix(in srgb,var(--brass) 45%,var(--ink2)),
+    color-mix(in srgb,var(--sky) 45%,var(--ink2)));
   border:1px solid var(--grid);box-shadow:var(--elev1);overflow:hidden}
 html[data-theme="night"] .roadWrap{background:linear-gradient(160deg,
   color-mix(in srgb,var(--brass) 18%,#132539),color-mix(in srgb,var(--sky) 14%,#132539))}
@@ -925,8 +1136,8 @@ html[data-theme="night"] .roadWrap{background:linear-gradient(160deg,
 .ccard .cstat.deck{background:color-mix(in srgb,var(--brass) 22%,transparent);color:var(--brass)}
 .cgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .rcard{position:relative;border-radius:16px;padding:0 0 7px;cursor:pointer;overflow:hidden;
-  background:linear-gradient(180deg,color-mix(in srgb,var(--rc) 62%,#fff) 0 62%,
-             color-mix(in srgb,var(--rc) 12%,#fff) 62%);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--rc) 45%,var(--ink2)) 0 62%,
+             color-mix(in srgb,var(--rc) 45%,var(--ink2)) 62%);
   border:3px solid var(--stroke);
   box-shadow:0 5px 0 var(--stroke),0 8px 16px rgba(6,12,32,.45);
   display:flex;flex-direction:column;transition:transform .08s}
@@ -1110,24 +1321,29 @@ html[data-theme="night"] .crCard .crR{color:#06111a}
   grid-template-columns:1fr 1.3fr 1fr auto;gap:7px;padding:9px 10px;
   max-width:560px;margin:0 auto;
   padding-top:calc(9px + env(safe-area-inset-top,0px))}
-#hud .cell{background:rgba(255,255,255,.96);border:3px solid var(--stroke);border-radius:var(--r2);
-  box-shadow:0 4px 0 rgba(10,20,45,.22),0 6px 14px rgba(6,12,32,.28);
-  padding:7px 9px;min-width:0;box-shadow:var(--elev2)}
-#hud .k{font-size:8px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;
+/* Podklad se ridi motivem. Driv byl natvrdo bily a v noci na nem
+   svitil svetly text - ETAPA mela kontrast 1,0:1. */
+#hud .cell{border:3px solid var(--stroke);border-radius:var(--r2);
+  background:linear-gradient(180deg,var(--plA) 0%,var(--plA) 34%,var(--plB) 100%);
+  color:var(--onPlast);
+  box-shadow:inset 0 3px 0 var(--rim),inset 0 -7px 0 var(--plC),
+             0 5px 0 var(--stroke),0 9px 16px rgba(6,12,32,.38);
+  padding:7px 9px;min-width:0}
+#hud .k{font-size:9px;letter-spacing:.1em;color:var(--paper);opacity:.72;text-transform:uppercase;
   white-space:nowrap;display:flex;align-items:center;gap:4px;font-weight:700}
 #hud .k svg.i{width:11px;height:11px}
 #hud .cell:nth-child(1) .k{color:var(--sky)}
 #hud .cell:nth-child(2) .k{color:var(--laser)}
 #hud .cell:nth-child(3) .k{color:var(--brass)}
-#capWrap{font-size:9px;font-weight:700;color:var(--violet);margin-top:3px;white-space:nowrap;
+#capWrap{font-size:10px;font-weight:700;color:var(--violetT);margin-top:3px;white-space:nowrap;
   overflow:hidden;text-overflow:ellipsis;max-width:100%}
 /* Zadny popisek v HUD nesmi vylezt z karty pres krizek. */
 #hud .cell .k{overflow:hidden;text-overflow:ellipsis}
-#capWrap.full{color:var(--tape)}
+#capWrap.full{color:var(--tapeT)}
 #hud .v{font-size:17px;margin-top:1px;font-weight:600;white-space:nowrap}
 #hud #quit{width:44px;min-height:44px;padding:0;background:var(--scrim);border-color:var(--grid);
   box-shadow:var(--elev2);font-size:15px;color:var(--dim)}
-#vAcc{color:var(--laser)} #vCr{color:var(--brass)}
+#vAcc{color:var(--laserT)} #vCr{color:var(--brassT)}
 #wavebar{height:4px;background:var(--ink3);border-radius:3px;margin-top:5px;overflow:hidden}
 #wavefill{height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,var(--sky),var(--violet));transition:width .2s}
 #accbar{height:4px;background:var(--ink3);border-radius:3px;margin-top:5px;overflow:hidden}
@@ -1218,7 +1434,10 @@ html[data-theme="night"] .crCard .crR{color:#06111a}
 #pprev{position:absolute;top:72px;left:10px;right:10px;z-index:3;max-width:540px;margin:0 auto;
   display:flex;align-items:center;gap:8px;min-width:0}
 #pprev.hide{display:none}
-#pprev .pl{font-size:9px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;flex:none}
+#pprev .pl{font-size:10px;letter-spacing:.1em;color:var(--onBg);opacity:1;
+  text-shadow:-1px 0 0 var(--stroke),1px 0 0 var(--stroke),
+              0 -1px 0 var(--stroke),0 1px 0 var(--stroke);
+  text-transform:uppercase;flex:none}
 #wavePrev{display:flex;gap:6px;overflow-x:auto;min-width:0}
 #wavePrev2{display:flex;gap:6px;flex-wrap:wrap}
 .wp{display:flex;align-items:center;gap:6px;border:1px solid var(--grid);background:var(--scrim);
@@ -1257,7 +1476,7 @@ html[data-theme="night"] .abLv{color:#0a1626}
   box-shadow:0 3px 0 color-mix(in srgb,var(--laser) 55%,#000),var(--elev2);
   box-shadow:var(--elev2)}
 #go.hot{color:#fff;border-color:transparent;background:var(--laser);
-  background:linear-gradient(180deg,color-mix(in srgb,var(--laser) 88%,#fff),var(--laser))}
+  background:linear-gradient(180deg,color-mix(in srgb,var(--laser) 45%,var(--ink2)),var(--laser))}
 html[data-theme="night"] #go.hot{color:#06111a}
 .tog{width:52px;padding:13px 2px;border-radius:var(--r2);box-shadow:var(--elev2)}
 .tog.on{border-color:var(--brass);color:var(--brass)}
@@ -1268,9 +1487,12 @@ html[data-theme="night"] #go.hot{color:#06111a}
 #shopbar #reroll{width:46px;margin:0;padding:0;flex-direction:column;gap:2px;
   border-radius:var(--r1);font-size:17px;color:var(--dim);background:var(--scrim);
   box-shadow:var(--elev2)}
-#shopbar #reroll .rc{font-size:10px;color:var(--brass);font-weight:600}
-.card{border:3px solid var(--stroke);
-  background:linear-gradient(170deg,color-mix(in srgb,var(--cardc,#fff) 20%,var(--scrim)),var(--scrim));
+#shopbar #reroll .rc{font-size:11px;color:var(--brassT);font-weight:800}
+.card{border:3px solid var(--stroke);color:var(--onPlast);
+  background:linear-gradient(180deg,
+    color-mix(in srgb,var(--cardc,var(--ink2)) 30%,var(--ink2)) 0%,
+    color-mix(in srgb,var(--cardc,var(--ink2)) 30%,var(--ink2)) 32%,
+    color-mix(in srgb,var(--cardc,var(--ink2)) 55%,var(--ink2b)) 100%);
   box-shadow:0 2px 0 color-mix(in srgb,var(--cardc,#000) 30%,transparent),var(--elev2);
   padding:5px 4px;text-align:center;cursor:pointer;border-radius:var(--r1);
   transition:transform .08s,box-shadow .15s,border-color .15s;
@@ -1354,8 +1576,18 @@ html[data-board="0"] .card canvas{width:32px;height:32px}
 #tabs button[hidden]{display:none}
 
 /* ---------- panely ---------- */
-.pan{border:1px solid var(--grid);margin-top:8px;background:var(--ink2);
-  border-radius:var(--r2);box-shadow:var(--elev1);overflow:hidden}
+/* ODLITEK - jedina nosna plocha v celé hre. */
+.pan,.arenaBar,.res>div,#worldWrap,#tkArea,.stCell,.foldSec{
+  border:3px solid var(--stroke);border-radius:var(--r2);
+  background:linear-gradient(180deg,var(--ink2) 0%,var(--ink2) 30%,var(--ink2b) 100%);
+  box-shadow:inset 0 3px 0 var(--rim),inset 0 -7px 0 var(--ink2c),
+             0 5px 0 var(--stroke),0 9px 16px rgba(6,12,32,.38);
+  color:var(--onPlast)}
+.pan{margin-top:10px;overflow:hidden}
+/* DRAZKA - vse, co je zapustene: pruhy postupu, vnitrni pole, seznamy. */
+.groove{border:2px solid var(--stroke);border-radius:var(--r1);
+  background:linear-gradient(180deg,var(--ink2c),var(--ink3));
+  box-shadow:inset 0 3px 6px rgba(11,18,54,.28)}
 .ph{display:flex;justify-content:space-between;align-items:center;gap:8px;
   padding:9px 12px;border-bottom:1px solid var(--line);font-size:9.5px;letter-spacing:.09em;
   color:var(--dim);text-transform:uppercase;background:var(--ink3)}
@@ -1378,8 +1610,8 @@ html[data-board="0"] .card canvas{width:32px;height:32px}
 #hint{font-size:11.5px;color:var(--tape);margin-top:9px;line-height:1.45}
 
 .labGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.labCard{border:2px solid color-mix(in srgb,var(--lc) 40%,#fff);border-radius:16px;padding:11px;
-  background:linear-gradient(160deg,color-mix(in srgb,var(--lc) 16%,#fff),#fff);
+.labCard{border:2px solid color-mix(in srgb,var(--lc) 45%,var(--ink2));border-radius:16px;padding:11px;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--lc) 45%,var(--ink2)),#fff);
   box-shadow:var(--elev1);display:flex;flex-direction:column}
 html[data-theme="night"] .labCard{background:linear-gradient(160deg,
   color-mix(in srgb,var(--lc) 26%,#132539),#132539)}
@@ -1387,7 +1619,7 @@ html[data-theme="night"] .labCard{background:linear-gradient(160deg,
 .labCard.max{opacity:.6}
 .labIc{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;
   justify-content:center;color:#fff;border:3px solid var(--stroke);
-  background:linear-gradient(180deg,color-mix(in srgb,var(--lc) 55%,#fff),var(--lc));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--lc) 45%,var(--ink2)),var(--lc));
   box-shadow:0 3px 0 var(--stroke);margin-bottom:9px}
 .labIc svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2.6;
   stroke-linecap:round;stroke-linejoin:round}
@@ -1555,6 +1787,7 @@ html[data-theme="night"] .rmvp .mb{color:#0a1626}
 </style>
 </head>
 <body>
+<div id="bgPlast" aria-hidden="true"></div>
 <div id="rotate"><span>📱</span>Otoč telefon na výšku.<br>Deska bodového pole se na šířku nevejde.</div>
 
 <!-- ============ ÚVOD ============ -->
@@ -1684,7 +1917,6 @@ html[data-theme="night"] .rmvp .mb{color:#0a1626}
     <div class="secTitle">Denní výzva</div>
     <div id="chalCard"></div>
     <div class="maps hide" id="mapList"></div>
-    <div style="height:150px"></div>
    </section>
 
    <!-- ---- 3. SKLAD ---- -->
@@ -2133,6 +2365,11 @@ const WATEROK=['sonar','photo','backpack','meteo'];
 function terAt(c,r){ return (S&&S.ter)?S.ter[c+','+r]:null; }
 function banned(k){ return S&&S.ban&&S.ban.indexOf(k)>=0; }
 function isOpen(c,r){ return !S||!S.open||S.open.has(c+','+r); }
+// Cebysevova vzdalenost k trase: sousedi i rohem.
+function chebToPath(c,r){let d=99;
+  for(const pp of PATHS)for(const q of pp){
+    const dd=Math.max(Math.abs(q[0]-c),Math.abs(q[1]-r)); if(dd<d)d=dd; }
+  return d;}
 function openNewSpotForce(){
  if(!S||!S.open)return null;
  let best=null,bd=1e9;
@@ -2886,10 +3123,10 @@ const INFO={
    f:'Automatické cílení dokáže sledovat desítky bodů v cyklu a odhalit posun pod 1 mm.'}
 };
 const RAR={
- c:{n:'Běžná',   col:'#8fa39b', w:58, need:1.0},
- r:{n:'Vzácná',  col:'#3d8fd6', w:28, need:1.25},
- e:{n:'Epická',  col:'#a05fd8', w:11, need:1.55},
- l:{n:'Legendární',col:'#e0a020',w:3,  need:1.9}
+ c:{n:'Běžná',   col:'#7d8ea8', colL:'#c3cedb', w:58, need:1.0},
+ r:{n:'Vzácná',  col:'#3d8bff', colL:'#8fc0ff', w:28, need:1.25},
+ e:{n:'Epická',  col:'#a95cff', colL:'#d0a5ff', w:11, need:1.55},
+ l:{n:'Legendární',col:'#ffc21f',colL:'#ffe08a',w:3,  need:1.9}
 };
 const TRAR={
  tape:'c',theo:'c',nivel:'c',edm:'c',mensula:'c',
@@ -3448,17 +3685,17 @@ const PALS={
    forest:'#2b8a3e',grid:'rgba(6,19,28,.14)',road:'#5c6b76',roadIn:'#e2eaef',
    dash:'#ffffff',ink:'#06131c',label:'rgba(6,19,28,.55)',
    plinth:'#ffffff',plinthEdge:'#3d5464',hpOk:'#0a7a3c',
-   outline:'rgba(6,19,28,.9)',hpBg:'rgba(255,255,255,.95)',marker:'#a35a00',scan:'rgba(6,19,28,.09)'},
+   outline:'#000000',hpBg:'rgba(255,255,255,.95)',marker:'#a35a00',scan:'rgba(6,19,28,.09)'},
  night:{bg:'#0c1e28',c1:'#153a46',c2:'#1d4c5b',water:'#123a4d',waterL:'#1b5570',
    forest:'#14392f',grid:'rgba(232,241,236,.05)',road:'#1e4b58',roadIn:'#2a6070',
    dash:'rgba(232,241,236,.34)',ink:'#e8f1ec',label:'rgba(232,241,236,.35)',
    plinth:'rgba(7,18,26,.55)',plinthEdge:'rgba(232,241,236,.18)',hpOk:'#2fe3c8',
-   outline:'rgba(7,18,26,.85)',hpBg:'rgba(7,18,26,.75)',marker:'#e5b455',scan:'rgba(232,241,236,.10)'},
+   outline:'#04101c',hpBg:'rgba(7,18,26,.75)',marker:'#e5b455',scan:'rgba(232,241,236,.10)'},
  day:{bg:'#cfe0b0',c1:'#b6c894',c2:'#9cb277',water:'#6cbde0',waterL:'#3f9dcb',
    forest:'#4f9c47',grid:'rgba(40,50,30,.16)',road:'#5e5648',roadIn:'#b9a982',
    dash:'#f6efdc',ink:'#1c2a30',label:'rgba(255,255,255,.75)',
    plinth:'#ffffff',plinthEdge:'#9fb8a6',hpOk:'#22b06a',
-   outline:'rgba(20,40,30,.6)',hpBg:'rgba(255,255,255,.85)',marker:'#f5911e',scan:'rgba(20,60,80,.08)'}
+   outline:'#0b1236',hpBg:'rgba(255,255,255,.85)',marker:'#f5911e',scan:'rgba(20,60,80,.08)'}
 };
 function P(){
  if(S&&S.pal==='night')return PALS.night;
@@ -3716,8 +3953,17 @@ function newRun(mi,endless,chal,hard){
     deck:makeDeck(),ter:ter,ban:(MAPS[mi].ban||[]),pal:MAPS[mi].pal||null,chal:chal||null,hard:!!hard,rush5:!!(chal&&chal.rush5)};
  if(MAPS[mi].twin)S.cr+=45;
  // na startu je volných jen pár míst, další se uvolňují slučováním
- S.open=new Set();S.occ=new Set();S.freeSpots=0;
- {
+ // VYTYCENY PAS: vse, co se dotyka trasy (i rohem). Deterministicke -
+ // stejna mapa vypada vzdy stejne a jde se ji naucit.
+ S.open=new Set();S.occ=new Set();S.freeSpots=0;S.crew=0;S.mrg=0;
+ for(let c=0;c<COLS;c++)for(let r=0;r<ROWS;r++){
+   const key=c+','+r;
+   if(ONPATH.has(key))continue;
+   const td=TER[ter[key]];
+   if(td&&td.build===false)continue;
+   if(chebToPath(c,r)<=1)S.open.add(key);
+ }
+ if(false){
    const cand=[];
    for(let c=0;c<COLS;c++)for(let r=0;r<ROWS;r++){
      if(ONPATH.has(c+','+r))continue;
@@ -3731,7 +3977,7 @@ function newRun(mi,endless,chal,hard){
      const start=PATHS[0][0];
      cand.push({c,r,d,ds:Math.abs(start[0]-c)+Math.abs(start[1]-r)});
    }
-   // startovní místa: podél začátku trasy, ne v rohu
+   // (puvodni vyber sesti startovnich mist - nahrazen pasem)
    const first=PATHS[0];
    const near=[];
    first.forEach((q,qi)=>{
@@ -3852,8 +4098,11 @@ function occupied(c,r){ if(S&&S.occ)return S.occ.has(occKey(c,r));
  return !!(S&&S.towers.some(t=>t.c===c&&t.r===r)); }
 function towerAt(c,r){return S.towers.find(t=>t.c===c&&t.r===r);}
 function capMax(){if(chMod('small'))return 7;
- return 8+Math.floor((S?S.wave:0)/4)+SAVE.meta.cap
-        +3*((S&&S.net.cap)||0)+2*M('cap')+2*((S&&S.mods&&S.mods.crew)||0);}
+ // Pas nabizi mist dost, takze omezenim je nove KAPACITA - jedno cislo,
+ // ktere hrac vidi v HUDu, misto rozptylenych neviditelnych zamku.
+ return 6+Math.floor((S?S.wave:0)/5)+SAVE.meta.cap
+        +3*((S&&S.net.cap)||0)+2*M('cap')+2*M('fwd')
+        +2*((S&&S.mods&&S.mods.crew)||0)+((S&&S.crew)||0);}
 function priceOf(k){
  const f=Math.max(.45,1-.15*M('cheap')-.10*SAVE.meta.disc);
  return Math.max(4,Math.round(T[k].cost*1.25*f));
@@ -4185,9 +4434,65 @@ function waveComp(w){
 }
 
 /* ==================== KRESLENÍ ==================== */
+// Tri pruchody stejne geometrie: tlusty obrys, duse v barve pristroje,
+// tenky lesk. Vyplne (g.fill) tim dostanou obrubu zdarma.
+// Pomery jsou vyladene tak, aby pri s=14 (nejmensi vyskyt) vysel obrys 4,2 px.
+// --- predkreslene znacky ---------------------------------------------
+// Ktera znacka se hybe se NEHADA podle seznamu, ale OVERI: vykresli se
+// dvakrat s ruznym casem a porovnaji se obrazove body.
+const GSPR=new Map(), GLIVE=new Map();
+function glyphZiva(k){
+ try{
+   const s=40,pad=48;
+   const a=document.createElement('canvas'), b2=document.createElement('canvas');
+   a.width=b2.width=pad*2; a.height=b2.height=pad*2;
+   const ga=a.getContext('2d'), gb=b2.getContext('2d');
+   const zal=tAnim;
+   tAnim=0;   glyphKresli(ga,k,pad,pad,s,3,'#ffffff');
+   tAnim=1.7; glyphKresli(gb,k,pad,pad,s,3,'#ffffff');
+   tAnim=zal;
+   const da=ga.getImageData(0,0,a.width,a.height).data;
+   const db=gb.getImageData(0,0,b2.width,b2.height).data;
+   for(let i=3;i<da.length;i+=4) if(da[i]!==db[i]) return true;
+   return false;
+ }catch(e){ return true; }
+}
+function dropSprites(){ GSPR.clear(); GLIVE.clear(); }
 function glyph(g,k,x,y,s,l,col){
- g.save();g.translate(x,y);g.lineWidth=Math.max(1.4,s*.10);
- g.strokeStyle=col;g.fillStyle=col;g.lineCap='round';g.lineJoin='round';
+ if(!GLIVE.has(k))GLIVE.set(k,glyphZiva(k));
+ if(GLIVE.get(k)){ glyphKresli(g,k,x,y,s,l,col); return; }
+ const sPx=Math.max(4,Math.round(s));
+ const klic=k+'|'+l+'|'+col+'|'+sPx+'|'+DPR+'|'+((SAVE.opts&&SAVE.opts.theme)||'day')+'|'+(S&&S.pal||'');
+ let c=GSPR.get(klic);
+ if(!c){
+   const pad=Math.ceil(sPx*.95);
+   c=document.createElement('canvas');
+   c.width=Math.round(pad*2*DPR); c.height=Math.round(pad*2*DPR);
+   const gg=c.getContext('2d');
+   gg.setTransform(DPR,0,0,DPR,0,0);
+   glyphKresli(gg,k,pad,pad,sPx,l,col);
+   c.__pad=pad;
+   if(GSPR.size>200)GSPR.clear();
+   GSPR.set(klic,c);
+ }
+ g.drawImage(c,x-c.__pad,y-c.__pad,c.__pad*2,c.__pad*2);
+}
+function glyphKresli(g,k,x,y,s,l,col){
+ const O=(P().outline)||'#0b1236';
+ // Odsazeni obrysu je zastropovane - u velkych znaku (logo) by z nej
+ // jinak byl posunuty duplikat misto obruby.
+ pruchod(O,                       Math.min(11,Math.max(3.2,s*.30)),  Math.min(1.8,s*.045));
+ pruchod(col,                     Math.min(6.5,Math.max(1.9,s*.165)), 0);
+ pruchod('rgba(255,255,255,.52)', Math.min(2.4,Math.max(.9,s*.052)), -Math.min(2.2,s*.055));
+ function pruchod(c,w,dy){
+   g.save();g.translate(x,y+(dy||0));
+   g.lineWidth=w;g.strokeStyle=c;g.fillStyle=c;g.lineCap='round';g.lineJoin='round';
+   glyphBody(g,k,s,l);
+   g.restore();
+ }
+}
+function glyphBody(g,k,s,l){
+ g.save();
  if(k==='theo'){
    g.beginPath();g.moveTo(-s*.42,s*.5);g.lineTo(0,-s*.05);g.lineTo(s*.42,s*.5);
    g.moveTo(0,-s*.05);g.lineTo(0,s*.42);g.stroke();
@@ -4440,43 +4745,46 @@ function buildBG(){
  // volná stavební místa svítí
  if(S&&S.open){
    const pulse=.5+.5*Math.sin(tAnim*3);
-   S.open.forEach(key=>{
-     const [c,r]=key.split(',').map(Number);
-     if(occupied(c,r))return;
-     const x=OX+c*CS,y=OY+r*CS;
-     g.save();
-     const lg=g.createLinearGradient(0,y,0,y+CS);
-     lg.addColorStop(0,'rgba(255,255,255,.42)');
-     lg.addColorStop(1,'rgba(255,255,255,.10)');
-     g.fillStyle=lg;
-     g.beginPath();
-     if(g.roundRect)g.roundRect(x+2,y+2,CS-4,CS-4,6);else g.rect(x+2,y+2,CS-4,CS-4);
-     g.fill();
-     g.strokeStyle=(S.placing!==null||S.moving)?
-       'rgba(0,217,184,'+(.55+pulse*.4)+')':'rgba(255,255,255,.55)';
-     g.lineWidth=2;
-     g.beginPath();
-     if(g.roundRect)g.roundRect(x+2.5,y+2.5,CS-5,CS-5,6);else g.rect(x+2.5,y+2.5,CS-5,CS-5);
-     g.stroke();
-     g.restore();
+   const th=(SAVE.opts&&SAVE.opts.theme), tma=(th==='night'||(S&&S.pal==='night')), hc=(th==='hc');
+   g.save();
+   // 1) nadech pres cely pas, at pod nim zustane teren videt
+   g.fillStyle=tma?'rgba(120,220,200,.07)':hc?'rgba(255,255,255,.30)':'rgba(255,255,255,.13)';
+   S.open.forEach(k=>{const [c,r]=k.split(',').map(Number);
+     g.fillRect(OX+c*CS,OY+r*CS,CS,CS);});
+   // 2) hranice pasu jednou cestou a JEDNIM tahem
+   g.beginPath();
+   S.open.forEach(k=>{
+     const [c,r]=k.split(',').map(Number), x=OX+c*CS, y=OY+r*CS;
+     const ven=(cc,rr)=>!S.open.has(cc+','+rr)&&!ONPATH.has(cc+','+rr);
+     if(ven(c,r-1)){g.moveTo(x,y);g.lineTo(x+CS,y);}
+     if(ven(c,r+1)){g.moveTo(x,y+CS);g.lineTo(x+CS,y+CS);}
+     if(ven(c-1,r)){g.moveTo(x,y);g.lineTo(x,y+CS);}
+     if(ven(c+1,r)){g.moveTo(x+CS,y);g.lineTo(x+CS,y+CS);}
    });
+   g.setLineDash([6,4]); g.lineWidth=hc?3:2;
+   g.strokeStyle=hc?p.ink:tma?'rgba(255,200,92,.70)':'rgba(255,194,31,.85)';
+   g.stroke(); g.setLineDash([]);
+   // 3) meznik uprostred kazdeho pole pasu - OBRYSOVY (plny znamena "teď to jde")
+   g.strokeStyle=hc?p.ink:p.marker; g.globalAlpha=hc?.8:.5; g.lineWidth=1.6;
+   g.beginPath();
+   S.open.forEach(k=>{const [c,r]=k.split(',').map(Number),
+     x=OX+c*CS+CS/2, y=OY+r*CS+CS/2, s=CS*.15;
+     g.moveTo(x,y-s); g.lineTo(x+s*.92,y+s*.7); g.lineTo(x-s*.92,y+s*.7); g.closePath();});
+   g.stroke(); g.globalAlpha=1;
+   g.restore();
  }
  // nepřipravená místa
  if(S&&S.open){
    for(let c=0;c<COLS;c++)for(let r=0;r<ROWS;r++){
      const key=c+','+r;
      if(ONPATH.has(key)||S.open.has(key))continue;
-     const td=TER[terAt(c,r)];
-     if(td&&td.build===false)continue;
+     // Zadna znacka: desitky bilych tecek driv slibovaly stavbu tam,
+     // kde nikdy nic nebude, a byly nejvetsim zdrojem zmatku na desce.
+     const th2=(SAVE.opts&&SAVE.opts.theme);
      const x=OX+c*CS,y=OY+r*CS;
-     g.save();
-     g.fillStyle='rgba(22,38,24,.26)';
-     g.beginPath();
-     if(g.roundRect)g.roundRect(x+1,y+1,CS-2,CS-2,4);else g.rect(x+1,y+1,CS-2,CS-2);
-     g.fill();
-     g.fillStyle='rgba(255,255,255,.16)';
-     g.beginPath();g.arc(x+CS*.5,y+CS*.5,Math.max(1.5,CS*.055),0,7);g.fill();
-     g.restore();
+     g.fillStyle=(th2==='night'||(S&&S.pal==='night'))?'rgba(4,12,18,.34)':
+       th2==='hc'?'rgba(6,19,28,.16)':'rgba(11,18,54,.24)';
+     g.fillRect(x,y,CS,CS);
    }
  }
  // terén
@@ -5171,6 +5479,29 @@ function draw(){
    }
    ctx.restore();
  }
+ // Kam prave TEDA jde postavit drzeny pristroj. Plny meznik = teď to jde.
+ if(S.placing!==null&&!S.moving&&S.open){
+   const kk=S.shop[S.placing];
+   if(kk){
+     ctx.save();
+     const a=.45+.35*Math.sin(tAnim*5);
+     S.open.forEach(key=>{
+       const [c,r]=key.split(',').map(Number);
+       if(occupied(c,r)||!canBuild(kk,c,r))return;
+       const x=OX+c*CS,y=OY+r*CS;
+       ctx.lineWidth=2; ctx.strokeStyle='rgba(0,230,192,'+a.toFixed(3)+')';
+       ctx.beginPath();
+       if(ctx.roundRect)ctx.roundRect(x+2.5,y+2.5,CS-5,CS-5,6);
+       else ctx.rect(x+2.5,y+2.5,CS-5,CS-5);
+       ctx.stroke();
+       ctx.fillStyle='rgba(0,230,192,'+(a*.5).toFixed(3)+')';
+       const mx=x+CS/2,my=y+CS/2,s2=CS*.15;
+       ctx.beginPath();ctx.moveTo(mx,my-s2);ctx.lineTo(mx+s2*.92,my+s2*.7);
+       ctx.lineTo(mx-s2*.92,my+s2*.7);ctx.closePath();ctx.fill();
+     });
+     ctx.restore();
+   }
+ }
  drawCondition(ctx,W,H);
  // vinětace okrajů mimo mřížku
  const vg=ctx.createRadialGradient(W/2,OY+ROWS*CS/2,Math.min(W,ROWS*CS)*.35,
@@ -5797,7 +6128,8 @@ function endWave(){
  saveRun();
  feed('Etapa '+S.wave+' hotova · <b>+'+bonus+'</b> rozpočtu','var(--brass)');
  if(S.wave%3===0){
-   const sp=openNewSpot(PATHS[0][0][0],PATHS[0][0][1]);
+   S.crew=(S.crew||0)+1;
+   const sp=null;
    if(sp)feed('Terén připraven · <b>nové volné místo</b>','var(--gnssC,var(--sky))');
  }
  if(SAVE.opts.auto&&!S.over){
@@ -6120,6 +6452,7 @@ function snapshot(){
    endless:S.endless,hard:S.hard,deck:S.deck,shop:S.shop,phase:S.phase,
    open:S.open?[...S.open]:null, cleared:S.cleared||0,
    ammo:S.ammo||{}, repairs:S.repairs||0, rerolls:S.rerolls||0,
+   crew:S.crew||0, mrg:S.mrg||0,
    zones:(S.zones||[]).map(z=>({x:z.x,y:z.y,r:z.r,t:z.t,dps:z.dps,c:z.c})),
    towers:S.towers.map(t=>({k:t.k,l:t.l,c:t.c,r:t.r,cal:t.cal,cd:t.cd,prio:t.prio,xp:t.xp,dmgDone:t.dmgDone})),
    stats:{kills:S.kills,merges:S.merges,abilUses:S.abilUses,built:S.built,
@@ -6146,7 +6479,9 @@ function loadRun(){
  S.rerolls=r.rerolls||0;
  rollShop(true);
  if(r.shop&&r.shop.length)S.shop=r.shop;
- if(Array.isArray(r.open)&&r.open.length)S.open=new Set(r.open);
+ // Ulozeny seznam poli se ZAMERNE ignoruje: pas se dopocita znovu, jinak
+ // by se stara rozehrana hra nacetla se sesti poli.
+ S.crew=r.crew||0; S.mrg=r.mrg||0;
  S.cleared=r.cleared||0;
  S.towers=(r.towers||[]).map(t=>({k:t.k,l:t.l,c:t.c,r:t.r,cal:t.cal,prio:t.prio||'first',
    xp:t.xp||0,dmgDone:t.dmgDone||0,cd:0,buffD:0,buffR:0,buffT:0,jam:false,spawn:0}));
@@ -6281,11 +6616,13 @@ function revealCards(list,box){
    const it=items[i++];
    const d=document.createElement('div');d.className='crCard';
    if(it.res!==undefined){
-     d.style.setProperty('--rc',getComputedStyle(document.documentElement).getPropertyValue('--brass'));
+     {const st=getComputedStyle(document.documentElement);
+      d.style.setProperty('--rc',st.getPropertyValue('--brass'));
+      d.style.setProperty('--rcL',st.getPropertyValue('--brassL'));}
      d.innerHTML='<div class="crIco"><svg class=\'i\' viewBox=\'0 0 24 24\'><circle cx=\'12\' cy=\'12\' r=\'8\'/><path d=\'M12 7v10M9.5 9.5h5M9.5 14.5h5\'/></svg></div><div class="crN">+'+it.res+'</div><div class="crS">výzkum</div>';
    } else {
      const rr=rarOf(it.k);
-     d.style.setProperty('--rc',rr.col);
+     d.style.setProperty('--rc',rr.col);d.style.setProperty('--rcL',rr.colL||rr.col);
      if(window.__before&&!window.__before[it.k]){
        const nw=document.createElement('div');nw.className='crNew';nw.textContent='NOVÝ';
        d.appendChild(nw);d.classList.add('isnew');
@@ -6400,7 +6737,7 @@ function openDraft(){
  pick.forEach(c=>{
    const rr=RAR[c.r||'c'];
    const d=document.createElement('div');d.className='pick draft';
-   d.style.setProperty('--rc',rr.col);
+   d.style.setProperty('--rc',rr.col);d.style.setProperty('--rcL',rr.colL||rr.col);
    d.innerHTML='<div class="rtag" style="background:'+rr.col+'">'+rr.n+'</div>'+
      '<div class="pn">'+c.n+'</div><div class="pd">'+c.d+'</div>'+
      '<div class="pk">máš '+(S.mods[c.id]||0)+'/'+c.max+'</div>';
@@ -6459,7 +6796,11 @@ function boardTap(ev){
    hit.zone=null;hit.drones=null;hit.lock=null;hit.ramp=0;
    S.towers=S.towers.filter(t=>t!==S.sel);S.sel=hit;S.mergeMode=false;recalcBuffs();
    S.merges++;if(hit.l>=2)questProgress('tier',1);
-   openNewSpot(hit.c,hit.r);
+   // Kazde treti slouceni pribere cloveka do cety (+1 stanovisko).
+   S.mrg=(S.mrg||0)+1;
+   if(S.mrg>=3){ S.mrg=0; S.crew=(S.crew||0)+1;
+     S.fx.push({type:'txt',x:cx(hit.c),y:cy(hit.r)-CS*.6,s:'ČETA +1',
+       c:T.gnss.c,t:1.2,d:1.2}); }
    snd('merge');punch(8,T[hit.k].c);
    setTimeout(()=>snd('merge2'),90);
    hit.spawn=.5;hit.flash=.25;
@@ -6494,7 +6835,7 @@ function boardTap(ev){
    if(ONPATH.has(c+','+rw))return toast('Na trasu se stavět nedá.');
    if(hit)return toast('Políčko je obsazené.');
    if(banned(k))return toast(T[k].n[0]+' se na tomhle území použít nedá.');
-   if(!isOpen(c,rw))return toast('Tady ještě není připravené stanoviště. Uvolníš ho slučováním přístrojů.');
+   if(!isOpen(c,rw))return toast('Sem se stavět nedá — je to mimo vytyčený pás u trasy.');
    if(!canBuild(k,c,rw)){
      const td=TER[terAt(c,rw)];
      return toast(td?td.n+': '+td.note:'Sem se stavět nedá.');
@@ -6535,7 +6876,11 @@ function boardTap(ev){
      hit.xp=(hit.xp||0)+(best.xp||0)*.6;hit.dmgDone=(hit.dmgDone||0)+(best.dmgDone||0);
      S.towers=S.towers.filter(x=>x!==best);rebuildOcc();
      S.merges++;if(hit.l>=2)questProgress('tier',1);
-     openNewSpot(hit.c,hit.r);
+     // Kazde treti slouceni pribere cloveka do cety (+1 stanovisko).
+     S.mrg=(S.mrg||0)+1;
+     if(S.mrg>=3){ S.mrg=0; S.crew=(S.crew||0)+1;
+       S.fx.push({type:'txt',x:cx(hit.c),y:cy(hit.r)-CS*.6,s:'ČETA +1',
+         c:T.gnss.c,t:1.2,d:1.2}); }
      punch(8,T[hit.k].c);setTimeout(()=>snd('merge2'),90);
      hit.spawn=.5;hit.flash=.25;recalcBuffs();
      snd('merge');vib([12,40,12]);
@@ -6565,8 +6910,10 @@ function uiStatus(){
  const freeSpots=S.freeSpots||0;
  if(capW){
    // Karta je uzka (~92 px); dlouhy text z ni driv pretekal pres krizek.
-   const txt=S.towers.length+'/'+capMax()+' · '+freeSpots+' '+
-     (freeSpots===1?'volné':(freeSpots>=2&&freeSpots<=4?'volná':'volných'));
+   // Pri desitkach volnych poli uz "kolik je volnych" nic nerika.
+   // Jedine cislo, ktere ma hrac sledovat, je kapacita.
+   const txt=S.towers.length+'/'+capMax()+' stanovisek'+
+     (S.mrg?' · sloučení '+S.mrg+'/3':'');
    if(capW.textContent!==txt)capW.textContent=txt;   // zapis do DOM jen pri zmene
    capW.title=S.towers.length+' z '+capMax()+' stanovisek · '+freeSpots+' volných míst';
    capW.classList.toggle('full',S.towers.length>=capMax());}
@@ -6735,10 +7082,9 @@ function ui(){
        b2.onclick=fn;sv2.appendChild(b2);
      };
      // Obnova presnosti je jen v zalozce Sit - jedna cena, ktera roste s pouzitim.
-     row('Připravit stanoviště','nové místo',pc,S.cr<pc,()=>{
-       const sp=openNewSpotForce();
-       if(!sp)return toast('Není kam další místo připravit.');
-       S.cr-=pc;snd('merge');toast('Stanoviště připraveno.');ui();});
+     row('Posílit četu','+1 stanovisko',pc,S.cr<pc,()=>{
+       S.cr-=pc;S.crew=(S.crew||0)+1;
+       snd('merge');toast('Četa posílena · +1 stanovisko.');ui();});
    }
  }
  const qb=$('quick');
@@ -7302,7 +7648,7 @@ function taskFrame(){
  requestAnimationFrame(taskFrame);
 }
 
-const VERZE=82;
+const VERZE=83;
 /* ==================== ÚVOD ==================== */
 const INTRO=[
  {t:'Braň geodetickou síť',
@@ -7573,8 +7919,18 @@ function renderShop(){
  rest.forEach(o=>{
    const bought=shopBought(o.id);
    const d=document.createElement('div');d.className='shopCard'+(bought?' got':'');
-   if(o.type==='cards')d.style.setProperty('--rc',rarOf(o.k).col);
-   else d.style.setProperty('--rc',CRATES[o.crate].c);
+   if(o.type==='cards'){
+     const rr=rarOf(o.k), tc=(T[o.k]&&T[o.k].c)||rr.col;
+     // Plochu barvi PRISTROJ (jinak jsou tri bezne pristroje tri sede obdelniky),
+     // vzacnost zustava na ramu a stuze.
+     d.style.setProperty('--rc','color-mix(in srgb,'+tc+' 62%,#0b1236)');
+     d.style.setProperty('--rcL',tc);
+     d.style.setProperty('--rar',rr.col);
+     d.classList.add('rar-'+(TRAR[o.k]||'c'));
+   }
+   else {d.style.setProperty('--rc',CRATES[o.crate].c);
+     d.style.setProperty('--rcL',CRATES[o.crate].c);
+     d.style.setProperty('--rar',CRATES[o.crate].c);}
    const art=document.createElement('div');art.className='shArt';
    if(o.type==='cards')art.appendChild(mini(o.k,Math.min(3,SAVE.lvl[o.k]||0),80));
    else art.innerHTML='<div class="shBox" style="--cc:'+CRATES[o.crate].c+'"><i></i><b></b></div>';
@@ -7734,8 +8090,23 @@ function goPage(n,anim){
  // nejdelsi stranky a na kratkych se scrolluje do prazdna.
  srovnejVysku();
  [...$('navBar').children].forEach((b,i)=>b.classList.toggle('on',i===PAGE));
+ document.body.dataset.pg=PAGE;   // barva mistnosti podle stranky
  if(typeof renderPlay==='function'){renderPlay();renderChestBar();}
+ requestAnimationFrame(srovnejVysku);   // listy uz maji svou vysku
  window.scrollTo(0,0);
+}
+// Kolik mista dole zabiraji plovouci listy. Na strance Bitva jsou tri
+// (bedny, HRAT, navigace), jinde jedna - proto se to meri, nepise natvrdo.
+function odstupOdList(){
+ let nejvys=innerHeight;
+ ['chestBar','playBar','navBar'].forEach(id=>{
+   const e=$(id); if(!e)return;
+   const s=getComputedStyle(e);
+   if(s.display==='none'||s.visibility==='hidden')return;
+   const b=e.getBoundingClientRect();
+   if(b.height>0&&b.top<nejvys)nejvys=b.top;
+ });
+ return Math.max(0,Math.round(innerHeight-nejvys)+12);
 }
 // Vysku pageru rid podle PRAVE zobrazene stranky. #pagerWrap ma overflow:hidden,
 // takze zastarala vyska by useknula konec stranky - proto se hlida i pri zmene obsahu.
@@ -7744,11 +8115,14 @@ function srovnejVysku(){
  const pg=$('pager'); if(!pg)return;
  const s=pg.children[PAGE];
  if(!s)return;
+ // konec stranky nesmi zmizet pod plovoucimi listami
+ s.style.paddingBottom=odstupOdList()+'px';
  pg.style.height=s.scrollHeight+'px';
  if(window.ResizeObserver){
    if(!__ro)__ro=new ResizeObserver(()=>{
      const cur=$('pager'), akt=cur&&cur.children[PAGE];
-     if(akt)cur.style.height=akt.scrollHeight+'px';
+     if(akt){ akt.style.paddingBottom=odstupOdList()+'px';
+              cur.style.height=akt.scrollHeight+'px'; }
    });
    __ro.disconnect();
    __ro.observe(s);
@@ -8319,7 +8693,7 @@ function startDemo(k){
 function openTinfo(k){
  const def=T[k], rr=rarOf(k), lv=SAVE.lvl[k]||0, inf=INFO[k]||{p:'',f:''};
  const box=document.querySelector('#tinfo .box');
- box.style.setProperty('--rc',rr.col);
+ box.style.setProperty('--rc',rr.col);box.style.setProperty('--rcL',rr.colL||rr.col);
  const g=$('tiGlyph').getContext('2d');g.clearRect(0,0,140,140);
  glyph(g,k,70,70,68,Math.min(3,lv?Math.min(3,lv-1):0),def.c);
  $('tiName').textContent=def.n[0];
@@ -8845,6 +9219,7 @@ function renderLab(){
 }
 function applyTheme(){
  TBGkey='';   // motiv se zmenil, titulni podklad se musi prekreslit
+ if(typeof dropSprites==='function')dropSprites();   // i predkreslene znacky
  document.documentElement.setAttribute('data-theme',
    SAVE.opts.theme==='night'?'night':SAVE.opts.theme==='hc'?'hc':'day');
  document.documentElement.setAttribute('data-board',String(SAVE.opts.board!==undefined?SAVE.opts.board:1));
@@ -9141,7 +9516,7 @@ function renderColl(){
    const rr=rarOf(k);
    const card=document.createElement('div');
    card.className='rcard'+(owned?'':' notowned')+(unlocked?'':' locked')+(can?' ready':'');
-   card.style.setProperty('--rc',rr.col);
+   card.style.setProperty('--rc',rr.col);card.style.setProperty('--rcL',rr.colL||rr.col);
    // horní plocha s glyfem
    const art=document.createElement('div');art.className='rart';
    const cv=mini(k,Math.min(3,lv?Math.min(3,lv-1):0),88);
@@ -9293,23 +9668,22 @@ function renderOpts(){
        if(it.act==='news'){
          showHint(
            'GeoGame '+VERZE+'\n\n'+
-           'CO SE ZMĚNILO PROTI 81\n'+
-           '• Postup se nemůže tiše ztratit: nečitelné uložení hra nepřepíše, drží '+
-           'záchrannou kopii a když se ukládání nedaří, řekne to\n'+
-           '• Karta Druhá četa už nesnižuje kapacitu stanovisek\n'+
-           '• Šance na dvojnásobnou ránu se počítala dvakrát — opraveno\n'+
-           '• Zpomalení i snížený pancíř po vypršení mizí, jak mají\n'+
-           '• Hořící zóna bije stejně na 60 i 120 Hz a při zrychlení\n'+
-           '• Rotační laser sbírá zkušenost, multistanice funguje i na bosse\n'+
-           '• Oživena vylepšení, která nic nedělala: obě větve meteostanice, '+
-           'Ostrá záměra, Záložní akumulátory i Rychlonabíjení\n'+
-           '• Obtížnost roste plynule až do finále (dřív vrcholila v sedmém území)\n'+
-           '• Sezónní cestu jde dohrát hraním, ne jen denním rituálem\n'+
-           '• Sekce Bedny se konečně zobrazuje, ZPĚT vede tam, odkud jsi přišel\n'+
-           '• Zkouška z geodézie: 36 otázek místo 20 a rozptylovače z praxe\n'+
-           '• Odečet na lati je čitelný — výřez latě s centimetrovým dělením\n'+
-           '• iPhone: bezpečné okraje, konec přiblížení dvojklikem, větší dotykové cíle\n'+
-           '• Menu i hra šetří baterii; offline stav už neslibuje, co nemá');
+           'CO SE ZMĚNILO PROTI 82\n'+
+           '• Nový vzhled: všechno je odlité z plastu — tlustý obrys, spodní lem, '+
+           'tvrdý stín. Tlačítka při stisku dosednou na svůj stín\n'+
+           '• Pozadí je měřická deska se sítí a noniovou stupnicí; každá stránka '+
+           'má vlastní barvu\n'+
+           '• Nadpisy mají ražený obrys a vlastní řez — dosud padaly na obyčejnou '+
+           'Helveticu, protože Arial Black na iOS není\n'+
+           '• Značky přístrojů se kreslí ve třech průchodech: obrys, duše, lesk. '+
+           'Tenká čára 1,4 px vedle 3px rámu mizela\n'+
+           '• STAVĚT JDE NA KAŽDÉ POLE, KTERÉ SOUSEDÍ S TRASOU. Konec náhodného '+
+           'odkrývání — místo šesti políček jich je 28 až 69 a pás je vidět\n'+
+           '• Slučování a služby už neotvírají pole, ale posilují ČETU (+1 stanovisko)\n'+
+           '• Čitelnost: 47 míst mělo text v barvě, kterou na slunci nepřečteš — '+
+           'rozpočet měl kontrast 1,4:1, přesnost 1,5:1. Teď je pod mezí nula\n'+
+           '• Spodní lišty už nepřekrývají konec stránky a lišta beden nepropouští obsah\n'+
+           '• Nadpisy sekcí byly v bílém okně neviditelné — mají vlastní plochu');
          return; }
        if(it.act==='upd'){
          toast2('Hledám aktualizaci…');
