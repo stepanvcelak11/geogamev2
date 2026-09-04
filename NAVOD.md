@@ -1,4 +1,4 @@
-# GeoGame — verze 83
+# GeoGame — verze 84
 
 ## Co nahrát na hosting
 
@@ -26,12 +26,12 @@ spuštění s internetem a projeví se po zavření a otevření hry. Ručně:
 **Nastavení → Zkontrolovat aktualizaci**. Číslo verze je dole pod mapou světa
 a v hlavičce Nastavení.
 
-Číslo verze se od verze 82 píše na **jediné místo** — `const VERZE=83;` v `index.html`.
+Číslo verze se od verze 82 píše na **jediné místo** — `const VERZE=84;` v `index.html`.
 Odtud se rozsype do stránky i do adresy, kterou se registruje `sw.js`. Jinam se nesahá.
 
 ## Bez hostingu
 
-`geogame-v83-jediny-soubor.html` stáhni do telefonu a otevři v Chromu.
+`geogame-v84-jediny-soubor.html` stáhni do telefonu a otevři v Chromu.
 Funguje offline, jen se sám neaktualizuje.
 
 Od verze 82 je tenhle soubor **přesná kopie `index.html`**. Hra si sama pozná, že běží
@@ -39,7 +39,7 @@ ze staženého souboru, a manifest si přepíše. Novou verzi tedy vyrobíš pro
 a není co udržovat dvakrát:
 
 ```
-copy index.html geogame-v83-jediny-soubor.html
+copy index.html geogame-v84-jediny-soubor.html
 ```
 
 ## Záloha postupu
@@ -54,6 +54,26 @@ Od verze 82 si hra sama drží záchrannou kopii postupu:
 - Když se ukládání nedaří, protože v zařízení došlo místo, řekne to hláškou
   místo tichého selhání.
 - Po vložení zálohy jde vrátit předchozí stav: **Nastavení → Vrátit obnovu**.
+
+## Co je nového ve verzi 84
+
+- **Tmavý povrch místo světlého.** Změřeno: syté barvy zabíraly 53 % obrazovky
+  a na jedné stránce jich soupeřilo šest až sedm. Teď je světlých ploch 16 % a barva
+  zbyla tam, kam patří — na tlačítko, na měnu a na vzácnost.
+- **Spodní lišta**: ikony měly kontrast 2,6 : 1 (v kontrastním motivu 1,7 : 1), protože
+  dvě pravidla se stejnou specificitou si přebíjela barvu. Vybraná záložka teď vystoupí
+  nad lištu.
+- **Mapa světa** je o dvě třetiny větší, jde ke krajům a je v soumraku. Zamčená území
+  byla dřív světlejší než okolí, takže oko tahalo tam, kam se klepnout nedá. Jméno se
+  ukazuje jen u území, kam se dá jít — dvanáct cedulek se nevešlo a překrývaly se.
+- **Karty v obchodě**: ikona přístroje ležela na pozadí téže barvy, tedy kontrast
+  1,00 : 1. Teď svítí z tmavého kotouče.
+- **Bedny jsou jen ve Skladu** a odpočet u nich běží (dřív se překresloval jen ten
+  na stránce Bitva, proto ve Skladu stál).
+- Ukončit měření se přesunulo z křížku do nabídky pod ☰; z hrací plochy zmizely
+  souřadnice a nápis, které v ní ležely.
+- Obtížnost: přesnost klesá plynule podle toho, kolik vlny projde, vlny nerostou
+  na konci tak strmě a v Nastavení přibylo **Omezit pohyb**.
 
 ## Co je nového ve verzi 83
 
