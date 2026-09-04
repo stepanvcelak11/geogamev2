@@ -1,4 +1,4 @@
-# GeoGame — verze 84
+# GeoGame — verze 85
 
 ## Co nahrát na hosting
 
@@ -26,12 +26,12 @@ spuštění s internetem a projeví se po zavření a otevření hry. Ručně:
 **Nastavení → Zkontrolovat aktualizaci**. Číslo verze je dole pod mapou světa
 a v hlavičce Nastavení.
 
-Číslo verze se od verze 82 píše na **jediné místo** — `const VERZE=84;` v `index.html`.
+Číslo verze se od verze 82 píše na **jediné místo** — `const VERZE=85;` v `index.html`.
 Odtud se rozsype do stránky i do adresy, kterou se registruje `sw.js`. Jinam se nesahá.
 
 ## Bez hostingu
 
-`geogame-v84-jediny-soubor.html` stáhni do telefonu a otevři v Chromu.
+`geogame-v85-jediny-soubor.html` stáhni do telefonu a otevři v Chromu.
 Funguje offline, jen se sám neaktualizuje.
 
 Od verze 82 je tenhle soubor **přesná kopie `index.html`**. Hra si sama pozná, že běží
@@ -39,7 +39,7 @@ ze staženého souboru, a manifest si přepíše. Novou verzi tedy vyrobíš pro
 a není co udržovat dvakrát:
 
 ```
-copy index.html geogame-v84-jediny-soubor.html
+copy index.html geogame-v85-jediny-soubor.html
 ```
 
 ## Záloha postupu
@@ -54,6 +54,25 @@ Od verze 82 si hra sama drží záchrannou kopii postupu:
 - Když se ukládání nedaří, protože v zařízení došlo místo, řekne to hláškou
   místo tichého selhání.
 - Po vložení zálohy jde vrátit předchozí stav: **Nastavení → Vrátit obnovu**.
+
+## Co je nového ve verzi 85
+
+- **Mezníky** — druhá měna. Nedá se koupit ani nepadá z beden: dostaneš ji za tři
+  hvězdy na území, za splněné denní úkoly, za zkoušku na plný počet a se 6% šancí
+  ji najdeš po dokončeném měření. Kupuje **čas a vzhled, nikdy sílu** — síla se dál
+  platí výzkumem, jinak by se ekonomika Laborky rozpadla.
+- **Vzhledy přístrojů**: šest materiálů (tovární, terénní oranžová, noční šedá,
+  muzejní mosaz, karbon, kamenný mezník). Mění barvu těla, obrysu i lesku — proto
+  vypadají jako jiný odlitek, ne jako přebarvená ikona. Žádný obrázek navíc.
+- V obchodě je záložka **Za mezníky**: balíček 200 výzkumu za 40, nejvýš jednou denně.
+- **Sbírka je rovnou na stránce Vybavení**, hned pod sestavou. Samostatná obrazovka
+  i tlačítko, které ji otvíralo, zmizely.
+- **Stránky se jmenují podle toho, proč tam chodíš**: Obchod · Vybavení · Terén ·
+  Laborka · Kariéra. Trvalá vylepšení se přestěhovala do Laborky.
+- **Mapa světa je první věc na Terénu.**
+- **Profil ožil** — medaile, hodnost a tři údaje v pilulkách místo jednoho řádku.
+- Velikost písma jde zvětšit o 15 nebo 30 %, deska má tři opravdové stupně velikosti
+  a na notebooku se ovládání složí vedle desky.
 
 ## Co je nového ve verzi 84
 

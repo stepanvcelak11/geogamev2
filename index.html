@@ -137,6 +137,10 @@ html[data-theme="night"]{
 #chalCard,.foldSec{position:relative;overflow:hidden}
 /* displejové písmo pro nadpisy a čísla: systémová tučná gro­teska s fallbackem */
 :root{
+  /* Volba Nastaveni -> Velikost pisma. 1 = jak to bylo navrzeno.
+     Skaluji se vsechny velikosti do 20 px, nadpisy zustavaji. */
+  --fs:1;
+
   /* Nadpisy: kulaty, hrackovity rez. Arial Rounded MT Bold na iOS JE,
      Arial Black a Impact tam NEJSOU - proto to dosud padalo na Helveticu. */
   --display:'Arial Rounded MT Bold','Avenir Next Heavy','Avenir Next','Helvetica Neue',Arial,sans-serif;
@@ -208,7 +212,7 @@ svg.i{width:15px;height:15px;flex:none;stroke:currentColor;fill:none;
    to je cely ten "cvak". */
 button,.plast{
   position:relative;isolation:isolate;
-  font-family:inherit;font-size:13px;font-weight:700;color:var(--onPlast);
+  font-family:inherit;font-size:calc(13px*var(--fs,1));font-weight:700;color:var(--onPlast);
   border:3px solid var(--stroke);border-radius:var(--r1);
   padding:12px 13px;min-height:44px;cursor:pointer;
   background:linear-gradient(180deg,var(--plA) 0%,var(--plA) 34%,var(--plB) 100%);
@@ -255,7 +259,7 @@ button:focus-visible{outline:3px solid var(--brass);outline-offset:3px}
    .playBig:before na ni odkazoval do prazdna. */
 @keyframes shine{0%{transform:translateX(-145%)}55%,100%{transform:translateX(420%)}}
 /* Hlavni tlacitko: silnejsi lem i cesta, hlubsi stisk. */
-.big{width:100%;padding:16px;font-size:15px;letter-spacing:.02em;margin-top:9px;
+.big{width:100%;padding:16px;font-size:calc(15px*var(--fs,1));letter-spacing:.02em;margin-top:9px;
   border-radius:var(--r2)}
 .big.key{--plA:var(--laserL);--plB:var(--laser);--plC:var(--laserD);color:#032b25;
   box-shadow:
@@ -280,7 +284,7 @@ button:focus-visible{outline:3px solid var(--brass);outline-offset:3px}
   padding:calc(8px + env(safe-area-inset-top,0px)) 10px 6px;
   background:linear-gradient(180deg,rgba(10,15,44,.97),rgba(10,15,44,0))}
 .tbChip{display:flex;align-items:center;gap:6px;padding:5px 12px 5px 8px;border-radius:999px;
-  border:2px solid var(--stroke);text-shadow:0 1px 0 rgba(11,16,48,.6);font-size:12.5px;font-weight:900;color:#fff;
+  border:2px solid var(--stroke);text-shadow:0 1px 0 rgba(11,16,48,.6);font-size:calc(12.5px*var(--fs,1));font-weight:900;color:#fff;
   box-shadow:0 3px 0 rgba(10,20,45,.45),0 5px 12px rgba(6,12,32,.4)}
 .tbChip svg{width:17px;height:17px;filter:drop-shadow(0 1px 0 rgba(11,16,48,.45))}
 .tb1{background:linear-gradient(180deg,#ffd35c,#f39a13)}
@@ -314,7 +318,7 @@ body{touch-action:manipulation;-webkit-touch-callout:none}
    tlacitko az na konci dlouhe stranky se hleda spatne. */
 .pgHead.stick{position:sticky;top:0;z-index:11;background:var(--ink);
   padding-top:calc(6px + env(safe-area-inset-top,0px));margin:0 0 8px}
-.xBtn{width:44px;min-height:44px;padding:0;font-size:17px;line-height:1;border-radius:14px;
+.xBtn{width:44px;min-height:44px;padding:0;font-size:calc(17px*var(--fs,1));line-height:1;border-radius:14px;
   background:var(--scrim);color:var(--paper);border:1px solid var(--grid);box-shadow:var(--elev1)}
 .pgHead{display:flex;justify-content:space-between;align-items:center;gap:10px;
   margin:2px 0 16px;padding:15px 17px;border-radius:var(--r3);
@@ -332,8 +336,8 @@ body{touch-action:manipulation;-webkit-touch-callout:none}
 .pgHead h2{font-size:27px;-webkit-text-stroke:0;margin:0;line-height:1}
 html[data-theme="hc"] .pgHead h2,html[data-theme="hc"] .heroTxt h1{
   color:var(--onDeep);text-shadow:none;paint-order:normal}
-.pgHead span{font-size:11.5px}
-.pgNote{font-size:12.5px;color:var(--onBgDim);line-height:1.6;margin:9px 0 4px}
+.pgHead span{font-size:calc(11.5px*var(--fs,1))}
+.pgNote{font-size:calc(12.5px*var(--fs,1));color:var(--onBgDim);line-height:1.6;margin:9px 0 4px}
 #shopFree{margin-bottom:4px}
 .shopFree{display:flex;align-items:center;gap:11px;border:3px solid var(--stroke);border-radius:var(--r2);
   padding:12px;background:linear-gradient(160deg,#ffe08a,#ffb01f);color:var(--paper);
@@ -343,9 +347,9 @@ html[data-theme="hc"] .pgHead h2,html[data-theme="hc"] .heroTxt h1{
   display:flex;align-items:center;justify-content:center}
 .sfIc svg{width:24px;height:24px;fill:none;stroke:var(--paper);stroke-width:2;
   stroke-linecap:round;stroke-linejoin:round}
-.sfT{flex:1}.sfT b{font-size:14px;font-weight:900;display:block}
-.sfT s{text-decoration:none;font-size:11px;opacity:.8}
-.sfB{font-size:11px;font-weight:900;background:var(--stroke);color:#fff;border-radius:999px;padding:6px 11px}
+.sfT{flex:1}.sfT b{font-size:calc(14px*var(--fs,1));font-weight:900;display:block}
+.sfT s{text-decoration:none;font-size:calc(11px*var(--fs,1));opacity:.8}
+.sfB{font-size:calc(11px*var(--fs,1));font-weight:900;background:var(--stroke);color:#fff;border-radius:999px;padding:6px 11px}
 #shopGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .shopCard{border:3px solid var(--stroke);border-radius:16px;overflow:hidden;position:relative;
   background:linear-gradient(180deg,
@@ -376,10 +380,10 @@ html[data-theme="hc"] .pgHead h2,html[data-theme="hc"] .heroTxt h1{
 .shBox b{position:absolute;left:0;right:0;top:2px;height:12px;background:var(--cc);
   border-radius:5px;border:2px solid var(--stroke);filter:brightness(1.15)}
 .shT{padding:0 8px;text-align:center;min-height:38px}
-.shT b{font-size:11.5px;font-weight:900;display:block;line-height:1.2;color:var(--paper)}
-.shT s{text-decoration:none;font-size:11px;color:var(--dim);display:block;margin-top:2px}
-.shBuy{--plA:var(--brassL);--plB:var(--brass);--plC:var(--brassD);color:#3a2400;margin:6px 8px 0;font-size:11px;font-weight:900;padding:8px 2px;border-radius:11px}
-.shBuy i{font-style:normal;font-size:11px;opacity:.7}
+.shT b{font-size:calc(11.5px*var(--fs,1));font-weight:900;display:block;line-height:1.2;color:var(--paper)}
+.shT s{text-decoration:none;font-size:calc(11px*var(--fs,1));color:var(--dim);display:block;margin-top:2px}
+.shBuy{--plA:var(--brassL);--plB:var(--brass);--plC:var(--brassD);color:#3a2400;margin:6px 8px 0;font-size:calc(11px*var(--fs,1));font-weight:900;padding:8px 2px;border-radius:11px}
+.shBuy i{font-style:normal;font-size:calc(11px*var(--fs,1));opacity:.7}
 /* Lista nemela vlastni plochu, takze mezi KAMPAN a HRAT prosvital obsah
    stranky a vypadalo to, ze jsou tlacitka pres sebe. */
 #playBar{position:fixed;left:10px;right:10px;bottom:calc(84px + env(safe-area-inset-bottom,0px));
@@ -391,17 +395,17 @@ html[data-theme="hc"] .pgHead h2,html[data-theme="hc"] .heroTxt h1{
 html[data-theme="night"] #playBar{background:linear-gradient(180deg,#10283a,#071522)}
 html[data-theme="hc"] #playBar{background:#fff;box-shadow:0 0 0 3px #000}
 #playBar.hide{display:none}
-.modeChip{flex:0 0 96px;flex-direction:column;gap:2px;border-radius:18px;font-size:11px;
+.modeChip{flex:0 0 96px;flex-direction:column;gap:2px;border-radius:18px;font-size:calc(11px*var(--fs,1));
   font-weight:900;text-transform:uppercase;background:linear-gradient(180deg,#4a5aa8,#2b3670);
   color:#fff;border:3px solid var(--stroke);box-shadow:0 5px 0 var(--stroke),0 8px 18px rgba(6,12,32,.5)}
-.modeChip i{font-style:normal;font-size:11px;opacity:.8}
+.modeChip i{font-style:normal;font-size:calc(11px*var(--fs,1));opacity:.8}
 .playBig{flex:1;flex-direction:column;gap:1px;border-radius:18px;padding:10px 8px;
   background:linear-gradient(180deg,#7bf3a0,var(--moss) 55%,#12a24d);
   color:#fff;border:3px solid var(--stroke);
   box-shadow:0 6px 0 var(--stroke),0 10px 22px rgba(18,120,60,.45);overflow:hidden}
-.playBig b{font-size:20px;font-weight:900;letter-spacing:.04em;
+.playBig b{font-size:calc(20px*var(--fs,1));font-weight:900;letter-spacing:.04em;
   text-shadow:0 2px 0 rgba(11,16,48,.45)}
-.playBig s{text-decoration:none;font-size:11px;opacity:.92;max-width:100%;
+.playBig s{text-decoration:none;font-size:calc(11px*var(--fs,1));opacity:.92;max-width:100%;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .playBig:before{content:'';position:absolute;top:0;bottom:0;width:36%;left:-45%;
   background:linear-gradient(105deg,transparent,rgba(255,255,255,.5),transparent);
@@ -413,7 +417,7 @@ html[data-theme="hc"] #playBar{background:#fff;box-shadow:0 0 0 3px #000}
   border:3px solid var(--stroke);border-radius:24px;
   box-shadow:0 6px 0 #060b24,0 12px 22px rgba(4,8,24,.6);
   max-width:520px;margin:0 auto}
-#navBar button{color:#c9d9f5;background:none;border:0;font-size:11px}
+#navBar button{color:#c9d9f5;background:none;border:0;font-size:calc(11px*var(--fs,1))}
 /* Ikony byly na tmave liste vybledle. Dostavaji plnou vypln, tmavy obrys
    a nevybrane jsou jen o neco tlumenejsi - ne poloprusvitne. */
 #navBar svg.fi{filter:drop-shadow(0 2px 0 rgba(4,8,26,.9))}
@@ -421,8 +425,8 @@ html[data-theme="hc"] #playBar{background:#fff;box-shadow:0 0 0 3px #000}
 #navBar button.on .ni{color:#fff;opacity:1}
 #navBar button.on svg.fi{filter:drop-shadow(0 2px 0 rgba(11,16,48,.75))}
 #navBar .playTab svg.ni{width:29px;height:29px}
-#navBar .playTab{font-size:11px}
-#navBar button{flex-direction:column;gap:3px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;padding:7px 2px;background:none;
+#navBar .playTab{font-size:calc(11px*var(--fs,1))}
+#navBar button{flex-direction:column;gap:3px;font-size:calc(11px*var(--fs,1));font-weight:800;text-transform:uppercase;letter-spacing:.02em;padding:7px 2px;background:none;
   border:0;box-shadow:none;border-radius:var(--r1)}
 #navBar button.on{color:#fff;background:linear-gradient(160deg,var(--laser),var(--sky));
   border:2px solid rgba(255,255,255,.8);
@@ -443,9 +447,9 @@ svg.ni{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:1.8;
   display:flex;align-items:center;justify-content:center}
 .aslot .aic svg{width:20px;height:20px;stroke:#fff}
 .aslot .at{flex:1;min-width:0}
-.aslot .an2{font-size:12.5px;font-weight:600;line-height:1.2}
-.aslot .ad2{font-size:11px;color:var(--dim);margin-top:4px}
-.aslot .alv{font-size:11px;color:var(--brass);font-weight:700}
+.aslot .an2{font-size:calc(12.5px*var(--fs,1));font-weight:600;line-height:1.2}
+.aslot .ad2{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:4px}
+.aslot .alv{font-size:calc(11px*var(--fs,1));color:var(--brass);font-weight:700}
 #worldWrap{margin:0 -13px 12px;border-radius:0 0 var(--r4) var(--r4);
   border:var(--w3) solid var(--stroke);border-top:0;background:#12173f;
   box-shadow:inset 0 3px 0 rgba(255,255,255,.08),0 8px 18px rgba(6,12,32,.5);position:relative;border-radius:var(--r3);overflow:hidden;border:1px solid var(--grid);
@@ -457,10 +461,10 @@ svg.ni{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:1.8;
 .heroFade{position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,transparent 26%,color-mix(in srgb,var(--ink2) 75%,transparent) 52%,var(--ink2) 88%)}
 .heroTxt{position:absolute;left:0;right:0;bottom:0;padding:16px 17px 17px}
-.heroTxt .eyebrow{font-size:11px;letter-spacing:.16em;color:var(--brass);
+.heroTxt .eyebrow{font-size:calc(11px*var(--fs,1));letter-spacing:.16em;color:var(--brass);
   text-transform:uppercase;font-weight:600}
 .heroTxt h1{font-size:38px;line-height:.92;margin:7px 0 0;font-weight:700;letter-spacing:-.005em}
-.heroTxt p{font-size:12.5px;color:var(--dim);line-height:1.55;margin:9px 0 0;max-width:30em}
+.heroTxt p{font-size:calc(12.5px*var(--fs,1));color:var(--dim);line-height:1.55;margin:9px 0 0;max-width:30em}
 #profile{display:flex;align-items:center;gap:12px;border:3px solid var(--stroke);
   background:linear-gradient(180deg,var(--brassL) 0%,var(--brassL) 30%,var(--brass) 100%);
   border-radius:var(--r2);padding:12px;margin-top:12px;color:#3a2400;
@@ -474,20 +478,20 @@ html[data-theme="night"] #profile{background:linear-gradient(150deg,
 .pfIc svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:2.6;
   stroke-linecap:round;stroke-linejoin:round}
 .pfT{flex:1;min-width:0}
-.pfRank{display:inline-block;font-size:11px;font-weight:900;text-transform:uppercase;
+.pfRank{display:inline-block;font-size:calc(11px*var(--fs,1));font-weight:900;text-transform:uppercase;
   letter-spacing:.04em;color:#fff;background:linear-gradient(180deg,#8fd0ff,#2f7de0);
   border:2px solid var(--stroke);border-radius:999px;padding:2px 9px;margin:3px 0 4px;
   box-shadow:0 2px 0 var(--stroke)}
-.pfN{font-size:15px;font-weight:800}
+.pfN{font-size:calc(15px*var(--fs,1));font-weight:800}
 .pfB{height:7px;background:var(--ink3);border:1px solid var(--line);border-radius:5px;
   margin-top:6px;overflow:hidden}
 .pfB i{display:block;height:100%;background:linear-gradient(90deg,var(--brass),#ffd45e)}
-.pfS{font-size:11px;color:var(--dim);margin-top:4px}
-.pfX{font-size:11px;color:var(--dim);margin-top:5px}
+.pfS{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:4px}
+.pfX{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:5px}
 .res{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
 .res>div{padding:9px 11px}
-.res .k{font-size:11px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
-.res .v{font-size:18px;margin-top:3px;font-weight:600}
+.res .k{font-size:calc(11px*var(--fs,1));letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
+.res .v{font-size:calc(18px*var(--fs,1));margin-top:3px;font-weight:600}
 /* Nadpis nikdy nespoleha na to, co je pod nim. Bud ma vlastni OBRYS
    (lezi primo na desce), nebo vlastni PLOCHU (lezi v karte). Nic mezi tim -
    presne tim vznikala vada, kdy byl bily nadpis v bilem okne neviditelny. */
@@ -502,7 +506,7 @@ html[data-theme="night"] #profile{background:linear-gradient(150deg,
 html[data-theme="hc"] .h-cut{color:var(--onDeep);text-shadow:none;paint-order:normal}
 /* STITEK - nese si svou plochu, takze je citelny na bile i na tmave. */
 .secTitle{display:inline-flex;align-items:center;gap:7px;
-  font-family:var(--display);font-size:11.5px;letter-spacing:.06em;
+  font-family:var(--display);font-size:calc(11.5px*var(--fs,1));letter-spacing:.06em;
   text-transform:uppercase;color:#3a2400;text-shadow:none;font-weight:700;
   background:linear-gradient(180deg,var(--brassL),var(--brass));
   border:2.5px solid var(--stroke);border-radius:10px;padding:5px 11px 6px;
@@ -510,7 +514,7 @@ html[data-theme="hc"] .h-cut{color:var(--onDeep);text-shadow:none;paint-order:no
              inset 0 -4px 0 var(--brassD),0 3px 0 var(--stroke);
   margin:20px 0 10px}
 .secTitle span{background:rgba(11,18,54,.14);border-radius:6px;padding:1px 6px;
-  font-family:var(--num);font-weight:700;font-size:11px;
+  font-family:var(--num);font-weight:700;font-size:calc(11px*var(--fs,1));
   color:rgba(11,18,54,.78);letter-spacing:0;text-transform:none}
 .secTitle:after{display:none}
 /* Svetle plochy (okna, panely) prepisou barvu nadpisu. Bily text s tmavym
@@ -524,12 +528,12 @@ html[data-theme="hc"] .h-cut{color:var(--onDeep);text-shadow:none;paint-order:no
   border-radius:var(--r2);box-shadow:var(--elev1);overflow:hidden;margin-bottom:12px}
 #tkArea canvas{display:block;width:100%;touch-action:none}
 /* font-size 16px je zamerne: pod nim iOS pri zaostreni stranku priblizi. */
-#cdxSearch{width:100%;box-sizing:border-box;font-size:16px;padding:11px 13px;min-height:44px;
+#cdxSearch{width:100%;box-sizing:border-box;font-size:calc(16px*var(--fs,1));padding:11px 13px;min-height:44px;
   border:1px solid var(--grid);border-radius:12px;background:var(--scrim);color:var(--paper);
   -webkit-appearance:none;appearance:none}
 #cdxSearch::placeholder{color:var(--dim)}
-.tabLead{font-size:11.5px;line-height:1.5;color:var(--dim);margin:0 0 10px}
-.tkstat{font-size:12.5px;color:var(--dim);text-align:center;margin-bottom:10px;line-height:1.5;min-height:34px}
+.tabLead{font-size:calc(11.5px*var(--fs,1));line-height:1.5;color:var(--dim);margin:0 0 10px}
+.tkstat{font-size:calc(12.5px*var(--fs,1));color:var(--dim);text-align:center;margin-bottom:10px;line-height:1.5;min-height:34px}
 .tkstat b{color:var(--laser)}
 .tkbar{height:8px;background:var(--ink3);border:1px solid var(--line);border-radius:5px;
   overflow:hidden;margin:0 0 10px}
@@ -539,21 +543,21 @@ html[data-theme="hc"] .h-cut{color:var(--onDeep);text-shadow:none;paint-order:no
 .introDots{display:flex;gap:6px;justify-content:center;margin:14px 0 0}
 .introDots i{width:22px;height:5px;border-radius:3px;background:var(--grid)}
 .introDots i.on{background:var(--laser)}
-#intro h2{margin:12px 18px 0;font-size:20px}
-#intro .lead{margin:8px 18px 0;font-size:13px;line-height:1.65}
+#intro h2{margin:12px 18px 0;font-size:calc(20px*var(--fs,1))}
+#intro .lead{margin:8px 18px 0;font-size:calc(13px*var(--fs,1));line-height:1.65}
 .introBtns{display:flex;gap:8px;padding:16px 18px 18px}
 .introBtns button{flex:1;padding:13px;border-radius:14px;font-weight:700}
 .introBtns .key{color:#fff;border-color:transparent;background:var(--laser)}
 html[data-theme="night"] .introBtns .key{color:#0a1626}
 #bkText{width:100%;height:110px;border:1px solid var(--grid);border-radius:var(--r1);
-  padding:10px;font-family:ui-monospace,monospace;font-size:11px;line-height:1.4;
+  padding:10px;font-family:ui-monospace,monospace;font-size:calc(11px*var(--fs,1));line-height:1.4;
   background:var(--ink3);color:var(--paper);resize:none;margin-bottom:12px;
   -webkit-user-select:text;user-select:text}
 .lgGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px}
 .lgDay{border:1px solid var(--grid);background:var(--ink2);border-radius:12px;padding:8px 4px;
   text-align:center;box-shadow:var(--elev1)}
-.lgDay .lgN{font-size:11px;color:var(--dim);font-weight:700}
-.lgDay .lgR{font-size:11px;margin-top:5px;line-height:1.35;font-weight:600}
+.lgDay .lgN{font-size:calc(11px*var(--fs,1));color:var(--dim);font-weight:700}
+.lgDay .lgR{font-size:calc(11px*var(--fs,1));margin-top:5px;line-height:1.35;font-weight:600}
 .lgDay.past{opacity:.5}
 .lgDay.now{border-color:var(--brass);background:linear-gradient(160deg,
   var(--brassL),var(--brass));
@@ -563,14 +567,14 @@ html[data-theme="night"] .introBtns .key{color:#0a1626}
 #hintBox.on{display:flex}
 .hbInner{background:var(--ink2);border:1px solid var(--grid);border-radius:var(--r3);
   padding:18px;max-width:340px;box-shadow:var(--elev2)}
-.hbInner p{margin:0 0 14px;font-size:13px;line-height:1.65;white-space:pre-line}
+.hbInner p{margin:0 0 14px;font-size:calc(13px*var(--fs,1));line-height:1.65;white-space:pre-line}
 .hbInner button{width:100%}
 /* Ukonceni mereni v nabidce - varovna barva, at se netrefi omylem. */
 #tabs .qEnd{--plA:var(--tapeL);--plB:var(--tape);--plC:var(--tapeD);color:#fff;
-  flex:0 0 auto;font-size:11px;font-weight:900;padding:8px 10px;min-height:36px;
+  flex:0 0 auto;font-size:calc(11px*var(--fs,1));font-weight:900;padding:8px 10px;min-height:36px;
   border-radius:11px;margin-left:6px}
 .hintBtn{width:21px;height:21px;min-height:21px;padding:0;border-radius:50%;
-  font-size:11px;font-weight:900;
+  font-size:calc(11px*var(--fs,1));font-weight:900;
   color:#fff;border-color:var(--stroke);background:linear-gradient(180deg,#4a5aa8,#2b3670);
   box-shadow:none;margin-left:auto;position:relative}
 /* Otaznik zustava maly, ale zasah je plnych 44 px - prst neni kurzor. */
@@ -578,51 +582,51 @@ html[data-theme="night"] .introBtns .key{color:#0a1626}
 .secTitle .hintBtn{margin-left:0}
 #menuToast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translateX(-50%) translateY(-6px);z-index:30;
   background:var(--scrim);border:1px solid var(--grid);border-radius:999px;padding:9px 16px;
-  font-size:12px;box-shadow:var(--elev2);opacity:0;pointer-events:none;transition:.2s;max-width:92vw}
+  font-size:calc(12px*var(--fs,1));box-shadow:var(--elev2);opacity:0;pointer-events:none;transition:.2s;max-width:92vw}
 #menuToast.on{opacity:1;transform:translateX(-50%) translateY(0)}
-.qzQ{font-size:14px;font-weight:600;line-height:1.45;margin-bottom:12px}
+.qzQ{font-size:calc(14px*var(--fs,1));font-weight:600;line-height:1.45;margin-bottom:12px}
 .qzA{border:1px solid var(--grid);background:var(--ink2);border-radius:var(--r1);
-  padding:12px;margin-bottom:8px;font-size:12.5px;cursor:pointer;line-height:1.45}
+  padding:12px;margin-bottom:8px;font-size:calc(12.5px*var(--fs,1));cursor:pointer;line-height:1.45}
 .qzA:active{transform:translateY(1px)}
 .qzA.good{border-color:var(--moss);background:color-mix(in srgb,var(--moss) 14%,transparent)}
 .qzA.bad{border-color:var(--tape);background:color-mix(in srgb,var(--tape) 12%,transparent)}
-.qzE{font-size:11.5px;color:var(--dim);line-height:1.6;border-left:3px solid var(--brass);
+.qzE{font-size:calc(11.5px*var(--fs,1));color:var(--dim);line-height:1.6;border-left:3px solid var(--brass);
   padding:9px 11px;background:var(--ink3);border-radius:0 8px 8px 0;margin-bottom:10px}
-.qzProg{font-size:11px;color:var(--dim);margin-bottom:10px;letter-spacing:.08em}
+.qzProg{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-bottom:10px;letter-spacing:.08em}
 .lvHead{display:flex;gap:14px;align-items:center;margin-bottom:12px}
 #lvThumb{width:66px;height:85px;flex:none;border-radius:12px;border:2px solid var(--grid);
   background:var(--ink3)}
 .lvBrief{margin-top:10px;border-left:3px solid var(--sky);background:var(--ink3);
-  border-radius:0 12px 12px 0;padding:10px 12px;font-size:11.5px;line-height:1.6;color:var(--dim)}
-.lvBrief b{display:block;color:var(--skyT);font-size:11px;letter-spacing:.08em;
+  border-radius:0 12px 12px 0;padding:10px 12px;font-size:calc(11.5px*var(--fs,1));line-height:1.6;color:var(--dim)}
+.lvBrief b{display:block;color:var(--skyT);font-size:calc(11px*var(--fs,1));letter-spacing:.08em;
   text-transform:uppercase;margin-bottom:4px}
 .lvGoals{display:flex;flex-direction:column;gap:6px}
 .lvG{display:flex;align-items:center;gap:9px;border:1px solid var(--grid);background:var(--ink2);
-  border-radius:11px;padding:8px 10px;font-size:11.5px}
+  border-radius:11px;padding:8px 10px;font-size:calc(11.5px*var(--fs,1))}
 .lvG i{width:20px;height:20px;flex:none;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-style:normal;font-size:11px;font-weight:800;
+  justify-content:center;font-style:normal;font-size:calc(11px*var(--fs,1));font-weight:800;
   background:var(--ink3);color:var(--dim)}
 .lvG.ok i{background:var(--brass);color:#fff}
 .lvG b{font-weight:600}
-.lvG s{text-decoration:none;color:var(--dim);font-size:11px;display:block;margin-top:2px}
+.lvG s{text-decoration:none;color:var(--dim);font-size:calc(11px*var(--fs,1));display:block;margin-top:2px}
 .lvDeck{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .lvD{border:1px solid var(--grid);background:var(--ink2);border-radius:12px;padding:6px 4px;
   width:56px;text-align:center;box-shadow:var(--elev1)}
 .lvD canvas{width:28px;height:28px;display:block;margin:0 auto}
-.lvD span{font-size:11px;color:var(--dim);display:block;margin-top:3px}
+.lvD span{font-size:calc(11px*var(--fs,1));color:var(--dim);display:block;margin-top:3px}
 .lvD.off{opacity:.35;filter:grayscale(1)}
 .lvA{width:100%;display:flex;gap:6px;margin-top:4px}
-.lvA span{flex:1;display:flex;align-items:center;gap:5px;font-size:11px;color:var(--skyT);
+.lvA span{flex:1;display:flex;align-items:center;gap:5px;font-size:calc(11px*var(--fs,1));color:var(--skyT);
   background:color-mix(in srgb,var(--sky) 12%,transparent);border-radius:10px;padding:6px 8px}
 .lvA svg{width:14px;height:14px}
 .lvBan{margin-top:10px;border-left:3px solid var(--tape);background:color-mix(in srgb,var(--tape) 10%,transparent);
-  padding:8px 11px;font-size:11.5px;line-height:1.5;border-radius:0 10px 10px 0}
+  padding:8px 11px;font-size:calc(11.5px*var(--fs,1));line-height:1.5;border-radius:0 10px 10px 0}
 .lvBan b{color:var(--tape)}
-.lvName{font-size:19px;font-weight:800;line-height:1.2}
+.lvName{font-size:calc(19px*var(--fs,1));font-weight:800;line-height:1.2}
 .lvStars{display:flex;gap:4px;margin-top:6px}
 .stIco{width:22px;height:22px;fill:#e3ebf0;stroke:#c3d3dd;stroke-width:1.2}
 .stIco.on{fill:#ffb01f;stroke:#e08c00}
-.lvMeta{font-size:11.5px;color:var(--dim);margin-top:5px}
+.lvMeta{font-size:calc(11.5px*var(--fs,1));color:var(--dim);margin-top:5px}
 .tiBox{padding:0;overflow:hidden}
 .tiBanner{display:flex;gap:14px;align-items:center;padding:16px 16px 14px;
   background:linear-gradient(180deg,var(--rcL,var(--ink2)) 0 34%,var(--rc,var(--ink2b)));position:relative}
@@ -633,21 +637,21 @@ html[data-theme="night"] .tiBanner{background:linear-gradient(150deg,
   border:2px solid rgba(255,255,255,.9);box-shadow:var(--elev1)}
 html[data-theme="night"] #tiGlyph{background:rgba(255,255,255,.12)}
 .tiBt{flex:1;min-width:0}
-.tiRarChip{display:inline-block;font-size:11px;font-weight:800;color:#fff;background:var(--rc);
+.tiRarChip{display:inline-block;font-size:calc(11px*var(--fs,1));font-weight:800;color:#fff;background:var(--rc);
   border-radius:999px;padding:3px 9px;letter-spacing:.05em}
 html[data-theme="night"] .tiRarChip{color:#0a1626}
-.tiName{font-size:19px;font-weight:800;line-height:1.15;margin-top:6px}
-.tiSub{font-size:11.5px;color:var(--paper);opacity:.7;margin-top:4px}
+.tiName{font-size:calc(19px*var(--fs,1));font-weight:800;line-height:1.15;margin-top:6px}
+.tiSub{font-size:calc(11.5px*var(--fs,1));color:var(--paper);opacity:.7;margin-top:4px}
 .tiDemoWrap{margin:14px 16px 0;position:relative;border-radius:16px;overflow:hidden;
   border:1px solid var(--grid);background:var(--ink3)}
 #tiDemo{display:block;width:100%}
-.tiDemoLbl{position:absolute;left:9px;top:8px;z-index:2;font-size:11px;font-weight:800;
+.tiDemoLbl{position:absolute;left:9px;top:8px;z-index:2;font-size:calc(11px*var(--fs,1));font-weight:800;
   letter-spacing:.1em;color:#fff;background:rgba(20,40,55,.55);border-radius:999px;padding:3px 9px}
-.tiDemoNote{padding:8px 11px;font-size:11.5px;line-height:1.5;color:var(--dim);
+.tiDemoNote{padding:8px 11px;font-size:calc(11.5px*var(--fs,1));line-height:1.5;color:var(--dim);
   border-top:1px solid var(--grid);background:var(--ink2)}
 .perkTree{margin:0 16px}
 .perkTier{margin-bottom:12px}
-.perkHd{font-size:11px;letter-spacing:.08em;color:var(--dim);font-weight:700;margin-bottom:7px;
+.perkHd{font-size:calc(11px*var(--fs,1));letter-spacing:.08em;color:var(--dim);font-weight:700;margin-bottom:7px;
   display:flex;justify-content:space-between;align-items:center}
 .perkRow{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:relative}
 .perkRow:before{content:'';position:absolute;left:50%;top:-9px;width:2px;height:9px;
@@ -655,15 +659,15 @@ html[data-theme="night"] .tiRarChip{color:#0a1626}
 .perk{border:2px solid var(--grid);background:var(--ink2);border-radius:14px;padding:10px;
   cursor:pointer;box-shadow:var(--elev1);transition:transform .08s}
 .perk:active{transform:translateY(1px)}
-.perk .pkn{font-size:11.5px;font-weight:700;line-height:1.25}
-.perk .pki{font-size:11px;font-weight:900;color:var(--moss);margin-top:4px}
-.pkd{font-size:11px;color:var(--dim);margin-top:4px;line-height:1.4}
-.perk .pkc{font-size:11px;font-weight:800;color:var(--brass);margin-top:6px}
+.perk .pkn{font-size:calc(11.5px*var(--fs,1));font-weight:700;line-height:1.25}
+.perk .pki{font-size:calc(11px*var(--fs,1));font-weight:900;color:var(--moss);margin-top:4px}
+.pkd{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:4px;line-height:1.4}
+.perk .pkc{font-size:calc(11px*var(--fs,1));font-weight:800;color:var(--brass);margin-top:6px}
 .perk.on{border-color:var(--moss);background:color-mix(in srgb,var(--moss) 12%,var(--ink2))}
 .perk.on .pkc{color:var(--moss)}
 .perk.locked{opacity:.5}
 .perk.gen{border-style:dashed}
-.perkLocked{font-size:11px;color:var(--dim);border:1px dashed var(--grid);border-radius:12px;
+.perkLocked{font-size:calc(11px*var(--fs,1));color:var(--dim);border:1px dashed var(--grid);border-radius:12px;
   padding:11px;text-align:center;margin-bottom:12px;line-height:1.5}
 .perkRow:before{content:'';position:absolute;left:50%;top:-9px;width:2px;height:9px;
   background:var(--grid);transform:translateX(-50%)}
@@ -671,7 +675,7 @@ html[data-theme="night"] .tiRarChip{color:#0a1626}
   height:2px;background:var(--grid)}
 .perk.blocked{opacity:.35;filter:grayscale(.8)}
 .tiBars{margin:14px 16px 0;display:flex;flex-direction:column;gap:8px}
-.tiBar{display:flex;align-items:center;gap:9px;font-size:11px}
+.tiBar{display:flex;align-items:center;gap:9px;font-size:calc(11px*var(--fs,1))}
 .tiBar span{width:74px;flex:none;color:var(--dim);font-weight:600}
 .tiBar div{flex:1;height:10px;border-radius:6px;background:var(--ink3);overflow:hidden;
   border:1px solid var(--line)}
@@ -684,22 +688,22 @@ html[data-theme="night"] .tiRarChip{color:#0a1626}
 .tiHead{display:flex;gap:13px;align-items:center;margin-bottom:14px}
 #tiGlyph{width:58px;height:58px;flex:none;background:var(--ink3);border-radius:12px;
   border:1px solid var(--grid)}
-.tiName{font-size:16px;font-weight:700;line-height:1.25}
-.tiRar{font-size:11px;color:var(--dim);margin-top:4px;display:flex;gap:7px;align-items:center}
-.tiRar span{border-radius:999px;padding:2px 8px;color:#fff;font-weight:700;font-size:11px}
+.tiName{font-size:calc(16px*var(--fs,1));font-weight:700;line-height:1.25}
+.tiRar{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:4px;display:flex;gap:7px;align-items:center}
+.tiRar span{border-radius:999px;padding:2px 8px;color:#fff;font-weight:700;font-size:calc(11px*var(--fs,1))}
 html[data-theme="night"] .tiRar span{color:#06111a}
-.tiSect{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);
+.tiSect{font-size:calc(11px*var(--fs,1));letter-spacing:.12em;text-transform:uppercase;color:var(--dim);
   margin:14px 0 7px;font-weight:600}
-.tiP{font-size:12.5px;line-height:1.65;margin:0;color:var(--paper)}
+.tiP{font-size:calc(12.5px*var(--fs,1));line-height:1.65;margin:0;color:var(--paper)}
 .tiFact{margin-top:9px;border-left:3px solid var(--brass);background:var(--ink3);
-  padding:9px 11px;font-size:11.5px;line-height:1.55;color:var(--dim);border-radius:0 8px 8px 0}
+  padding:9px 11px;font-size:calc(11.5px*var(--fs,1));line-height:1.55;color:var(--dim);border-radius:0 8px 8px 0}
 .tiTier{display:flex;align-items:center;gap:9px;padding:7px 0;border-top:1px solid var(--line);
-  font-size:11.5px}
+  font-size:calc(11.5px*var(--fs,1))}
 .tiTier:first-child{border-top:0}
 .tiTier .tt{flex:1}
-.tiTier .tv{color:var(--dim);font-family:ui-monospace,monospace;font-size:11px}
+.tiTier .tv{color:var(--dim);font-family:ui-monospace,monospace;font-size:calc(11px*var(--fs,1))}
 .tiTier .tb{width:20px;height:20px;border-radius:50%;background:var(--ink3);border:1px solid var(--grid);
-  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none}
+  display:flex;align-items:center;justify-content:center;font-size:calc(11px*var(--fs,1));font-weight:700;flex:none}
 .dqic{width:34px;height:34px;flex:none;border-radius:11px;display:flex;align-items:center;
   justify-content:center;color:var(--sky);background:color-mix(in srgb,var(--sky) 15%,transparent)}
 .dqic svg{width:19px;height:19px}
@@ -707,12 +711,12 @@ html[data-theme="night"] .tiRar span{color:#06111a}
 .dq{display:flex;align-items:center;gap:10px;border:2px solid var(--stroke);background:var(--ink2);
   border-radius:var(--r1);padding:9px 10px;margin-bottom:6px;box-shadow:var(--elev1)}
 .dq .dqi{flex:1;min-width:0}
-.dq .dqn{font-size:12.5px;font-weight:500}
+.dq .dqn{font-size:calc(12.5px*var(--fs,1));font-weight:500}
 .dq .dqb{height:6px;background:var(--ink3);border:1px solid var(--line);border-radius:4px;
   margin-top:6px;overflow:hidden}
 .dq .dqb i{display:block;height:100%;background:var(--laser)}
-.dq .dqp{font-size:11px;color:var(--dim);margin-top:5px}
-.dq button{width:78px;font-size:11px;padding:8px 2px;min-height:44px}
+.dq .dqp{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:5px}
+.dq button{width:78px;font-size:calc(11px*var(--fs,1));padding:8px 2px;min-height:44px}
 .dq.done{opacity:.55}
 .dq.ready{border-color:var(--brass);box-shadow:0 0 0 2px color-mix(in srgb,var(--brass) 28%,transparent)}
 #deckRow{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
@@ -726,22 +730,22 @@ html[data-theme="night"] .tiRar span{color:#06111a}
 .dslot.empty .dplus{color:var(--onBg);opacity:1;text-shadow:0 1px 0 rgba(11,18,54,.7)}
 .dslot canvas{width:38px;height:38px;display:block;margin:0 auto;
   filter:drop-shadow(0 2px 0 rgba(11,16,48,.28))}
-.dslot .dn{font-size:11px;font-weight:900;line-height:1.1;margin-top:4px;height:18px;
+.dslot .dn{font-size:calc(11px*var(--fs,1));font-weight:900;line-height:1.1;margin-top:4px;height:18px;
   letter-spacing:-.045em;white-space:nowrap;margin-left:-3px;margin-right:-3px;
   display:flex;align-items:center;justify-content:center;color:var(--paper);
   text-transform:uppercase;overflow:hidden}
 .dslot .dlv{position:absolute;right:-3px;top:-3px;background:var(--brass);color:var(--stroke);
-  border:2px solid var(--stroke);font-size:11px;font-weight:900;border-radius:999px;min-width:15px;height:15px;
+  border:2px solid var(--stroke);font-size:calc(11px*var(--fs,1));font-weight:900;border-radius:999px;min-width:15px;height:15px;
   display:flex;align-items:center;justify-content:center;padding:0 3px}
-.dslot .dplus{font-size:19px;color:var(--dim);line-height:32px}
+.dslot .dplus{font-size:calc(19px*var(--fs,1));color:var(--dim);line-height:32px}
 .dslot .drar{position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--dc,#8ea3c9);
   border-top:2px solid var(--stroke)}
 .deckPresets{display:flex;gap:7px;margin-top:8px}
-.deckPresets button{flex:1;font-size:11px;font-weight:900;padding:10px 4px;border-radius:12px}
+.deckPresets button{flex:1;font-size:calc(11px*var(--fs,1));font-weight:900;padding:10px 4px;border-radius:12px}
 .deckPresets button.on{color:#fff;border-color:var(--stroke);
   background:linear-gradient(180deg,var(--laser),var(--sky));box-shadow:0 3px 0 var(--stroke)}
 .deckBtns{display:flex;gap:7px;margin-top:7px}
-.deckBtns button{flex:1;font-size:11px;font-weight:900;padding:10px 4px;border-radius:12px}
+.deckBtns button{flex:1;font-size:calc(11px*var(--fs,1));font-weight:900;padding:10px 4px;border-radius:12px}
 .ptrow.off{opacity:.45}
 .ptrow{display:flex;align-items:center;gap:11px;padding:9px 10px;border:1px solid var(--grid);
   background:var(--ink2);border-radius:var(--r1);margin-bottom:7px;cursor:pointer}
@@ -749,9 +753,9 @@ html[data-theme="night"] .tiRar span{color:#06111a}
 .ptrow.on{border-color:var(--laser);box-shadow:0 0 0 2px color-mix(in srgb,var(--laser) 25%,transparent)}
 .ptrow canvas{width:36px;height:36px;flex:none}
 .ptrow .pi{flex:1;min-width:0}
-.ptrow .pn2{font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px}
-.ptrow .pd2{font-size:11.5px;color:var(--dim);margin-top:4px;line-height:1.5}
-.ptrow .prar{font-size:11px;border-radius:999px;padding:2px 7px;color:#fff;font-weight:700}
+.ptrow .pn2{font-size:calc(13px*var(--fs,1));font-weight:600;display:flex;align-items:center;gap:7px}
+.ptrow .pd2{font-size:calc(11.5px*var(--fs,1));color:var(--dim);margin-top:4px;line-height:1.5}
+.ptrow .prar{font-size:calc(11px*var(--fs,1));border-radius:999px;padding:2px 7px;color:#fff;font-weight:700}
 html[data-theme="night"] .ptrow .prar{color:#06111a}
 #chalCard{border:2px solid var(--violet);border-radius:var(--r2);padding:12px;
   background:linear-gradient(180deg,var(--violetL) 0 34%,var(--violet));
@@ -759,9 +763,9 @@ html[data-theme="night"] .ptrow .prar{color:#06111a}
 html[data-theme="night"] #chalCard{background:linear-gradient(160deg,
   color-mix(in srgb,var(--violet) 26%,#132539),#132539)}
 .spT{display:flex;justify-content:space-between;gap:10px}
-.spN{font-size:15px;font-weight:800}
-.spD{font-size:11.5px;color:var(--dim);margin-top:4px;line-height:1.5}
-.spB{font-size:11px;color:var(--brass);font-weight:700;margin-top:8px}
+.spN{font-size:calc(15px*var(--fs,1));font-weight:800}
+.spD{font-size:calc(11.5px*var(--fs,1));color:var(--dim);margin-top:4px;line-height:1.5}
+.spB{font-size:calc(11px*var(--fs,1));color:var(--brass);font-weight:700;margin-top:8px}
 #todoBox{margin-bottom:16px}
 .dailyJob{display:flex;align-items:center;gap:11px;border:3px solid var(--stroke);
   border-radius:var(--r2);padding:12px;margin-bottom:14px;position:relative;overflow:hidden;
@@ -771,21 +775,21 @@ html[data-theme="night"] #chalCard{background:linear-gradient(160deg,
 .djIc{width:40px;height:40px;flex:none;border-radius:12px;background:rgba(255,255,255,.55);
   display:flex;align-items:center;justify-content:center;color:var(--paper)}
 .djIc svg{width:24px;height:24px;fill:none;stroke:currentColor}
-.djT{flex:1}.djT b{font-size:14px;font-weight:900;display:block}
-.djT s{text-decoration:none;font-size:11px;opacity:.85;display:block;margin-top:2px}
-.djB{font-size:11px;font-weight:900;background:var(--stroke);color:#fff;border-radius:999px;padding:6px 11px}
-.timerChip{margin-left:auto;font-size:11px;font-weight:800;color:#fff;
+.djT{flex:1}.djT b{font-size:calc(14px*var(--fs,1));font-weight:900;display:block}
+.djT s{text-decoration:none;font-size:calc(11px*var(--fs,1));opacity:.85;display:block;margin-top:2px}
+.djB{font-size:calc(11px*var(--fs,1));font-weight:900;background:var(--stroke);color:#fff;border-radius:999px;padding:6px 11px}
+.timerChip{margin-left:auto;font-size:calc(11px*var(--fs,1));font-weight:800;color:#fff;
   background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.28);
   border-radius:999px;padding:3px 9px;text-transform:none;letter-spacing:0}
-.todoH{font-size:11px;letter-spacing:.09em;color:var(--onBg);text-transform:uppercase;
+.todoH{font-size:calc(11px*var(--fs,1));letter-spacing:.09em;color:var(--onBg);text-transform:uppercase;
   font-weight:800;margin-bottom:8px}
 .todoI{display:flex;align-items:center;gap:10px;border:2px solid var(--stroke);background:var(--ink2);
   border-radius:var(--r1);padding:11px 12px;margin-bottom:7px;box-shadow:var(--elev1);cursor:pointer}
 .todoI:active{transform:translateY(1px)}
 .todoI .tdT{flex:1;min-width:0}
-.todoI b{font-size:12.5px;font-weight:700;display:block}
-.todoI s{text-decoration:none;font-size:11px;color:var(--dim);display:block;margin-top:3px}
-.todoI span{color:var(--dim);font-size:18px}
+.todoI b{font-size:calc(12.5px*var(--fs,1));font-weight:700;display:block}
+.todoI s{text-decoration:none;font-size:calc(11px*var(--fs,1));color:var(--dim);display:block;margin-top:3px}
+.todoI span{color:var(--dim);font-size:calc(18px*var(--fs,1))}
 #bossCard{border:2px solid var(--tape);border-radius:var(--r2);padding:12px;
   background:linear-gradient(180deg,var(--tapeL) 0 34%,var(--tape));
   box-shadow:var(--elev2);margin-bottom:4px}
@@ -799,61 +803,61 @@ html[data-theme="night"] #sprintCard{background:linear-gradient(160deg,
   color-mix(in srgb,var(--sky) 24%,#132539),#132539)}
 #sprintCard button{margin-top:10px;border-color:var(--sky);color:var(--sky)}
 .chTop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-.chN{font-size:15px;font-weight:800}
-.chW{font-size:11px;color:var(--dim);margin-top:3px}
-.chDone{font-size:11px;font-weight:800;color:#fff;background:var(--moss);
+.chN{font-size:calc(15px*var(--fs,1));font-weight:800}
+.chW{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:3px}
+.chDone{font-size:calc(11px*var(--fs,1));font-weight:800;color:#fff;background:var(--moss);
   border-radius:999px;padding:4px 9px}
 .chMods{display:flex;flex-direction:column;gap:6px;margin:10px 0 4px}
-.chMods span{font-size:11px;color:var(--dim);line-height:1.45;background:var(--ink3);
+.chMods span{font-size:calc(11px*var(--fs,1));color:var(--dim);line-height:1.45;background:var(--ink3);
   border-radius:10px;padding:7px 10px}
-.chMods b{display:block;color:var(--violet);font-size:11.5px;margin-bottom:2px}
-.chBest{font-size:11px;color:var(--brass);font-weight:700;margin-top:6px}
+.chMods b{display:block;color:var(--violet);font-size:calc(11.5px*var(--fs,1));margin-bottom:2px}
+.chBest{font-size:calc(11px*var(--fs,1));color:var(--brass);font-weight:700;margin-top:6px}
 .chTiers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:10px}
 .chTiers button{flex-direction:column;gap:2px;padding:9px 4px;border-radius:12px;
   border-color:var(--violet);color:var(--violet)}
-.chTiers button b{font-size:11.5px;font-weight:800}
-.chTiers button s{text-decoration:none;font-size:11px;color:var(--dim)}
-.chTiers button i{font-style:normal;font-size:11px;color:var(--brass);font-weight:700}
+.chTiers button b{font-size:calc(11.5px*var(--fs,1));font-weight:800}
+.chTiers button s{text-decoration:none;font-size:calc(11px*var(--fs,1));color:var(--dim)}
+.chTiers button i{font-style:normal;font-size:calc(11px*var(--fs,1));color:var(--brass);font-weight:700}
 .chTiers button.done{opacity:.5}
 /* Ktera obtiznost plati pro velke HRAT. */
 .chTiers button.sel{border-color:var(--brass);
   box-shadow:0 0 0 2px color-mix(in srgb,var(--brass) 30%,transparent)}
 .chHist{margin-top:10px;border-top:1px solid var(--line);padding-top:8px}
-.chHt{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
+.chHt{font-size:calc(11px*var(--fs,1));letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
   font-weight:700;margin-bottom:6px}
-.chHr{display:flex;align-items:center;gap:8px;font-size:11px;padding:3px 0}
+.chHr{display:flex;align-items:center;gap:8px;font-size:calc(11px*var(--fs,1));padding:3px 0}
 .chHr span{color:var(--dim);width:42px;flex:none;font-variant-numeric:tabular-nums}
 .chHr b{flex:1;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.chHr i{font-style:normal;color:var(--dim);font-size:11px}
+.chHr i{font-style:normal;color:var(--dim);font-size:calc(11px*var(--fs,1))}
 .chHr i.ok{color:var(--moss);font-weight:700}
 .foldSec{border:3px solid var(--stroke);background:var(--ink2);border-radius:var(--r2);
   margin-top:14px;box-shadow:var(--elev1);overflow:hidden}
-.foldSec summary{list-style:none;cursor:pointer;padding:13px 14px;font-size:12px;font-weight:900;
+.foldSec summary{list-style:none;cursor:pointer;padding:13px 14px;font-size:calc(12px*var(--fs,1));font-weight:900;
   letter-spacing:.06em;text-transform:uppercase;color:var(--paper);display:flex;
   justify-content:space-between;align-items:center}
 .foldSec summary::-webkit-details-marker{display:none}
-.foldSec summary:after{content:'▾';color:var(--dim);font-size:13px;transition:transform .2s}
+.foldSec summary:after{content:'▾';color:var(--dim);font-size:calc(13px*var(--fs,1));transition:transform .2s}
 .foldSec[open] summary:after{transform:rotate(180deg)}
 .foldSec>*:not(summary){padding:0 12px 13px}
 #statGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .rlRow{display:flex;align-items:center;gap:9px;padding:8px 0;border-top:1px solid var(--line);
-  font-size:11.5px}
+  font-size:calc(11.5px*var(--fs,1))}
 .rlRow:first-child{border-top:0}
-.rlD{width:38px;flex:none;color:var(--dim);font-size:11px;font-variant-numeric:tabular-nums}
+.rlD{width:38px;flex:none;color:var(--dim);font-size:calc(11px*var(--fs,1));font-variant-numeric:tabular-nums}
 .rlT{flex:1;min-width:0}
 .rlT b{font-weight:700}
-.rlT i{font-style:normal;font-size:11px;color:var(--violet);border:1px solid var(--violet);
+.rlT i{font-style:normal;font-size:calc(11px*var(--fs,1));color:var(--violet);border:1px solid var(--violet);
   border-radius:999px;padding:1px 6px;margin-left:4px}
-.rlT s{text-decoration:none;display:block;color:var(--dim);font-size:11px;margin-top:2px}
-.rlS{color:var(--brass);font-size:11px;letter-spacing:1px;flex:none}
+.rlT s{text-decoration:none;display:block;color:var(--dim);font-size:calc(11px*var(--fs,1));margin-top:2px}
+.rlS{color:var(--brass);font-size:calc(11px*var(--fs,1));letter-spacing:1px;flex:none}
 .rlRow.ok .rlT b{color:var(--moss)}
 .stCell{border:1px solid var(--grid);border-radius:var(--r1);padding:10px 6px;text-align:center;
   background:linear-gradient(180deg,color-mix(in srgb,var(--sc) 45%,var(--ink2)) 0 34%,var(--sc));
   border-color:color-mix(in srgb,var(--sc) 45%,var(--ink2));box-shadow:var(--elev1)}
 html[data-theme="night"] .stCell{background:linear-gradient(160deg,
   color-mix(in srgb,var(--sc) 25%,#132539),#132539)}
-.stCell b{display:block;font-size:17px;font-weight:800;color:var(--sc)}
-.stCell span{font-size:11px;color:var(--dim);line-height:1.3;display:block;margin-top:3px}
+.stCell b{display:block;font-size:calc(17px*var(--fs,1));font-weight:800;color:var(--sc)}
+.stCell span{font-size:calc(11px*var(--fs,1));color:var(--dim);line-height:1.3;display:block;margin-top:3px}
 #slotRow{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
 .slot{border:3px solid var(--stroke);border-radius:var(--r2);
   background:linear-gradient(180deg,var(--cc,var(--ink2)) 0%,var(--cc,var(--ink2)) 32%,
@@ -875,36 +879,36 @@ html[data-theme="night"] .stCell{background:linear-gradient(160deg,
 .slot.ready{border-color:var(--laser);box-shadow:0 0 0 2px color-mix(in srgb,var(--laser) 28%,transparent)}
 .slot.ready .slid{animation:lidwig 1.4s ease-in-out infinite}
 @keyframes lidwig{0%,100%{transform:none}50%{transform:rotate(-14deg) translateY(-3px)}}
-.slot .sn{font-size:11px;line-height:1.2;height:22px;display:flex;align-items:center;justify-content:center}
-.slot .sc{font-size:11px;color:var(--dim);margin-top:2px;font-weight:700}
+.slot .sn{font-size:calc(11px*var(--fs,1));line-height:1.2;height:22px;display:flex;align-items:center;justify-content:center}
+.slot .sc{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:2px;font-weight:700}
 .slot{position:relative}
 .sInfo{position:absolute;right:2px;top:2px;width:18px;height:18px;min-height:18px;
   padding:0;border-radius:50%;
-  font-size:11px;font-weight:900;color:#fff;background:linear-gradient(180deg,#4a5aa8,#2b3670);
+  font-size:calc(11px*var(--fs,1));font-weight:900;color:#fff;background:linear-gradient(180deg,#4a5aa8,#2b3670);
   box-shadow:none;border:2px solid var(--stroke);line-height:1;z-index:2}
-.slot .st{font-size:11px;font-weight:800;color:var(--dim);margin-top:4px;font-variant-numeric:tabular-nums;font-weight:600}
+.slot .st{font-size:calc(11px*var(--fs,1));font-weight:800;color:var(--dim);margin-top:4px;font-variant-numeric:tabular-nums;font-weight:600}
 .slot.ready .st b{color:var(--laser)}
 .slot.idle .st b{color:var(--brass)}
 .slot.unlocking .st{color:var(--sky)}
 .arenaBar{margin-top:12px;padding:10px 12px}
 .arenaBar .ab1{display:flex;justify-content:space-between;align-items:baseline;
-  font-size:12.5px;font-weight:600;margin-bottom:8px;gap:8px}
-.arenaBar #arenaNext{font-size:11px;color:var(--dim);font-weight:400}
+  font-size:calc(12.5px*var(--fs,1));font-weight:600;margin-bottom:8px;gap:8px}
+.arenaBar #arenaNext{font-size:calc(11px*var(--fs,1));color:var(--dim);font-weight:400}
 #arenaFill{height:100%;background:linear-gradient(90deg,var(--brass),#ffd45e);width:0;border-radius:5px;transition:width .3s}
 .xpbar{height:10px;background:var(--ink3);border:1px solid var(--line);border-radius:6px;overflow:hidden}
 #xpfill{height:100%;background:var(--brass);width:0;border-radius:5px;transition:width .3s}
-.xptxt{font-size:11px;color:var(--onBgDim);margin:6px 0 12px}
+.xptxt{font-size:calc(11px*var(--fs,1));color:var(--onBgDim);margin:6px 0 12px}
 .step{display:flex;align-items:center;gap:11px;padding:9px 0;border-top:1px solid var(--line)}
 .step:first-child{border-top:0}
 .step .num{width:26px;height:26px;flex:none;border-radius:50%;border:1px solid var(--grid);
-  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;font-size:calc(11px*var(--fs,1));font-weight:600;
   color:var(--dim);background:var(--ink3)}
 .step.done .num{background:var(--brass);border-color:var(--brass);color:var(--ink2)}
 .step.next .num{border-color:var(--laser);color:var(--laser)}
-.step .sn{flex:1;font-size:12.5px}
+.step .sn{flex:1;font-size:calc(12.5px*var(--fs,1))}
 .step.done .sn{color:var(--dim)}
 .step.next .sn{font-weight:600}
-.step .tag{font-size:11px;letter-spacing:.08em;color:var(--dim);text-transform:uppercase}
+.step .tag{font-size:calc(11px*var(--fs,1));letter-spacing:.08em;color:var(--dim);text-transform:uppercase}
 
 #seasonBox{border:3px solid var(--stroke);border-radius:var(--r3);padding:14px;position:relative;
   overflow:hidden;
@@ -918,11 +922,11 @@ html[data-theme="night"] .stCell{background:linear-gradient(160deg,
 html[data-theme="night"] #seasonBox{background:linear-gradient(160deg,
   color-mix(in srgb,var(--violet) 26%,#132539),#132539)}
 .seHead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-.seN{font-size:17px;font-weight:900;color:#fff;text-shadow:0 2px 0 rgba(11,16,48,.5)}
-.seD{font-size:11px;color:rgba(255,255,255,.82);margin-top:3px;line-height:1.45}
+.seN{font-size:calc(17px*var(--fs,1));font-weight:900;color:#fff;text-shadow:0 2px 0 rgba(11,16,48,.5)}
+.seD{font-size:calc(11px*var(--fs,1));color:rgba(255,255,255,.82);margin-top:3px;line-height:1.45}
 .seLv{width:46px;height:46px;flex:none;border-radius:14px;color:var(--stroke);
   background:linear-gradient(180deg,#ffe08a,#f0a91d);border:3px solid var(--stroke);
-  display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;font-size:calc(20px*var(--fs,1));font-weight:900;
   box-shadow:0 4px 0 var(--stroke)}
 .seBar{position:relative;height:18px;border-radius:10px;background:rgba(11,16,48,.45);
   margin:12px 0 10px;overflow:hidden;border:3px solid var(--stroke)}
@@ -932,19 +936,19 @@ html[data-theme="night"] #seasonBox{background:linear-gradient(160deg,
     repeating-linear-gradient(115deg,rgba(255,255,255,.35) 0 6px,transparent 6px 14px);
   background-blend-mode:overlay}
 .seBar span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:900;color:#fff;text-shadow:0 1px 2px rgba(11,16,48,.9)}
+  font-size:calc(11px*var(--fs,1));font-weight:900;color:#fff;text-shadow:0 1px 2px rgba(11,16,48,.9)}
 .seTrack{display:flex;gap:7px;overflow-x:auto;padding:6px 2px 8px;-webkit-overflow-scrolling:touch;
   position:relative;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 22px),transparent);
   mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 22px),transparent)}
-.seLabels{display:flex;gap:6px;margin:2px 0 4px;font-size:11px;font-weight:900;
+.seLabels{display:flex;gap:6px;margin:2px 0 4px;font-size:calc(11px*var(--fs,1));font-weight:900;
   text-transform:uppercase;letter-spacing:.05em}
 .seLabels span{border-radius:9px;padding:5px 10px;border:2px solid var(--stroke);
   box-shadow:0 2px 0 var(--stroke)}
 .seLabels .l1{background:linear-gradient(180deg,#fff,#dbe7f6);color:var(--paper)}
 .seLabels .l2{background:linear-gradient(180deg,#c79bff,#7b3ff0);color:#fff}
 .seCol{flex:0 0 78px;text-align:center;position:relative}
-.seNum{font-size:11px;font-weight:900;color:var(--onDeep);margin-bottom:5px;
+.seNum{font-size:calc(11px*var(--fs,1));font-weight:900;color:var(--onDeep);margin-bottom:5px;
   text-shadow:0 1px 0 rgba(11,18,54,.75);
   background:#39468a;border:2px solid var(--stroke);border-radius:999px;padding:2px 0}
 .seCol.open .seNum{background:linear-gradient(180deg,var(--laser),var(--sky))}
@@ -952,7 +956,7 @@ html[data-theme="night"] #seasonBox{background:linear-gradient(160deg,
 html[data-theme="hc"] .seNum{background:#fff;color:#06131c;text-shadow:none}
 html[data-theme="hc"] .seCol.open .seNum,html[data-theme="hc"] .seCol.now .seNum{
   background:#06131c;color:#fff}
-.seCell{font-size:11px;font-weight:800;line-height:1.2;border-radius:12px;padding:8px 4px;
+.seCell{font-size:calc(11px*var(--fs,1));font-weight:800;line-height:1.2;border-radius:12px;padding:8px 4px;
   margin-bottom:6px;min-height:46px;display:flex;align-items:center;justify-content:center;
   border:3px solid var(--stroke);background:linear-gradient(180deg,#fff,#dfeaf7);
   color:var(--paper);cursor:pointer;box-shadow:0 3px 0 var(--stroke)}
@@ -966,7 +970,7 @@ html[data-theme="hc"] .seCol.open .seNum,html[data-theme="hc"] .seCol.now .seNum
   border-radius:2px 2px 3px 3px;border:2px solid rgba(255,255,255,.85);border-top-width:5px;
   border-top-left-radius:6px;border-top-right-radius:6px}
 .seCell.got{position:relative}
-.seCell.got:after{content:'✓';position:absolute;right:4px;bottom:2px;font-size:11px;
+.seCell.got:after{content:'✓';position:absolute;right:4px;bottom:2px;font-size:calc(11px*var(--fs,1));
   font-weight:900;color:var(--moss)}
 .seTrack{position:relative}
 .seHead,.seBar,.seLabels,.seTrack,#seBuy{position:relative;z-index:1}
@@ -977,14 +981,14 @@ html[data-theme="hc"] .seCol.open .seNum,html[data-theme="hc"] .seCol.now .seNum
   border-radius:var(--r1);padding:9px 11px;margin-bottom:7px;box-shadow:var(--elev1)}
 .starRew.ready{border-color:var(--brass);box-shadow:0 0 0 2px color-mix(in srgb,var(--brass) 30%,transparent)}
 .starRew.done{opacity:.5}
-.srN{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:800;color:var(--brass);
+.srN{display:flex;align-items:center;gap:5px;font-size:calc(13px*var(--fs,1));font-weight:800;color:var(--brass);
   width:52px;flex:none}
 .srStar{width:16px;height:16px;fill:var(--brass)}
-.srT{flex:1;font-size:11.5px;color:var(--dim)}
+.srT{flex:1;font-size:calc(11.5px*var(--fs,1));color:var(--dim)}
 .srB{height:5px;background:var(--ink3);border:1px solid var(--line);border-radius:4px;
   margin-top:5px;overflow:hidden}
 .srB i{display:block;height:100%;background:var(--brass)}
-.starRew button{width:62px;font-size:11px;padding:8px 2px}
+.starRew button{width:62px;font-size:calc(11px*var(--fs,1));padding:8px 2px}
 .ach{display:flex;align-items:center;gap:10px;border:2px solid var(--stroke);background:var(--ink2);
   border-radius:var(--r2);padding:10px 11px;margin-bottom:8px;box-shadow:var(--elev1)}
 .ach.ready{border-color:var(--brass);box-shadow:0 0 0 2px color-mix(in srgb,var(--brass) 30%,transparent),var(--elev1)}
@@ -996,19 +1000,19 @@ html[data-theme="hc"] .seCol.open .seNum,html[data-theme="hc"] .seCol.now .seNum
 .achIc svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.8;
   stroke-linecap:round;stroke-linejoin:round}
 .achT{flex:1;min-width:0}
-.achN{font-size:12.5px;font-weight:700}
-.achD{font-size:11px;color:var(--dim);margin-top:2px}
+.achN{font-size:calc(12.5px*var(--fs,1));font-weight:700}
+.achD{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:2px}
 .achB{height:5px;background:var(--ink3);border:1px solid var(--line);border-radius:4px;
   margin-top:6px;overflow:hidden}
 .achB i{display:block;height:100%;background:var(--brass)}
-.achP{font-size:11px;color:var(--dim);margin-top:4px}
-.ach button{width:66px;font-size:11px;padding:8px 2px}
+.achP{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:4px}
+.ach button{width:66px;font-size:calc(11px*var(--fs,1));padding:8px 2px}
 .navDot{position:absolute;top:3px;right:calc(50% - 19px);width:11px;height:11px;border-radius:50%;
   background:var(--tape);border:2px solid var(--stroke);
   box-shadow:0 0 0 2px rgba(240,66,110,.35);animation:dotPulse 1.6s ease-in-out infinite}
 @keyframes dotPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
 #navBar button{position:relative}
-.roadFold{font-size:11px;color:var(--onBgDim);padding:8px 0;font-weight:600}
+.roadFold{font-size:calc(11px*var(--fs,1));color:var(--onBgDim);padding:8px 0;font-weight:600}
 #roadTrack{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;position:relative;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 28px),transparent);
   mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 28px),transparent);
@@ -1035,7 +1039,7 @@ html[data-theme="hc"] .seCol.open .seNum,html[data-theme="hc"] .seCol.now .seNum
 .rtSeg{flex:0 0 90px;text-align:center;position:relative;padding-bottom:2px;cursor:pointer}
 .rtYou{position:absolute;left:50%;transform:translateX(-50%);top:-2px;z-index:3;
   background:linear-gradient(180deg,#fff,#d7e6fb);color:var(--paper);border:2px solid var(--stroke);
-  border-radius:6px;font-size:11px;font-weight:900;padding:2px 6px;
+  border-radius:6px;font-size:calc(11px*var(--fs,1));font-weight:900;padding:2px 6px;
   box-shadow:0 2px 0 var(--stroke)}
 .rtBox{display:flex;gap:5px;justify-content:center;align-items:flex-end;min-height:62px;
   margin-bottom:9px}
@@ -1049,16 +1053,16 @@ html[data-theme="hc"] .seCol.open .seNum,html[data-theme="hc"] .seCol.now .seNum
 .rt-tower{background:linear-gradient(180deg,#fff,#dbeaff)}
 .rt-cards{background:linear-gradient(180deg,#fff,#e2f7ec)}
 .rt-res{background:linear-gradient(180deg,#fff,#fdefd0)}
-.rtN{font-size:12px;font-weight:900;color:var(--paper);line-height:1}
-.rtL{font-size:11px;color:var(--dim);font-weight:700}
-.rtL2{font-size:11px;color:var(--paper);font-weight:800;line-height:1.1}
+.rtN{font-size:calc(12px*var(--fs,1));font-weight:900;color:var(--paper);line-height:1}
+.rtL{font-size:calc(11px*var(--fs,1));color:var(--dim);font-weight:700}
+.rtL2{font-size:calc(11px*var(--fs,1));color:var(--paper);font-weight:800;line-height:1.1}
 .rtBoxIc{width:24px;height:20px;position:relative}
 .rtBoxIc i{position:absolute;left:0;right:0;bottom:0;height:13px;background:var(--cc);
   border-radius:4px;border:2px solid var(--stroke)}
 .rtBoxIc b{position:absolute;left:-1px;right:-1px;top:0;height:8px;background:var(--cc);
   border-radius:3px;border:2px solid var(--stroke);filter:brightness(1.2)}
 .rtNode{width:34px;height:34px;margin:0 auto;border-radius:50%;border:3px solid var(--stroke);
-  background:#5b6ba8;font-size:13px;color:#fff;font-size:12px;font-weight:900;display:flex;
+  background:#5b6ba8;font-size:calc(13px*var(--fs,1));color:#fff;font-size:calc(12px*var(--fs,1));font-weight:900;display:flex;
   align-items:center;justify-content:center;position:relative;z-index:2;
   box-shadow:0 3px 0 var(--stroke)}
 .rtSeg.done .rtNode{background:linear-gradient(180deg,#ffe08a,var(--brass));color:var(--stroke)}
@@ -1069,11 +1073,11 @@ html[data-theme="hc"] .seCol.open .seNum,html[data-theme="hc"] .seCol.now .seNum
 @keyframes nodePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
 .rtSeg.done .rtRw{box-shadow:0 3px 0 var(--stroke),0 0 12px color-mix(in srgb,var(--brass) 40%,transparent)}
 .rtSeg:not(.done) .rtRw{filter:grayscale(.55);opacity:.75}
-.rtTr{font-size:11px;font-weight:900;color:#fff;margin-top:6px;
+.rtTr{font-size:calc(11px*var(--fs,1));font-weight:900;color:#fff;margin-top:6px;
   background:linear-gradient(180deg,#ffd35c,#f39a13);border:2px solid var(--stroke);
   border-radius:999px;display:inline-block;padding:1px 9px;
   text-shadow:0 1px 0 rgba(11,16,48,.5)}
-.rtNm{font-size:11px;color:#cfe0ff;text-shadow:0 1px 0 rgba(11,16,48,.7);line-height:1.15;margin-top:2px;padding:0 3px;
+.rtNm{font-size:calc(11px*var(--fs,1));color:#cfe0ff;text-shadow:0 1px 0 rgba(11,16,48,.7);line-height:1.15;margin-top:2px;padding:0 3px;
   height:22px;overflow:hidden}
 .roadWrap{position:relative;padding:14px 12px 14px 52px;border-radius:var(--r3);
   background:linear-gradient(160deg,color-mix(in srgb,var(--brass) 45%,var(--ink2)),
@@ -1088,39 +1092,39 @@ html[data-theme="night"] .roadWrap{background:linear-gradient(160deg,
 .roadNode{position:absolute;left:-40px;top:50%;transform:translateY(-50%);
   width:28px;height:28px;border-radius:50%;z-index:2;border-width:3px;
   background:var(--ink2);border:3px solid var(--grid);display:flex;align-items:center;
-  justify-content:center;font-size:11px;font-weight:800;color:var(--dim)}
+  justify-content:center;font-size:calc(11px*var(--fs,1));font-weight:800;color:var(--dim)}
 .arena.done .roadNode{background:var(--brass);border-color:var(--stroke);color:var(--stroke)}
 .arena.next .roadNode{border-color:var(--brass);color:var(--brass);
   box-shadow:0 0 0 3px color-mix(in srgb,var(--brass) 25%,transparent)}
 .arena{position:relative;z-index:1;display:flex;gap:11px;align-items:center;padding-left:6px;padding:11px 0;border-top:1px solid var(--line)}
 .arena:first-child{border-top:0}
 .arena .anum{display:none;width:28px;height:28px;flex:none;border-radius:50%;border:1px solid var(--grid);
-  display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;font-size:calc(11.5px*var(--fs,1));font-weight:700;
   color:var(--dim);background:var(--ink3)}
 .arena.done .anum{background:var(--brass);border-color:var(--brass);color:var(--ink2)}
 .arena.next .anum{border-color:var(--laser);color:var(--laser)}
 .arena .atx{flex:1;min-width:0}
-.arena .an{font-size:13.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.arena .an{font-size:calc(13.5px*var(--fs,1));font-weight:600;display:flex;justify-content:space-between;gap:8px}
 .arena.done .an{color:var(--dim)}
-.arena .atr{font-size:11px;color:var(--brass);font-weight:600;flex:none}
-.arena .ad{font-size:11px;color:var(--dim);margin-top:3px}
+.arena .atr{font-size:calc(11px*var(--fs,1));color:var(--brass);font-weight:600;flex:none}
+.arena .ad{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:3px}
 .arena .arw{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
 .arena .arw span{border:1px solid var(--grid);background:var(--ink3);border-radius:999px;
-  font-size:11px;padding:4px 9px;color:var(--moss)}
+  font-size:calc(11px*var(--fs,1));padding:4px 9px;color:var(--moss)}
 .arena.done .arw span{color:var(--dim)}
 .ownBar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
 .ownBar>div{background:var(--ink2);border:3px solid var(--stroke);border-radius:var(--r1);
   padding:10px 8px;text-align:center;box-shadow:0 4px 0 var(--stroke),0 6px 14px rgba(6,12,32,.35)}
 .ownBar b{color:var(--paper)}
-.ownBar b{display:block;font-size:19px;font-weight:800}
-.ownBar span{font-size:11px;color:var(--dim);letter-spacing:.04em}
+.ownBar b{display:block;font-size:calc(19px*var(--fs,1));font-weight:800}
+.ownBar span{font-size:calc(11px*var(--fs,1));color:var(--dim);letter-spacing:.04em}
 .filtRow{display:flex;gap:4px;overflow-x:auto;margin-bottom:11px;background:var(--ink3);padding:4px;
   border-radius:var(--r2);border:1px solid var(--grid)}
-.filtRow button{flex:1 0 auto;font-size:11px;padding:8px 10px;white-space:nowrap;background:none;border:0;box-shadow:none;
+.filtRow button{flex:1 0 auto;font-size:calc(11px*var(--fs,1));padding:8px 10px;white-space:nowrap;background:none;border:0;box-shadow:none;
   color:var(--dim);border-radius:11px;font-weight:600}
 .filtRow button.on{background:linear-gradient(180deg,var(--laser),var(--sky));color:#fff;
   border:2px solid var(--stroke);box-shadow:0 3px 0 var(--stroke)}
-.ccard .cstat{font-size:11px;font-weight:700;letter-spacing:.05em;border-radius:999px;
+.ccard .cstat{font-size:calc(11px*var(--fs,1));font-weight:700;letter-spacing:.05em;border-radius:999px;
   padding:3px 8px;margin-top:6px;display:inline-block;align-self:flex-start}
 .ccard .cstat.have{background:color-mix(in srgb,var(--moss) 20%,transparent);color:var(--moss)}
 .ccard .cstat.miss{background:color-mix(in srgb,var(--sky) 18%,transparent);color:var(--sky)}
@@ -1146,25 +1150,25 @@ html[data-theme="night"] .rcard{background:linear-gradient(170deg,
 html[data-theme="night"] .rart{background:rgba(255,255,255,.10)}
 html[data-theme="night"] .slot{background:linear-gradient(165deg,color-mix(in srgb,var(--cc,#132539) 30%,#132539),#132539)}
 .rart canvas{width:52px;height:52px;filter:drop-shadow(0 3px 0 rgba(11,16,48,.35))}
-.rlev{position:absolute;left:4px;top:4px;background:var(--brass);color:#fff;font-size:11px;
+.rlev{position:absolute;left:4px;top:4px;background:var(--brass);color:#fff;font-size:calc(11px*var(--fs,1));
   font-weight:900;border-radius:999px;padding:2px 8px;border:2px solid var(--stroke);
   text-shadow:0 1px 0 rgba(11,16,48,.5)}
-.rdeck{position:absolute;right:-6px;top:6px;transform:rotate(8deg);background:var(--laser);color:#fff;font-size:11px;
+.rdeck{position:absolute;right:-6px;top:6px;transform:rotate(8deg);background:var(--laser);color:#fff;font-size:calc(11px*var(--fs,1));
   font-weight:800;border-radius:999px;padding:2px 6px;letter-spacing:.03em}
-.rperk{position:absolute;left:5px;bottom:4px;color:var(--moss);font-size:11px;font-weight:800;
+.rperk{position:absolute;left:5px;bottom:4px;color:var(--moss);font-size:calc(11px*var(--fs,1));font-weight:800;
   letter-spacing:1px;text-shadow:0 1px 0 rgba(255,255,255,.6)}
 .rlock{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   background:rgba(255,255,255,.45);color:var(--paper)}
 .rlock svg{width:26px;height:26px}
-.rnm{font-size:11px;font-weight:900;line-height:1.15;min-height:24px;text-align:center;
+.rnm{font-size:calc(11px*var(--fs,1));font-weight:900;line-height:1.15;min-height:24px;text-align:center;
   padding:0 4px;color:var(--paper);text-transform:uppercase;letter-spacing:.01em}
 .rbar{position:relative;height:15px;border-radius:8px;background:rgba(255,255,255,.75);
   overflow:hidden;margin:3px 5px 0;border:2px solid var(--stroke)}
 html[data-theme="night"] .rbar{background:rgba(255,255,255,.12)}
 .rbar i{display:block;height:100%;background:var(--rc);opacity:.85}
 .rbar span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:800;color:var(--paper)}
-.rcard button{margin:6px 5px 0;width:calc(100% - 10px);font-size:11px;padding:7px 2px;gap:3px;
+  font-size:calc(11px*var(--fs,1));font-weight:800;color:var(--paper)}
+.rcard button{margin:6px 5px 0;width:calc(100% - 10px);font-size:calc(11px*var(--fs,1));padding:7px 2px;gap:3px;
   border-radius:10px;font-weight:900}
 .rcard button b{color:var(--brass);font-weight:800}
 .ccard{border:1px solid var(--grid);background:var(--ink2);border-radius:var(--r2);
@@ -1176,33 +1180,33 @@ html[data-theme="night"] .rbar{background:rgba(255,255,255,.12)}
   display:flex;align-items:center;justify-content:center}
 .ctop canvas{width:44px;height:44px;background:none;border:0}
 .clev{position:absolute;right:-4px;top:-4px;transform:rotate(-8deg);background:var(--brass);color:var(--ink2);
-  font-size:11px;font-weight:700;border-radius:999px;min-width:18px;height:18px;
+  font-size:calc(11px*var(--fs,1));font-weight:700;border-radius:999px;min-width:18px;height:18px;
   display:flex;align-items:center;justify-content:center;padding:0 5px}
-.cnm{font-size:12.5px;font-weight:600;line-height:1.3;min-height:32px}
-.csub{font-size:11.5px;color:var(--dim);font-weight:500}
+.cnm{font-size:calc(12.5px*var(--fs,1));font-weight:600;line-height:1.3;min-height:32px}
+.csub{font-size:calc(11.5px*var(--fs,1));color:var(--dim);font-weight:500}
 .ccard .cbar{height:5px;background:var(--ink3);border:1px solid var(--line);
   border-radius:3px;margin-top:6px;overflow:hidden}
 .ccard .cbar i{display:block;height:100%;background:var(--laser)}
 .ccard .cspec{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
 .ccard .cspec span{border:1px solid var(--laser);color:var(--laser);border-radius:999px;
-  font-size:11px;padding:2px 6px}
-.ccard button{margin-top:8px;width:100%;font-size:11px;padding:8px 4px;gap:4px}
+  font-size:calc(11px*var(--fs,1));padding:2px 6px}
+.ccard button{margin-top:8px;width:100%;font-size:calc(11px*var(--fs,1));padding:8px 4px;gap:4px}
 .ccard button b{color:var(--brass);font-weight:700}
 .coll{display:flex;align-items:center;gap:11px;padding:10px 0;border-top:1px solid var(--line)}
 .coll:first-child{border-top:0}
 .coll canvas{width:44px;height:44px;flex:none;background:var(--ink3);border:1px solid var(--grid);
   border-radius:10px}
 .coll .ct{flex:1;min-width:0}
-.coll .cn{font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:7px}
-.coll .cl{font-size:11px;color:var(--brass);font-weight:600}
-.coll .cd{font-size:11px;color:var(--dim);margin-top:3px}
+.coll .cn{font-size:calc(13.5px*var(--fs,1));font-weight:600;display:flex;align-items:center;gap:7px}
+.coll .cl{font-size:calc(11px*var(--fs,1));color:var(--brass);font-weight:600}
+.coll .cd{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:3px}
 .coll .cspec{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
 .coll .cspec span{border:1px solid var(--laser);color:var(--laser);border-radius:999px;
-  font-size:11px;padding:3px 8px}
+  font-size:calc(11px*var(--fs,1));padding:3px 8px}
 .coll .cbar{height:6px;background:var(--ink3);border:1px solid var(--line);border-radius:4px;
   margin-top:6px;overflow:hidden}
 .coll .cbar i{display:block;height:100%;background:var(--laser)}
-.coll button{width:88px;font-size:11.5px;padding:9px 2px}
+.coll button{width:88px;font-size:calc(11.5px*var(--fs,1));padding:9px 2px}
 .coll.locked{opacity:.5}
 .crStage{text-align:center;padding:18px 0 6px;cursor:pointer}
 .crBox{animation:cratedrop .75s cubic-bezier(.3,1.5,.5,1) both,shake 1.5s 0.8s ease-in-out infinite}
@@ -1232,8 +1236,8 @@ html[data-theme="night"] .rbar{background:rgba(255,255,255,.12)}
 @keyframes lidfly{to{transform:translateY(-70px) rotate(-38deg);opacity:0}}
 @keyframes glow{0%{opacity:0;transform:scale(.6)}55%{opacity:.85}100%{opacity:0;transform:scale(1.5)}}
 @keyframes bodypop{60%{transform:scale(1.06)}100%{transform:scale(1)}}
-.crName{font-size:15px;font-weight:700;margin-top:14px}
-.crTap{font-size:11px;color:var(--dim);margin-top:5px;animation:blink 1.2s ease-in-out infinite}
+.crName{font-size:calc(15px*var(--fs,1));font-weight:700;margin-top:14px}
+.crTap{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:5px;animation:blink 1.2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:.45}50%{opacity:1}}
 .crStage.open .crTap{display:none}
 .crGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin:6px 0 4px}
@@ -1251,14 +1255,14 @@ html[data-theme="night"] .rbar{background:rgba(255,255,255,.12)}
   to{opacity:1;transform:none}}
 .crCard .crGly{width:38px;height:38px;margin:0 auto;display:block}
 .crCard .crIco{font-size:28px;line-height:38px;color:var(--brass)}
-.crCard .crN{font-size:15px;font-weight:800;margin-top:3px}
-.crCard .crS{font-size:11px;color:var(--dim)}
+.crCard .crN{font-size:calc(15px*var(--fs,1));font-weight:800;margin-top:3px}
+.crCard .crS{font-size:calc(11px*var(--fs,1));color:var(--dim)}
 .crCard.isnew{box-shadow:0 0 0 3px color-mix(in srgb,var(--brass) 45%,transparent),var(--elev2)}
-.crNew{position:absolute;right:-6px;top:-8px;background:var(--brass);color:#fff;font-size:11px;
+.crNew{position:absolute;right:-6px;top:-8px;background:var(--brass);color:#fff;font-size:calc(11px*var(--fs,1));
   font-weight:800;border-radius:999px;padding:3px 7px;transform:rotate(9deg)}
 html[data-theme="night"] .crNew{color:#0a1626}
 .crCard .crR{position:absolute;left:50%;transform:translateX(-50%);bottom:-7px;
-  font-size:11px;font-weight:700;color:#fff;border-radius:999px;padding:2px 7px}
+  font-size:calc(11px*var(--fs,1));font-weight:700;color:#fff;border-radius:999px;padding:2px 7px}
 html[data-theme="night"] .crCard .crR{color:#06111a}
 .crate{display:flex;align-items:center;gap:13px;border:1px solid var(--grid);background:var(--ink2);
   border-radius:var(--r2);padding:13px;margin-bottom:9px;box-shadow:var(--elev1);
@@ -1274,13 +1278,13 @@ html[data-theme="night"] .crCard .crR{color:#06111a}
   animation:lid .5s .25s ease both}
 @keyframes lid{to{transform:rotate(-24deg) translateY(-5px)}}
 .cinfo{flex:1;min-width:0}
-.cname{font-size:13.5px;font-weight:600;margin-bottom:6px}
+.cname{font-size:calc(13.5px*var(--fs,1));font-weight:600;margin-bottom:6px}
 .cwin{display:flex;flex-wrap:wrap;gap:5px}
 .cards{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:14px}
 .cchip{border:1px solid var(--grid);background:var(--ink2);border-radius:999px;
-  font-size:11px;padding:5px 10px;color:var(--moss);font-weight:600}
-.navRow button{flex-direction:column;gap:5px;padding:13px 4px;font-size:11.5px;border-radius:var(--r2)}
-.navRow .ni{font-size:17px;color:var(--brass);line-height:1}
+  font-size:calc(11px*var(--fs,1));padding:5px 10px;color:var(--moss);font-weight:600}
+.navRow button{flex-direction:column;gap:5px;padding:13px 4px;font-size:calc(11.5px*var(--fs,1));border-radius:var(--r2)}
+.navRow .ni{font-size:calc(17px*var(--fs,1));color:var(--brass);line-height:1}
 
 /* ---------- výběr území ---------- */
 .maps{margin-top:0}
@@ -1294,16 +1298,16 @@ html[data-theme="night"] .crCard .crR{color:#06111a}
 .map canvas{width:54px;height:70px;flex:none;background:var(--ink);
   border:1px solid var(--grid);border-radius:8px}
 .map .t{flex:1;min-width:0}
-.map .n{font-size:16px;font-weight:900;font-weight:600;display:flex;align-items:center;gap:7px}
-.map .d{font-size:12px;color:var(--dim);margin-top:4px;line-height:1.5}
-.map .b{font-size:11px;color:var(--brass);margin-top:6px}
+.map .n{font-size:calc(16px*var(--fs,1));font-weight:900;font-weight:600;display:flex;align-items:center;gap:7px}
+.map .d{font-size:calc(12px*var(--fs,1));color:var(--dim);margin-top:4px;line-height:1.5}
+.map .b{font-size:calc(11px*var(--fs,1));color:var(--brass);margin-top:6px}
 .terLeg{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
-.terLeg span{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--dim);
+.terLeg span{display:flex;align-items:center;gap:4px;font-size:calc(11px*var(--fs,1));color:var(--dim);
   border:1px solid var(--grid);border-radius:999px;padding:2px 7px}
 .terLeg i{width:8px;height:8px;border-radius:2px;display:block}
-.stars{color:var(--brass);font-size:12px;letter-spacing:1.5px}
+.stars{color:var(--brass);font-size:calc(12px*var(--fs,1));letter-spacing:1.5px}
 .mrow{display:flex;gap:6px;margin-top:5px;padding-left:16px}
-.mrow button{flex:1;font-size:11.5px;padding:9px 6px;border-radius:var(--r1)}
+.mrow button{flex:1;font-size:calc(11.5px*var(--fs,1));padding:9px 6px;border-radius:var(--r1)}
 
 /* ---------- HRA NA CELOU OBRAZOVKU ---------- */
 #game.on{display:block;position:fixed;inset:0;padding:0;max-width:none;overflow:hidden}
@@ -1321,18 +1325,18 @@ html[data-theme="night"] .crCard .crR{color:#06111a}
   box-shadow:inset 0 3px 0 var(--rim),inset 0 -7px 0 var(--plC),
              0 5px 0 var(--stroke),0 9px 16px rgba(6,12,32,.38);
   padding:7px 9px;min-width:0}
-#hud .k{font-size:11px;letter-spacing:.1em;color:var(--paper);opacity:.72;text-transform:uppercase;
+#hud .k{font-size:calc(11px*var(--fs,1));letter-spacing:.1em;color:var(--paper);opacity:.72;text-transform:uppercase;
   white-space:nowrap;display:flex;align-items:center;gap:4px;font-weight:700}
 #hud .k svg.i{width:11px;height:11px}
 #hud .cell:nth-child(1) .k{color:var(--sky)}
 #hud .cell:nth-child(2) .k{color:var(--laser)}
 #hud .cell:nth-child(3) .k{color:var(--brass)}
-#capWrap{font-size:11px;font-weight:700;color:var(--violetT);margin-top:3px;white-space:nowrap;
+#capWrap{font-size:calc(11px*var(--fs,1));font-weight:700;color:var(--violetT);margin-top:3px;white-space:nowrap;
   overflow:hidden;text-overflow:ellipsis;max-width:100%}
 /* Zadny popisek v HUD nesmi vylezt z karty pres krizek. */
 #hud .cell .k{overflow:hidden;text-overflow:ellipsis}
 #capWrap.full{color:var(--tapeT)}
-#hud .v{font-size:17px;margin-top:1px;font-weight:600;white-space:nowrap}
+#hud .v{font-size:calc(17px*var(--fs,1));margin-top:1px;font-weight:600;white-space:nowrap}
 #vAcc{color:var(--laserT)} #vCr{color:var(--brassT)}
 #wavebar{height:4px;background:var(--ink3);border-radius:3px;margin-top:5px;overflow:hidden}
 #wavefill{height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,var(--sky),var(--violet));transition:width .2s}
@@ -1344,15 +1348,15 @@ html[data-theme="night"] .crCard .crR{color:#06111a}
   display:none;background:var(--scrim);border:1px solid var(--tape);border-radius:14px;
   padding:8px 12px;box-shadow:var(--elev2)}
 #bossBar.on{display:block}
-.bbN{display:flex;justify-content:space-between;align-items:baseline;font-size:11.5px;font-weight:800;
+.bbN{display:flex;justify-content:space-between;align-items:baseline;font-size:calc(11.5px*var(--fs,1));font-weight:800;
   color:var(--tape);margin-bottom:5px}
-.bbN b{font-size:11px;font-variant-numeric:tabular-nums}
+.bbN b{font-size:calc(11px*var(--fs,1));font-variant-numeric:tabular-nums}
 .bbT{height:8px;background:var(--ink3);border-radius:5px;overflow:hidden}
 .bbT i{display:block;height:100%;background:linear-gradient(90deg,var(--tape),#ff9a6c);
   transition:width .2s}
 #condChip{position:absolute;top:72px;left:50%;transform:translateX(-50%);z-index:3;display:none;
   align-items:center;gap:7px;background:var(--scrim);border:1px solid var(--grid);
-  border-radius:999px;padding:6px 13px;font-size:11.5px;box-shadow:var(--elev2);
+  border-radius:999px;padding:6px 13px;font-size:calc(11.5px*var(--fs,1));box-shadow:var(--elev2);
   white-space:nowrap;max-width:94%}
 #condChip.on{display:flex}
 #condChip i{width:9px;height:9px;border-radius:50%;display:block;flex:none}
@@ -1362,7 +1366,7 @@ html[data-theme="night"] .crCard .crR{color:#06111a}
   gap:6px;justify-content:center;max-width:540px;margin:0 auto;flex-wrap:wrap}
 #buffChip.on{display:flex}
 #buffChip span{background:var(--scrim);border:1px solid var(--bcx);border-radius:999px;
-  padding:5px 11px;font-size:11px;box-shadow:var(--elev1);color:var(--bcx)}
+  padding:5px 11px;font-size:calc(11px*var(--fs,1));box-shadow:var(--elev1);color:var(--bcx)}
 #buffChip b{color:var(--paper);font-weight:700;margin-right:5px}
 #quick{position:absolute;left:10px;right:10px;z-index:5;display:none;gap:6px;align-items:stretch;
   max-width:540px;margin:0 auto}
@@ -1371,14 +1375,14 @@ html[data-theme="night"] .crCard .crR{color:#06111a}
   border:1px solid var(--grid);border-radius:var(--r1);padding:7px 9px;box-shadow:var(--elev2);
   min-width:0}
 #quick .qHead canvas{width:26px;height:26px;flex:none}
-#quick .qHead b{font-size:11px;font-weight:700;display:block;line-height:1.15;
+#quick .qHead b{font-size:calc(11px*var(--fs,1));font-weight:700;display:block;line-height:1.15;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#quick .qHead span{font-size:11px;color:var(--dim);display:block;overflow:hidden;
+#quick .qHead span{font-size:calc(11px*var(--fs,1));color:var(--dim);display:block;overflow:hidden;
   text-overflow:ellipsis;white-space:nowrap}
-#quick button{padding:7px 6px;font-size:11px;font-weight:700;border-radius:var(--r1);min-width:52px;
+#quick button{padding:7px 6px;font-size:calc(11px*var(--fs,1));font-weight:700;border-radius:var(--r1);min-width:52px;
   box-shadow:var(--elev2);background:var(--scrim);
   flex-direction:column;gap:2px;min-width:60px}
-#quick button b{font-size:11px;font-weight:800}
+#quick button b{font-size:calc(11px*var(--fs,1));font-weight:800}
 #quick .qm{border-color:var(--tape);color:var(--tape)}
 #quick .qmv{border-color:var(--violet);color:var(--violet)}
 #quick .qc{border-color:var(--brass);color:var(--brass)}
@@ -1388,7 +1392,7 @@ html[data-theme="night"] .crCard .crR{color:#06111a}
   gap:3px;pointer-events:none;align-items:flex-start;max-width:none}
 #feed{bottom:8px}
 .feedI{background:var(--scrim);border:1px solid var(--grid);border-left:3px solid var(--fc,var(--sky));
-  border-radius:8px;padding:4px 8px;font-size:11px;line-height:1.3;box-shadow:var(--elev1);
+  border-radius:8px;padding:4px 8px;font-size:calc(11px*var(--fs,1));line-height:1.3;box-shadow:var(--elev1);
   animation:feedIn .2s ease both;max-width:80%}
 @keyframes feedIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
 .feedI b{font-weight:700}
@@ -1396,30 +1400,30 @@ html[data-theme="night"] .crCard .crR{color:#06111a}
 @keyframes feedOut{to{opacity:0;transform:translateX(-10px)}}
 #toast{position:absolute;left:50%;top:112px;transform:translateX(-50%) translateY(-4px);
   max-width:86%;z-index:4;background:var(--scrim);border:1px solid var(--grid);border-radius:999px;
-  font-size:12px;padding:8px 15px;line-height:1.35;opacity:0;pointer-events:none;text-align:center;
+  font-size:calc(12px*var(--fs,1));padding:8px 15px;line-height:1.35;opacity:0;pointer-events:none;text-align:center;
   box-shadow:var(--elev2);transition:opacity .2s,transform .2s}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 #tut .tuDots{display:flex;gap:5px;margin-bottom:6px}
 #tut .tuDots i{width:16px;height:4px;border-radius:2px;background:color-mix(in srgb,var(--laser) 25%,transparent)}
 #tut .tuDots i.done{background:var(--moss)}
 #tut .tuDots i.now{background:var(--laser);animation:blink 1.1s ease-in-out infinite}
-#tut .tuT{font-size:12.5px;font-weight:700}
-#tut .tuH{font-size:11px;opacity:.8;margin-top:3px}
+#tut .tuT{font-size:calc(12.5px*var(--fs,1));font-weight:700}
+#tut .tuH{font-size:calc(11px*var(--fs,1));opacity:.8;margin-top:3px}
 #tut{position:relative;margin-bottom:7px;
   border:1px solid var(--laser);background:var(--scrim);color:var(--laser);
-  padding:10px 13px;font-size:12px;line-height:1.5;display:none;border-radius:var(--r1);
+  padding:10px 13px;font-size:calc(12px*var(--fs,1));line-height:1.5;display:none;border-radius:var(--r1);
   box-shadow:var(--elev2)}
 #tut.on{display:block}
 
 #lower{position:absolute;bottom:0;left:0;right:0;z-index:3;max-width:560px;margin:0 auto;
   padding:0 10px calc(10px + env(safe-area-inset-bottom,0px))}
 #place{position:relative;margin-bottom:8px;border-radius:var(--r1);
-  background:var(--scrim);border:1px solid var(--tape);padding:9px 11px;font-size:12px;display:none;
+  background:var(--scrim);border:1px solid var(--tape);padding:9px 11px;font-size:calc(12px*var(--fs,1));display:none;
   justify-content:space-between;align-items:center;gap:8px;line-height:1.3;
   box-shadow:var(--elev2)}
 #place.on{display:flex}
 #place b{color:var(--tape);font-weight:600}
-#place button{padding:5px 10px;font-size:11px;color:var(--tape);border-color:var(--tape)}
+#place button{padding:5px 10px;font-size:calc(11px*var(--fs,1));color:var(--tape);border-color:var(--tape)}
 
 /* Nahled pristi vlny sedel tesne pod HUDem; pri vice druzich vlivu se
    pod nej dostal a prekryval ETAPU a PRESNOST. Ted ma vlastni odstup
@@ -1427,29 +1431,29 @@ html[data-theme="night"] .crCard .crR{color:#06111a}
 #pprev{position:absolute;top:86px;left:10px;right:10px;z-index:3;max-width:540px;margin:0 auto;
   display:flex;align-items:center;gap:8px;min-width:0;flex-wrap:nowrap;overflow:hidden}
 #pprev.hide{display:none}
-#pprev .pl{font-size:11px;letter-spacing:.1em;color:var(--onBg);opacity:1;
+#pprev .pl{font-size:calc(11px*var(--fs,1));letter-spacing:.1em;color:var(--onBg);opacity:1;
   text-shadow:-1px 0 0 var(--stroke),1px 0 0 var(--stroke),
               0 -1px 0 var(--stroke),0 1px 0 var(--stroke);
   text-transform:uppercase;flex:none}
 #wavePrev{display:flex;gap:6px;overflow-x:auto;min-width:0}
 #wavePrev2{display:flex;gap:6px;flex-wrap:wrap}
 .wp{display:flex;align-items:center;gap:6px;border:1px solid var(--grid);background:var(--scrim);
-  padding:5px 10px;font-size:11px;flex:none;border-radius:999px;box-shadow:var(--elev1);
+  padding:5px 10px;font-size:calc(11px*var(--fs,1));flex:none;border-radius:999px;box-shadow:var(--elev1);
   }
 .wp i{width:9px;height:9px;display:block;border-radius:50%}
 .wp b{font-weight:600;font-family:ui-monospace,monospace}
 .wp.boss{border-color:var(--tape);color:var(--tape)}
 
 #abil{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-#abil.compact .ad{display:block;font-size:11px;opacity:.85}
-#abil.compact .an{font-size:11px;flex-direction:column;gap:2px;text-align:center;line-height:1.1}
+#abil.compact .ad{display:block;font-size:calc(11px*var(--fs,1));opacity:.85}
+#abil.compact .an{font-size:calc(11px*var(--fs,1));flex-direction:column;gap:2px;text-align:center;line-height:1.1}
 #abil.compact .ab{padding:8px 2px}
 .ab{position:relative;overflow:hidden;padding:9px 4px;flex-direction:column;gap:3px;
   border-radius:var(--r1);line-height:1.2;background:var(--scrim);
   box-shadow:var(--elev2)}
-.ab .an{font-size:11.5px;font-weight:600;display:flex;align-items:center;gap:4px}
-.ab .ad{font-size:11px;color:var(--dim)}
-.abLv{position:absolute;right:5px;top:4px;background:var(--brass);color:#fff;font-size:11px;
+.ab .an{font-size:calc(11.5px*var(--fs,1));font-weight:600;display:flex;align-items:center;gap:4px}
+.ab .ad{font-size:calc(11px*var(--fs,1));color:var(--dim)}
+.abLv{position:absolute;right:5px;top:4px;background:var(--brass);color:#fff;font-size:calc(11px*var(--fs,1));
   font-weight:800;border-radius:999px;min-width:15px;height:15px;display:flex;align-items:center;
   justify-content:center;padding:0 4px}
 html[data-theme="night"] .abLv{color:#0a1626}
@@ -1465,7 +1469,7 @@ html[data-theme="night"] .abLv{color:#0a1626}
 .ab.rdy .ad{color:var(--sky);opacity:.75}
 
 #ctl{display:flex;gap:7px;margin-top:7px}
-#go{flex:1;font-size:15px;font-weight:800;letter-spacing:.02em;border-radius:var(--r2);padding:14px;
+#go{flex:1;font-size:calc(15px*var(--fs,1));font-weight:800;letter-spacing:.02em;border-radius:var(--r2);padding:14px;
   box-shadow:0 3px 0 color-mix(in srgb,var(--laser) 55%,#000),var(--elev2);
   box-shadow:var(--elev2)}
 #go.hot{color:#fff;border-color:transparent;background:var(--laser);
@@ -1473,14 +1477,14 @@ html[data-theme="night"] .abLv{color:#0a1626}
 html[data-theme="night"] #go.hot{color:#06111a}
 .tog{width:52px;padding:13px 2px;border-radius:var(--r2);box-shadow:var(--elev2)}
 .tog.on{border-color:var(--brass);color:var(--brass)}
-#sheet{font-size:15px;color:var(--dim)}
+#sheet{font-size:calc(15px*var(--fs,1));color:var(--dim)}
 
 #shopbar{display:flex;gap:7px;margin-top:7px;align-items:stretch}
 #shop{flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
 #shopbar #reroll{width:46px;margin:0;padding:0;flex-direction:column;gap:2px;
-  border-radius:var(--r1);font-size:17px;color:var(--dim);background:var(--scrim);
+  border-radius:var(--r1);font-size:calc(17px*var(--fs,1));color:var(--dim);background:var(--scrim);
   box-shadow:var(--elev2)}
-#shopbar #reroll .rc{font-size:11px;color:var(--brassT);font-weight:800}
+#shopbar #reroll .rc{font-size:calc(11px*var(--fs,1));color:var(--brassT);font-weight:800}
 .card{border:3px solid var(--stroke);color:var(--onPlast);
   background:linear-gradient(180deg,
     color-mix(in srgb,var(--cardc,var(--ink2)) 30%,var(--ink2)) 0%,
@@ -1494,36 +1498,36 @@ html[data-theme="night"] #go.hot{color:#06111a}
 .card.sel{border-color:var(--tape);box-shadow:0 0 0 2px var(--tape)}
 .card.no{opacity:.4}
 .card canvas{width:27px;height:27px;display:block;background:none;border:0}
-.card .n{font-size:11px;line-height:1.1;margin-top:2px;height:12px;
+.card .n{font-size:calc(11px*var(--fs,1));line-height:1.1;margin-top:2px;height:12px;
   display:flex;align-items:center;justify-content:center;font-weight:500}
-.card .c{font-size:11px;color:var(--brass);font-weight:600;margin-top:1px}
+.card .c{font-size:calc(11px*var(--fs,1));color:var(--brass);font-weight:600;margin-top:1px}
 
 html[data-board="2"] .ab{padding:5px 3px}
 html[data-board="2"] .ab .ad{display:none}
-html[data-board="2"] #go,html[data-board="2"] .tog{padding:9px 4px;font-size:13px}
+html[data-board="2"] #go,html[data-board="2"] .tog{padding:9px 4px;font-size:calc(13px*var(--fs,1))}
 html[data-board="2"] .card{padding:3px}
 html[data-board="2"] .card canvas{width:22px;height:22px}
-html[data-board="2"] .card .n{font-size:11px;height:11px}
+html[data-board="2"] .card .n{font-size:calc(11px*var(--fs,1));height:11px}
 html[data-board="0"] .card canvas{width:32px;height:32px}
 @media (max-height:700px){
   #hud{padding:6px 8px 0}
   #hud .cell{padding:6px 8px}
-  #hud .v{font-size:15px}
-  #hud .k{font-size:11px}
+  #hud .v{font-size:calc(15px*var(--fs,1))}
+  #hud .k{font-size:calc(11px*var(--fs,1))}
   #pprev{display:none}
   #feed{top:76px;max-width:58%;gap:3px}
-  .feedI{font-size:11px;padding:4px 7px}
+  .feedI{font-size:calc(11px*var(--fs,1));padding:4px 7px}
   #buffChip{top:132px}
   #bossBar{top:60px}
   #condChip{top:60px}
   .ab{padding:5px 3px}
   .ab .ad{display:none}
-  #go{padding:10px 4px;font-size:13.5px}
+  #go{padding:10px 4px;font-size:calc(13.5px*var(--fs,1))}
   .tog{padding:10px 4px}
   .card{padding:3px}
   .card canvas{width:22px;height:22px}
-  .card .n{font-size:11px;height:10px}
-  .card .p{font-size:11px}
+  .card .n{font-size:calc(11px*var(--fs,1));height:10px}
+  .card .p{font-size:calc(11px*var(--fs,1))}
   #tut{padding:7px 9px}
   #tut .tuH{display:none}
   #lower{padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
@@ -1533,29 +1537,29 @@ html[data-board="0"] .card canvas{width:32px;height:32px}
 @media (max-height:730px){
   #hud{padding:6px 8px}
   #hud .cell{padding:5px 8px}
-  #hud .v{font-size:15px}
+  #hud .v{font-size:calc(15px*var(--fs,1))}
   #pprev{top:62px}
   .ab{padding:6px 3px}
   .ab .ad{display:none}
-  #go{padding:10px;font-size:13.5px}
+  #go{padding:10px;font-size:calc(13.5px*var(--fs,1))}
   .tog{padding:10px 2px}
   #shopbar{margin-top:5px}
   .card{padding:4px 3px}
   .card canvas{width:23px;height:23px}
-  .card .n{font-size:11px;height:11px}
-  .card .c{font-size:11px}
+  .card .n{font-size:calc(11px*var(--fs,1));height:11px}
+  .card .c{font-size:calc(11px*var(--fs,1))}
   #ctl{margin-top:5px}
-  #tut{padding:7px 10px;font-size:11px}
+  #tut{padding:7px 10px;font-size:calc(11px*var(--fs,1))}
 }
 #dock{position:absolute;left:10px;right:10px;z-index:4;background:var(--scrim);
   border:1px solid var(--grid);border-radius:var(--r2);box-shadow:var(--elev2);
   overflow:hidden;max-width:540px;margin:0 auto}
 #dock.closed{display:none}
 #dockBody{max-height:42vh;overflow-y:auto}
-#tabs .x{flex:0 0 34px;color:var(--dim);font-size:13px}
-.hlp{padding:8px 0;border-top:1px solid var(--line);font-size:11.5px;line-height:1.55}
+#tabs .x{flex:0 0 34px;color:var(--dim);font-size:calc(13px*var(--fs,1))}
+.hlp{padding:8px 0;border-top:1px solid var(--line);font-size:calc(11.5px*var(--fs,1));line-height:1.55}
 .hlp:first-child{border-top:0}
-.hlp b{display:block;font-size:12.5px;margin-bottom:3px}
+.hlp b{display:block;font-size:calc(12.5px*var(--fs,1));margin-bottom:3px}
 .hlp span{color:var(--dim)}
 #dockBody .pan{margin:0;border:0;border-radius:0;box-shadow:none;background:none}
 #dockBody .ph{background:none}
@@ -1563,7 +1567,7 @@ html[data-board="0"] .card canvas{width:32px;height:32px}
 
 /* ---------- záložky ---------- */
 #tabs{display:flex;gap:4px;padding:5px;border-bottom:1px solid var(--line)}
-#tabs button{flex:1;font-size:11.5px;padding:13px 4px;min-height:44px;background:none;border:0;box-shadow:none;
+#tabs button{flex:1;font-size:calc(11.5px*var(--fs,1));padding:13px 4px;min-height:44px;background:none;border:0;box-shadow:none;
   color:var(--dim);border-radius:10px;font-weight:500}
 #tabs button.on{background:var(--ink3);color:var(--paper);font-weight:600}
 #tabs button[hidden]{display:none}
@@ -1582,25 +1586,25 @@ html[data-board="0"] .card canvas{width:32px;height:32px}
   background:linear-gradient(180deg,var(--ink2c),var(--ink3));
   box-shadow:inset 0 3px 6px rgba(11,18,54,.28)}
 .ph{display:flex;justify-content:space-between;align-items:center;gap:8px;
-  padding:9px 12px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.09em;
+  padding:9px 12px;border-bottom:1px solid var(--line);font-size:calc(11px*var(--fs,1));letter-spacing:.09em;
   color:var(--dim);text-transform:uppercase;background:var(--ink3)}
 .pb{padding:10px}
 .hide{display:none}
 
-#reroll{width:100%;margin-top:7px;font-size:12px;padding:9px}
+#reroll{width:100%;margin-top:7px;font-size:calc(12px*var(--fs,1));padding:9px}
 
 #tsel .row{display:flex;gap:11px;align-items:center}
 #tglyph{width:50px;height:50px;background:none;border:0;flex:none}
-#tname{font-size:15px;font-weight:600} 
-#tstat{font-size:11.5px;color:var(--dim);margin-top:4px;line-height:1.5}
+#tname{font-size:calc(15px*var(--fs,1));font-weight:600} 
+#tstat{font-size:calc(11.5px*var(--fs,1));color:var(--dim);margin-top:4px;line-height:1.5}
 #tacts{display:flex;gap:7px;margin-top:11px}
-#tacts button{flex:1;font-size:12px}
+#tacts button{flex:1;font-size:calc(12px*var(--fs,1))}
 .prioRow{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin-top:9px}
-.prioRow span{font-size:11px;color:var(--dim);width:100%;font-weight:600}
-.prioRow button{flex:1;font-size:11px;padding:7px 3px;border-radius:9px}
+.prioRow span{font-size:calc(11px*var(--fs,1));color:var(--dim);width:100%;font-weight:600}
+.prioRow button{flex:1;font-size:calc(11px*var(--fs,1));padding:7px 3px;border-radius:9px}
 .prioRow button.on{border-color:var(--laser);color:var(--laser);
   background:color-mix(in srgb,var(--laser) 12%,transparent)}
-#hint{font-size:11.5px;color:var(--tape);margin-top:9px;line-height:1.45}
+#hint{font-size:calc(11.5px*var(--fs,1));color:var(--tape);margin-top:9px;line-height:1.45}
 
 .labGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .labCard{border:2px solid color-mix(in srgb,var(--lc) 45%,var(--ink2));border-radius:16px;padding:11px;
@@ -1616,48 +1620,48 @@ html[data-theme="night"] .labCard{background:linear-gradient(160deg,
   box-shadow:0 3px 0 var(--stroke);margin-bottom:9px}
 .labIc svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2.6;
   stroke-linecap:round;stroke-linejoin:round}
-.labN{font-size:12.5px;font-weight:700;line-height:1.2}
-.labD{font-size:11px;color:var(--dim);margin-top:4px;line-height:1.4;flex:1}
+.labN{font-size:calc(12.5px*var(--fs,1));font-weight:700;line-height:1.2}
+.labD{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:4px;line-height:1.4;flex:1}
 .labCard .pips{margin:8px 0 8px}
-.labCard button{width:100%;font-size:11px;padding:8px 2px;color:var(--lc);border-radius:10px}
+.labCard button{width:100%;font-size:calc(11px*var(--fs,1));padding:8px 2px;color:var(--lc);border-radius:10px}
 .upIc{width:36px;height:36px;flex:none;border-radius:12px;border:3px solid var(--stroke);display:flex;align-items:center;
   justify-content:center}
 .upIc svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;
   stroke-linecap:round;stroke-linejoin:round}
 .up{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
 .up:first-child{border-top:0;padding-top:2px}
-.up .t{flex:1;font-size:13px;font-weight:500}
-.up .t s{display:block;font-size:11px;color:var(--dim);text-decoration:none;
+.up .t{flex:1;font-size:calc(13px*var(--fs,1));font-weight:500}
+.up .t s{display:block;font-size:calc(11px*var(--fs,1));color:var(--dim);text-decoration:none;
   margin-top:3px;font-weight:400;line-height:1.4}
 .pips{display:flex;gap:3px;margin-top:6px}
 .pip{width:14px;height:4px;background:var(--ink3);border-radius:2px;border:1px solid var(--line)}
 .pip.f{background:var(--brass);border-color:var(--brass)}
-.up button{width:82px;font-size:12px;color:var(--brass);padding:9px 2px}
+.up button{width:82px;font-size:calc(12px*var(--fs,1));color:var(--brass);padding:9px 2px}
 
 #mods{display:flex;flex-wrap:wrap;gap:6px}
-.mod{border:1px solid var(--grid);background:var(--ink3);font-size:11px;padding:6px 9px;
+.mod{border:1px solid var(--grid);background:var(--ink3);font-size:calc(11px*var(--fs,1));padding:6px 9px;
   color:var(--moss);border-radius:999px}
 .mod b{color:var(--paper);font-weight:600}
-#modsEmpty{font-size:11.5px;color:var(--dim);line-height:1.5}
+#modsEmpty{font-size:calc(11.5px*var(--fs,1));color:var(--dim);line-height:1.5}
 
 #pprev.hide{display:none}
 #pprev{display:flex;align-items:center;gap:9px;margin-top:8px;min-width:0}
-#pprev .pl{font-size:11px;letter-spacing:.09em;color:var(--dim);text-transform:uppercase;flex:none}
+#pprev .pl{font-size:calc(11px*var(--fs,1));letter-spacing:.09em;color:var(--dim);text-transform:uppercase;flex:none}
 #wavePrev{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;min-width:0}
 .wp{display:flex;align-items:center;gap:6px;border:1px solid var(--grid);background:var(--ink3);
-  padding:5px 9px;font-size:11px;flex:none;border-radius:999px}
+  padding:5px 9px;font-size:calc(11px*var(--fs,1));flex:none;border-radius:999px}
 .wp i{width:9px;height:9px;display:block;border-radius:50%}
 .wp b{font-weight:600;font-family:ui-monospace,monospace}
 .wp.boss{border-color:var(--tape);color:var(--tape)}
 
 #tut{border:1px solid var(--laser);background:var(--ink3);
   background:color-mix(in srgb,var(--laser) 9%,transparent);
-  color:var(--laser);padding:10px 12px;font-size:12px;margin-top:9px;line-height:1.5;
+  color:var(--laser);padding:10px 12px;font-size:calc(12px*var(--fs,1));margin-top:9px;line-height:1.5;
   display:none;border-radius:var(--r1)}
 #tut.on{display:block}
 
-.cmpTbl{font-size:11.5px}
-.cmpH{display:flex;gap:8px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+.cmpTbl{font-size:calc(11.5px*var(--fs,1))}
+.cmpH{display:flex;gap:8px;font-size:calc(11px*var(--fs,1));letter-spacing:.06em;text-transform:uppercase;
   color:var(--dim);font-weight:700;padding-bottom:7px;border-bottom:1px solid var(--line)}
 .cmpH span:first-child{flex:1}
 .cmpH span:nth-child(2){width:86px}
@@ -1669,22 +1673,22 @@ html[data-theme="night"] .labCard{background:linear-gradient(160deg,
   overflow:hidden;border:1px solid var(--line)}
 .cmpB i{display:block;height:100%;background:var(--cc2);opacity:.8}
 .cmpB b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:800}
+  font-size:calc(11px*var(--fs,1));font-weight:800}
 .cmpR span:nth-child(3),.cmpR span:nth-child(4){width:38px;text-align:right;
   font-variant-numeric:tabular-nums;color:var(--dim)}
 #codex .e{display:flex;gap:10px;padding:10px 0;border-top:1px solid var(--line);
-  font-size:11.5px;line-height:1.5}
+  font-size:calc(11.5px*var(--fs,1));line-height:1.5}
 #codex .e:first-child{border-top:0;padding-top:2px}
 #codex .sw{width:4px;flex:none;margin-top:3px;border-radius:2px}
-#codex b{font-weight:600;font-size:12.5px}
+#codex b{font-weight:600;font-size:calc(12.5px*var(--fs,1))}
 #codex s{text-decoration:none;color:var(--dim)}
 
 .opt{display:flex;align-items:center;gap:11px;padding:11px 0;border-top:1px solid var(--line)}
 .opt:first-child{border-top:0;padding-top:2px}
-.opt .t{flex:1;font-size:13.5px;font-weight:500}
-.opt .t s{display:block;font-size:11px;color:var(--dim);text-decoration:none;
+.opt .t{flex:1;font-size:calc(13.5px*var(--fs,1));font-weight:500}
+.opt .t s{display:block;font-size:calc(11px*var(--fs,1));color:var(--dim);text-decoration:none;
   margin-top:3px;font-weight:400}
-.opt button{width:104px;font-size:12px}
+.opt button{width:104px;font-size:calc(12px*var(--fs,1))}
 .opt button.yes{border-color:var(--laser);color:var(--laser)}
 
 /* ---------- překryvy ---------- */
@@ -1694,7 +1698,7 @@ html[data-theme="night"] .labCard{background:linear-gradient(160deg,
 @media (orientation:landscape) and (max-height:500px){
   #rotate{display:flex;position:fixed;inset:0;z-index:60;align-items:center;justify-content:center;
     flex-direction:column;gap:10px;background:var(--ink);color:#fff;text-align:center;padding:24px;
-    font-size:15px;font-weight:600}
+    font-size:calc(15px*var(--fs,1));font-weight:600}
   #rotate span{font-size:34px}
 }
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(3px);z-index:20;
@@ -1708,22 +1712,22 @@ html[data-theme="night"] .labCard{background:linear-gradient(160deg,
 .ov .box h2{color:var(--paper);text-shadow:none}
 .ov .box .lead{color:var(--dim)}
 .ov h2{font-size:21px;margin:0 0 6px;font-weight:700;letter-spacing:-.01em}
-.ov .lead{font-size:12.5px;color:var(--dim);line-height:1.6;margin:0 0 16px}
+.ov .lead{font-size:calc(12.5px*var(--fs,1));color:var(--dim);line-height:1.6;margin:0 0 16px}
 .pick.draft{border-left:4px solid var(--rc);position:relative}
-.rtag{position:absolute;right:10px;top:10px;font-size:11px;letter-spacing:.06em;
+.rtag{position:absolute;right:10px;top:10px;font-size:calc(11px*var(--fs,1));letter-spacing:.06em;
   color:#fff;border-radius:999px;padding:3px 8px;font-weight:700;text-transform:uppercase}
 html[data-theme="night"] .rtag{color:#06111a}
 .pick{border:1px solid var(--grid);background:var(--ink2);padding:14px;margin-bottom:9px;
   cursor:pointer;border-radius:var(--r2);box-shadow:var(--elev1);transition:transform .08s,box-shadow .15s}
 .pick:active{transform:scale(.99);border-color:var(--moss);box-shadow:var(--elev2)}
-.pick .pn{font-size:14.5px;color:var(--moss);font-weight:600}
-.pick .pd{font-size:12px;color:var(--dim);margin-top:5px;line-height:1.5}
-.pick .pk{font-size:11px;color:var(--dim);margin-top:7px}
+.pick .pn{font-size:calc(14.5px*var(--fs,1));color:var(--moss);font-weight:600}
+.pick .pd{font-size:calc(12px*var(--fs,1));color:var(--dim);margin-top:5px;line-height:1.5}
+.pick .pk{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:7px}
 
 #result .box{text-align:center;position:relative;overflow:hidden}
 #confetti{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .rtro{display:inline-flex;align-items:center;gap:8px;margin:2px auto 8px;padding:8px 16px;
-  border-radius:999px;border:3px solid var(--stroke);font-size:20px;font-weight:900;color:#fff;
+  border-radius:999px;border:3px solid var(--stroke);font-size:calc(20px*var(--fs,1));font-weight:900;color:#fff;
   background:linear-gradient(180deg,#8fd0ff,#2f7de0);box-shadow:0 4px 0 var(--stroke)}
 .rtro.neg{background:linear-gradient(180deg,#ff9db4,#e0435f)}
 .rtro svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2.4;
@@ -1737,46 +1741,46 @@ html[data-theme="night"] .rtag{color:#06111a}
  60%{transform:scale(1.25) rotate(8deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:1}}
 #result h2{font-size:26px}
 .radvice{text-align:left;border-left:3px solid var(--sky);background:var(--ink3);
-  border-radius:0 12px 12px 0;padding:11px 13px;margin-bottom:12px;font-size:11.5px;line-height:1.6}
-.radvice b{display:block;margin-bottom:5px;color:var(--sky);font-size:11px;letter-spacing:.06em;
+  border-radius:0 12px 12px 0;padding:11px 13px;margin-bottom:12px;font-size:calc(11.5px*var(--fs,1));line-height:1.6}
+.radvice b{display:block;margin-bottom:5px;color:var(--sky);font-size:calc(11px*var(--fs,1));letter-spacing:.06em;
   text-transform:uppercase}
 .rgoals{text-align:left;border:1px solid var(--grid);background:var(--ink2);border-radius:var(--r2);
   padding:12px;margin-bottom:12px;box-shadow:var(--elev1)}
-.rgH{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);
+.rgH{font-size:calc(11px*var(--fs,1));letter-spacing:.09em;text-transform:uppercase;color:var(--dim);
   font-weight:800;margin-bottom:9px}
-.rgRow{display:flex;align-items:center;gap:9px;font-size:11.5px;padding:5px 0}
+.rgRow{display:flex;align-items:center;gap:9px;font-size:calc(11.5px*var(--fs,1));padding:5px 0}
 .rgRow .rgI{width:22px;height:22px;flex:none;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-size:12px;font-weight:800;background:var(--ink3);color:var(--dim)}
+  justify-content:center;font-size:calc(12px*var(--fs,1));font-weight:800;background:var(--ink3);color:var(--dim)}
 .rgRow.ok .rgI{background:var(--moss);color:#fff}
 .rgRow b{font-weight:600}
 .rgRow.ok b{color:var(--moss)}
-.rgRow s{text-decoration:none;color:var(--dim);font-size:11px;display:block;margin-top:2px}
+.rgRow s{text-decoration:none;color:var(--dim);font-size:calc(11px*var(--fs,1));display:block;margin-top:2px}
 .rchart{text-align:left;border:1px solid var(--grid);background:var(--ink2);border-radius:var(--r2);
   padding:12px;margin-bottom:12px;box-shadow:var(--elev1)}
-.rchart .rcH{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);
+.rchart .rcH{font-size:calc(11px*var(--fs,1));letter-spacing:.09em;text-transform:uppercase;color:var(--dim);
   font-weight:800;margin-bottom:9px}
-.rcRow{display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:11px}
+.rcRow{display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:calc(11px*var(--fs,1))}
 .rcRow canvas{width:22px;height:22px;flex:none}
 .rcRow span{width:62px;flex:none;color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .rcRow div{flex:1;height:12px;border-radius:7px;background:var(--ink3);overflow:hidden;
   border:1px solid var(--line)}
 .rcRow i{display:block;height:100%;background:var(--bc);}
-.rcRow b{width:38px;text-align:right;font-variant-numeric:tabular-nums;font-weight:700;font-size:11px}
+.rcRow b{width:38px;text-align:right;font-variant-numeric:tabular-nums;font-weight:700;font-size:calc(11px*var(--fs,1))}
 .rmvp{display:flex;align-items:center;gap:11px;border:1px solid var(--grid);background:var(--ink2);
   border-radius:var(--r2);padding:11px;margin-bottom:12px;box-shadow:var(--elev1);text-align:left}
 .rmvp canvas{width:42px;height:42px;flex:none}
 .rmvp .mt{flex:1}
-.rmvp .mn{font-size:13px;font-weight:700}
-.rmvp .md{font-size:11px;color:var(--dim);margin-top:3px}
-.rmvp .mb{font-size:11px;font-weight:800;color:#fff;background:var(--brass);border-radius:999px;
+.rmvp .mn{font-size:calc(13px*var(--fs,1));font-weight:700}
+.rmvp .md{font-size:calc(11px*var(--fs,1));color:var(--dim);margin-top:3px}
+.rmvp .mb{font-size:calc(11px*var(--fs,1));font-weight:800;color:#fff;background:var(--brass);border-radius:999px;
   padding:3px 8px}
 html[data-theme="night"] .rmvp .mb{color:#0a1626}
 #rstats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:18px 0}
 #rstats>div{background:var(--ink2);border:1px solid var(--grid);border-radius:var(--r1);
   padding:11px 4px;box-shadow:var(--elev1)}
-#rstats .k{font-size:11px;color:var(--dim);letter-spacing:.09em;text-transform:uppercase}
-#rstats .v{font-size:19px;margin-top:4px;font-weight:600}
-.foot{font-size:11.5px;color:var(--onBgDim);text-align:center;margin-top:14px;line-height:1.65}
+#rstats .k{font-size:calc(11px*var(--fs,1));color:var(--dim);letter-spacing:.09em;text-transform:uppercase}
+#rstats .v{font-size:calc(19px*var(--fs,1));margin-top:4px;font-weight:600}
+.foot{font-size:calc(11.5px*var(--fs,1));color:var(--onBgDim);text-align:center;margin-top:14px;line-height:1.65}
 
 /* ================= ROZPOCET SYTE BARVY =================
    Zmereno pred zasahem: 6-7 sytych odstinu a 52 % skoro bile plochy na
@@ -1857,8 +1861,8 @@ html[data-theme="hc"] .sfB{background:#06131c;color:#fff}
   filter:drop-shadow(0 0 9px color-mix(in srgb,var(--rcL,#8fa9bd) 60%,transparent))
          drop-shadow(0 2px 0 rgba(4,8,26,.9))}
 .shT{min-height:40px}
-.shT b{color:var(--surTxt);font-size:12px}
-.shT s{color:var(--surDim);font-size:11px}
+.shT b{color:var(--surTxt);font-size:calc(12px*var(--fs,1))}
+.shT s{color:var(--surDim);font-size:calc(11px*var(--fs,1))}
 /* Vzacnost meni GEOMETRII a velikost znaku, ne jen zar. */
 .shopCard{position:relative}
 .shopCard:before{content:'';position:absolute;left:0;right:0;bottom:0;height:4px;
@@ -1906,7 +1910,7 @@ html[data-theme="hc"]{--navTxt:#06131c;--navBg1:#ffffff;--navBg2:#ffffff}
 #navBar button{position:relative;flex-direction:column;gap:2px;
   padding:8px 2px 5px;border:0;background:none;box-shadow:none;
   border-radius:var(--r1);color:var(--navTxt);
-  font-size:11px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;
+  font-size:calc(11px*var(--fs,1));font-weight:800;letter-spacing:.02em;text-transform:uppercase;
   text-shadow:0 1px 0 rgba(4,8,26,.85)}
 #navBar button .ni{color:var(--navTxt);opacity:1;position:relative;z-index:1}
 #navBar svg.ni{width:24px;height:24px;stroke-width:2.4}
@@ -1945,6 +1949,119 @@ html[data-theme="hc"] #navBar button.on:before{background:#fff;border:var(--w3) 
   box-shadow:0 0 0 2px #000}
 html[data-theme="hc"] #navBar button.on,html[data-theme="hc"] #navBar button.on .ni{
   color:#000;text-shadow:none}
+
+/* ---------- notebook a tablet na sirku: dva sloupce ----------
+   Do 900 px se nic nemeni. Nad tim mela deska 20 % plochy a zbytek byl prazdne
+   pozadi, protoze vsechny panely jsou pres celou sirku a deska se vejde jen
+   mezi ne. Panely se proto slozi do praveho sloupce a deska dostane zbytek. */
+@media (min-width:900px){
+  #hud,#lower,#quick,#dock,#pprev{
+    left:auto;right:24px;width:var(--panelW);max-width:var(--panelW);margin:0}
+  #hud{top:16px}
+  #pprev{top:calc(16px + var(--hudH,86px) + 8px)}
+  /* hlaseni patri k desce, ne k panelu - drz je vlevo a nepodlez sloupec */
+  #feed{right:calc(var(--panelW) + 48px)}
+}
+
+/* ---------- profil hrace ---------- */
+#profile{display:grid;grid-template-columns:76px 1fr;gap:14px;align-items:center;
+  padding:15px 15px 16px;
+  border-radius:var(--r3) var(--r3) var(--r3) var(--cut);
+  box-shadow:inset 4px 0 0 var(--brass),inset 0 3px 0 rgba(255,255,255,.10),
+             inset 0 -8px 0 var(--surD),0 8px 0 var(--stroke),0 16px 30px rgba(6,12,32,.55)}
+/* Medaile - jedina jasna vec na karte. 46 -> 76 px a ctverec -> kruh. */
+.pfIc{width:76px;height:76px;border-radius:50%;flex:none;
+  background:radial-gradient(circle at 50% 30%,#fff2c6,#ffc21f 56%,#b8790a 100%);
+  border:4px solid var(--stroke);color:#3a2400;
+  box-shadow:inset 0 0 0 4px rgba(11,18,54,.22),
+             inset 0 0 0 6px rgba(255,255,255,.40),
+             inset 0 -5px 0 rgba(120,72,0,.35),
+             0 5px 0 var(--stroke),0 0 22px rgba(255,194,31,.38)}
+.pfIc svg{width:38px;height:38px;stroke:#3a2400;stroke-width:3;fill:none}
+.pfN{font-size:calc(16px*var(--fs,1));font-weight:900;color:var(--surTxt);line-height:1.15}
+/* Ozivena pilulka - jediny chladny akcent na karte. */
+.pfRank{display:inline-block;margin-top:5px;padding:3px 10px;border-radius:999px;
+  font-size:calc(11px*var(--fs,1));font-weight:900;
+  background:linear-gradient(180deg,#8fd0ff,#2f7de0);color:#04203f;
+  border:2px solid var(--stroke);box-shadow:0 2px 0 var(--stroke)}
+/* Drazka s noniovou stupnici: hloubka misto dalsi barvy. */
+.pfB{height:14px;border-radius:7px;border:2px solid var(--stroke);margin-top:8px;
+  overflow:hidden;position:relative;
+  background:linear-gradient(180deg,#0e1533,#171f45);
+  box-shadow:inset 0 3px 6px rgba(0,0,0,.5)}
+.pfB i{display:block;height:100%;
+  background:linear-gradient(180deg,#ffe9ab,#ffc21f 52%,#d99400 100%);
+  box-shadow:0 0 11px rgba(255,194,31,.55),inset 0 -3px 0 rgba(90,55,0,.28);
+  border-radius:5px}
+.pfB:after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(90deg,
+    transparent 0 calc(10% - 1.5px),rgba(11,18,54,.42) calc(10% - 1.5px) 10%)}
+/* Rozsypana veta -> tri zapustene pilulky s tabulkovymi cislicemi. */
+.pfX{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;font-size:calc(11px*var(--fs,1));color:var(--surDim)}
+.pfX i{font-style:normal;font-size:calc(11px*var(--fs,1));font-weight:700;color:var(--surDim);
+  background:linear-gradient(180deg,#151d40,#1e2650);
+  border:1.5px solid #0d1430;border-radius:999px;padding:3px 9px;
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.45)}
+.pfX i b{color:var(--surTxt);font-weight:900;font-variant-numeric:tabular-nums}
+.pfS{font-size:calc(11px*var(--fs,1));color:var(--surDim);margin-top:6px}
+.pfS b{color:var(--brass);font-weight:900}
+
+/* ---------- kde na vetsi pismo neni sirka ----------
+   Spodni lista ma pet zalozek vedle sebe a jmeno pristroje v sestave ma pevny
+   slot; pri kroku na 130 % se do nich delsi slova (Vybaveni, Dalkomer) nevesla.
+   Rostou proto jen polovinou kroku a v liste se ubere odsazeni a prostrkani. */
+/* Tyhle tri prvky nemaji kam rust: pet zalozek vedle sebe, jmeno pristroje
+   v pevnem slotu a podtitul velkeho tlacitka. Radeji je nechame na puvodni
+   velikosti, nez aby se pri kroku nahoru orizly. */
+#navBar button,.dn,.dslot .dn,.rtRw span,.rtRw b,.playBig s{font-size:11px}
+/* Na nejuzsich telefonech (320 px) se do peti zalozek delsi slova nevesla ani
+   pri polovicnim kroku. Verzalky jsou o desetinu sirsi nez bezny text, takze
+   se na nich uspori misto, aniz by se slo pod spodni mez velikosti. */
+@media (max-width:360px){
+  #navBar button{text-transform:none;letter-spacing:-.01em}
+  .dn{letter-spacing:-.02em}
+}
+#navBar button{letter-spacing:0;padding-left:1px;padding-right:1px}
+.dslot .dn{letter-spacing:-.01em}
+/* Podtitul velkeho tlacitka HRAT se na uzkem telefonu nevejde na jeden radek. */
+.playBig s{white-space:normal;line-height:1.2}
+
+/* ---------- karty ve sbirce ---------- */
+.rcard{border-radius:var(--r2);border-width:var(--w3);
+  background:
+    repeating-linear-gradient(112deg,rgba(255,255,255,.030) 0 1px,transparent 1px 7px),
+    linear-gradient(180deg,var(--surL) 0 34%,var(--sur) 100%);
+  color:var(--surTxt);
+  box-shadow:inset 0 3px 0 rgba(255,255,255,.10),inset 0 -8px 0 var(--surD),
+             0 5px 0 var(--stroke),0 8px 16px rgba(6,12,32,.45)}
+/* Kotouc je uvnitr tmavy, aby znak svitil; barva vzacnosti je v prstenci. */
+.rart{position:relative}
+.rart:before{content:'';position:absolute;left:50%;top:50%;
+  width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;
+  background:radial-gradient(circle at 50% 32%,
+    color-mix(in srgb,var(--rcL,#8fa9bd) 26%,#0d1430),#0d1430 74%);
+  border:var(--w2) solid color-mix(in srgb,var(--rcL,#8fa9bd) 72%,#0b1236);
+  box-shadow:inset 0 3px 9px rgba(0,0,0,.60),
+             0 0 12px color-mix(in srgb,var(--rcL,#8fa9bd) 30%,transparent)}
+html[data-theme="night"] .rart{background:none}
+.rart canvas{position:relative;z-index:1;
+  filter:drop-shadow(0 0 8px color-mix(in srgb,var(--rcL,#8fa9bd) 55%,transparent))
+         drop-shadow(0 2px 0 rgba(4,8,26,.9))}
+.rcard:after{content:'';position:absolute;left:0;right:0;bottom:0;height:4px;
+  background:var(--rc,#7d8ea8);z-index:2}
+.rnm{color:var(--surTxt)}
+/* Zamcena karta ztraci hloubku a typ obrysu, ne jen kryti. */
+.rcard.locked{filter:none;opacity:.62;border-style:dashed;
+  box-shadow:inset 0 -4px 0 var(--surD),0 2px 0 var(--stroke)}
+.rcard.locked .rart:before{border-color:#3a477e;
+  background:radial-gradient(circle at 50% 32%,#1b2346,#0d1430 74%);box-shadow:none}
+
+.skinNahled{border-radius:50%;background:radial-gradient(circle at 50% 32%,#1b2346,#0d1430);
+  border:2px solid var(--stroke);flex:none;margin-right:2px}
+#shopTabs{margin-bottom:10px}
+/* .hide je trida a #shopGrid{display:grid} je ID - bez teto rovnice
+   by ID prebilo a zalozka by se neschovala. */
+#shopGrid.hide,#shopFree.hide,#shopMez.hide,#shopNadpis.hide{display:none}
 </style>
 </head>
 <body>
@@ -1999,7 +2116,7 @@ html[data-theme="hc"] #navBar button.on,html[data-theme="hc"] #navBar button.on 
    <div class="tbChip tbName" id="tbName"><b>Geodet</b></div>
    <div class="tbChip tb1"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="#fff" fill-opacity=".95"/><path d="M12 6.6v10.8M9.2 9.4h5.6M9.2 14.6h5.6" stroke="#c07a00" stroke-width="2.4" stroke-linecap="round"/></svg><b id="tbRes">0</b></div>
    <div class="tbChip tb2"><svg viewBox="0 0 24 24"><path d="M6.8 3.8h10.4v5a5.2 5.2 0 0 1-10.4 0z" fill="#fff"/><path d="M9 20h6M12 14.2v5.8" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/></svg><b id="tbTr">0</b></div>
-   <div class="tbChip tb3"><svg viewBox="0 0 24 24"><path d="M3 8.4 12 3.6l9 4.8v7.6L12 20.8 3 16z" fill="#fff"/><path d="M3 8.4 12 13.2l9-4.8M12 13.2v7.6" fill="none" stroke="#5b2fb0" stroke-width="2"/></svg><b id="tbCr">0</b></div>
+   <div class="tbChip tb3" id="tbMezChip" title="Mezníky"><svg viewBox="0 0 24 24"><path d="M12 3.4 19 7v10l-7 3.6L5 17V7z" fill="#fff"/><path d="M9.4 8.6h5.2M12 6v5.2" stroke="#5b4a2e" stroke-width="2.2" stroke-linecap="round"/></svg><b id="tbMez">0</b></div>
  </div>
  <div id="pagerWrap">
   <div id="pager">
@@ -2008,14 +2125,29 @@ html[data-theme="hc"] #navBar button.on,html[data-theme="hc"] #navBar button.on 
    <section class="page">
     <div class="pgHead"><h2>Obchod</h2><span>nabídka se mění každý den</span></div>
     <div id="shopFree"></div>
-    <div class="secTitle">Denní nabídka <span id="shopHint"></span><span id="shopTimer" class="timerChip"></span></div>
+    <div class="filtRow" id="shopTabs">
+      <button data-t="nabidka" class="on">Nabídka</button>
+      <button data-t="mez">Za mezníky</button>
+    </div>
+    <div class="secTitle" id="shopNadpis">Denní nabídka <span id="shopHint"></span><span id="shopTimer" class="timerChip"></span></div>
     <div id="shopGrid"></div>
+    <div id="shopMez" class="hide">
+      <p class="pgNote">Mezníky se nedají koupit ani nepadají z beden. Dostaneš je
+        za tři hvězdy na území, za splněné denní úkoly, za zkoušku na plný počet
+        a občas je najdeš ve výkopu.</p>
+      <div class="secTitle">Výzkum za mezníky</div>
+      <div id="mezRes"></div>
+      <div class="secTitle">Vzhledy přístrojů</div>
+      <p class="pgNote">Vzhled platí pro všechny přístroje najednou. Mění barvu těla,
+        obrysu i lesku — nekupuješ si za něj sílu.</p>
+      <div id="mezSkins"></div>
+    </div>
     <p class="pgNote">Platí se výzkumem. Nabídka se obnoví po půlnoci.</p>
    </section>
 
    <!-- ---- 1. SESTAVA ---- -->
    <section class="page">
-    <div class="pgHead"><h2>Sestava</h2><span>co si bereš do terénu</span></div>
+    <div class="pgHead"><h2>Vybavení</h2><span>co si bereš do terénu</span></div>
 
     <div class="secTitle">Přístroje <span id="deckHint"></span></div>
     <div id="deckRow"></div>
@@ -2033,12 +2165,38 @@ html[data-theme="hc"] #navBar button.on,html[data-theme="hc"] #navBar button.on 
     <div id="abilRow"></div>
     <p class="pgNote">Do měření si bereš dvě metody. Klepnutím je vyměníš, výzkumem vylepšíš.</p>
 
-    <button class="big key" id="bColl"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="8" height="16" rx="1.6"/><rect x="13" y="4" width="8" height="8" rx="1.6"/><rect x="13" y="14" width="8" height="6" rx="1.6"/></svg>Sbírka a vylepšení přístrojů</button>
-    <button class="big alt" id="bLab"><svg class="i" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6.5L5.2 18A2 2 0 0 0 7 21h10a2 2 0 0 0 1.8-3L14 9.5V3"/><path d="M8.2 14h7.6"/></svg>Laboratoř · trvalá vylepšení</button>
+    <div class="secTitle">Sbírka přístrojů <span>výzkum <b id="collRes">0</b></span></div>
+  <div class="ownBar">
+    <div><b id="ownHave">0</b><span>vlastníš</span></div>
+    <div><b id="ownLock">0</b><span>čeká v bednách</span></div>
+    <div><b id="ownMax">0</b><span>plně vylepšeno</span></div>
+  </div>
+  <button class="big" id="collAll">Vylepšit vše, na co mám</button>
+  <div class="filtRow" id="collFilter">
+    <button data-f="all" class="on">Vše</button>
+    <button data-f="have">Vlastním</button>
+    <button data-f="miss">Chybí mi</button>
+    <button data-f="deck">V sestavě</button>
+  </div>
+  <p class="pgNote" style="margin:0 0 10px">Karty padají z beden a polovina z nich míří na přístroje z tvojí sestavy. Za karty a výzkum zvyšuješ
+     úroveň přístroje — každá dá +8 % poškození a +4 % dosahu <b>natrvalo, ve všech dalších měřeních</b>.</p>
+  <div class="pan"><div class="pb" id="collBody"></div></div>
+  <div class="pan" id="accPan"><div class="ph"><span>Příslušenství</span>
+    <span>výzkum <b class="mono" id="accRes" style="color:var(--brass)">0</b></span></div>
+    <p class="pgNote" style="padding:0 11px">Příslušenství se kupuje za výzkum a přidává jednomu druhu
+      přístroje konkrétní schopnost. Úrovně z karet nahoře zvyšují poškození a dosah — tohle je doplněk k nim.</p>
+    <div class="pb" id="accBody"></div></div>
+  <button class="big key" id="collBack">ZPĚT</button>
+
+
+
    </section>
 
    <!-- ---- 2. BITVA ---- -->
    <section class="page">
+    <div class="secTitle">Mapa světa</div>
+    <div id="worldWrap"><canvas id="world"></canvas></div>
+    <p class="pgNote" style="text-align:center">Klepni na území na mapě a vydej se měřit.<br><span style="opacity:.6">GeoGame verze <span class="verTxt">81</span></span></p>
     <div id="hero">
       <canvas id="tCanvas"></canvas>
       <div class="heroFade"></div>
@@ -2065,9 +2223,6 @@ html[data-theme="hc"] #navBar button.on,html[data-theme="hc"] #navBar button.on 
     <div id="todoBox"></div>
     <div id="dailyBox" class="dailyJob"></div>
 
-    <div class="secTitle">Mapa světa</div>
-    <div id="worldWrap"><canvas id="world"></canvas></div>
-    <p class="pgNote" style="text-align:center">Klepni na území na mapě a vydej se měřit.<br><span style="opacity:.6">GeoGame verze <span class="verTxt">81</span></span></p>
 
     <div class="secTitle">Bossová smršť</div>
     <div id="bossCard"></div>
@@ -2082,7 +2237,7 @@ html[data-theme="hc"] #navBar button.on,html[data-theme="hc"] #navBar button.on 
 
    <!-- ---- 3. SKLAD ---- -->
    <section class="page">
-    <div class="pgHead"><h2>Sklad</h2><span>bedny, úkoly a zkouška</span></div>
+    <div class="pgHead"><h2>Laborka</h2><span>bedny, trvalá vylepšení a úkoly</span></div>
 
     <div class="secTitle">Bedny <span id="slotHint"></span></div>
     <div id="slotRow"></div>
@@ -2099,6 +2254,10 @@ html[data-theme="hc"] #navBar button.on,html[data-theme="hc"] #navBar button.on 
       <div id="runLog"></div>
     </details>
 
+    <div class="secTitle">Trvalá vylepšení</div>
+    <button class="big b-alt" id="bLab"><svg class="i" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6.5L5.2 18A2 2 0 0 0 7 21h10a2 2 0 0 0 1.8-3L14 9.5V3"/><path d="M8.2 14h7.6"/></svg>Otevřít laboratoř</button>
+    <p class="pgNote">Vylepšení, která platí ve všech měřeních: rozpočet na startu,
+      kapacita stanovisek, síla přístrojů. Platí se výzkumem.</p>
     <div class="secTitle">Naučit se víc</div>
     <button class="big" id="bQuiz"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.4 9a2.6 2.6 0 1 1 3.4 2.5c-.6.2-.9.8-.9 1.5"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg><span>Zkouška z geodézie</span></button>
     <button class="big" id="bCdx"><svg class="i" viewBox="0 0 24 24"><path d="M4 5.5A2 2 0 0 1 6 3.5h13v15H6a2 2 0 0 0-2 2z"/><path d="M8 8h7M8 12h7"/></svg>Encyklopedie geodézie</button>
@@ -2106,7 +2265,7 @@ html[data-theme="hc"] #navBar button.on,html[data-theme="hc"] #navBar button.on 
 
    <!-- ---- 4. CESTA ---- -->
    <section class="page">
-    <div class="pgHead"><h2>Trofejní cesta</h2><span class="trophyChip"><svg class="i" viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3M10 14h4M9 20h6M12 14v6"/></svg><b class="mono" id="roadLvl">0</b></span></div>
+    <div class="pgHead"><h2>Kariéra</h2><span class="trophyChip"><svg class="i" viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3M10 14h4M9 20h6M12 14v6"/></svg><b class="mono" id="roadLvl">0</b></span></div>
     <div class="xpbar"><div id="xpfill"></div></div>
     <div id="xpTxt" class="xptxt"></div>
     <div class="secTitle">Sezónní cesta <span id="seasonHint"></span><span id="seasonTimer" class="timerChip"></span></div>
@@ -2144,10 +2303,10 @@ html[data-theme="hc"] #navBar button.on,html[data-theme="hc"] #navBar button.on 
 
  <nav id="navBar">
    <button data-p="0"><svg class="ni fi" viewBox="0 0 24 24"><path d="M4.4 8h15.2l-1.3 11.4A2.2 2.2 0 0 1 16.1 21H7.9a2.2 2.2 0 0 1-2.2-1.6z" fill="currentColor"/><path d="M8.6 8.4V6.2a3.4 3.4 0 0 1 6.8 0v2.2" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>Obchod</button>
-   <button data-p="1"><svg class="ni fi" viewBox="0 0 24 24"><rect x="2.6" y="7" width="18.8" height="13.4" rx="3" fill="currentColor"/><path d="M8 7V5.6A1.6 1.6 0 0 1 9.6 4h4.8A1.6 1.6 0 0 1 16 5.6V7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><rect x="10.4" y="11.4" width="3.2" height="4" rx="1" fill="#0b1030" opacity=".45"/></svg>Sestava</button>
-   <button data-p="2" class="on playTab"><svg class="ni fi" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4" fill="currentColor"/><circle cx="12" cy="12" r="3.6" fill="#0b1030" opacity=".5"/><path d="M12 .8v4.4M12 18.8v4.4M.8 12h4.4M18.8 12h4.4" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>Bitva</button>
-   <button data-p="3"><svg class="ni fi" viewBox="0 0 24 24"><path d="M3 8.4 12 3.6l9 4.8v7.6L12 20.8 3 16z" fill="currentColor"/><path d="M3 8.4 12 13.2l9-4.8M12 13.2v7.6" fill="none" stroke="#0b1030" stroke-opacity=".45" stroke-width="2.2"/></svg>Sklad</button>
-   <button data-p="4"><svg class="ni fi" viewBox="0 0 24 24"><path d="M6.6 3.6h10.8v5.2a5.4 5.4 0 0 1-10.8 0z" fill="currentColor"/><path d="M17.4 5h2.8v1.8a3 3 0 0 1-2.8 3M6.6 5H3.8v1.8a3 3 0 0 0 2.8 3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M9 20.2h6M12 14.4v5.8" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg>Cesta</button>
+   <button data-p="1"><svg class="ni fi" viewBox="0 0 24 24"><rect x="2.6" y="7" width="18.8" height="13.4" rx="3" fill="currentColor"/><path d="M8 7V5.6A1.6 1.6 0 0 1 9.6 4h4.8A1.6 1.6 0 0 1 16 5.6V7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><rect x="10.4" y="11.4" width="3.2" height="4" rx="1" fill="#0b1030" opacity=".45"/></svg>Vybavení</button>
+   <button data-p="2" class="on playTab"><svg class="ni fi" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4" fill="currentColor"/><circle cx="12" cy="12" r="3.6" fill="#0b1030" opacity=".5"/><path d="M12 .8v4.4M12 18.8v4.4M.8 12h4.4M18.8 12h4.4" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>Terén</button>
+   <button data-p="3"><svg class="ni fi" viewBox="0 0 24 24"><path d="M3 8.4 12 3.6l9 4.8v7.6L12 20.8 3 16z" fill="currentColor"/><path d="M3 8.4 12 13.2l9-4.8M12 13.2v7.6" fill="none" stroke="#0b1030" stroke-opacity=".45" stroke-width="2.2"/></svg>Laborka</button>
+   <button data-p="4"><svg class="ni fi" viewBox="0 0 24 24"><path d="M6.6 3.6h10.8v5.2a5.4 5.4 0 0 1-10.8 0z" fill="currentColor"/><path d="M17.4 5h2.8v1.8a3 3 0 0 1-2.8 3M6.6 5H3.8v1.8a3 3 0 0 0 2.8 3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M9 20.2h6M12 14.4v5.8" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg>Kariéra</button>
  </nav>
 </div>
 
@@ -2275,34 +2434,6 @@ html[data-theme="hc"] #navBar button.on,html[data-theme="hc"] #navBar button.on 
 </div>
 
 <!-- ============ SBÍRKA ============ -->
-<div class="screen" id="coll">
-  <div class="pgHead stick"><h2>Sbírka</h2><button class="xBtn" data-back="collBack">✕</button></div>
-  <div class="ownBar">
-    <div><b id="ownHave">0</b><span>vlastníš</span></div>
-    <div><b id="ownLock">0</b><span>čeká v bednách</span></div>
-    <div><b id="ownMax">0</b><span>plně vylepšeno</span></div>
-  </div>
-  <button class="big" id="collAll">Vylepšit vše, na co mám</button>
-  <div class="filtRow" id="collFilter">
-    <button data-f="all" class="on">Vše</button>
-    <button data-f="have">Vlastním</button>
-    <button data-f="miss">Chybí mi</button>
-    <button data-f="deck">V sestavě</button>
-  </div>
-  <p class="pgNote" style="margin:0 0 10px">Karty padají z beden a polovina z nich míří na přístroje z tvojí sestavy. Za karty a výzkum zvyšuješ
-     úroveň přístroje — každá dá +8 % poškození a +4 % dosahu <b>natrvalo, ve všech dalších měřeních</b>.</p>
-  <div class="pan"><div class="ph"><span>Sbírka přístrojů</span>
-    <span>výzkum <b class="mono" id="collRes" style="color:var(--brass)">0</b></span></div>
-    <div class="pb" id="collBody"></div></div>
-  <div class="pan" id="accPan"><div class="ph"><span>Příslušenství</span>
-    <span>výzkum <b class="mono" id="accRes" style="color:var(--brass)">0</b></span></div>
-    <p class="pgNote" style="padding:0 11px">Příslušenství se kupuje za výzkum a přidává jednomu druhu
-      přístroje konkrétní schopnost. Úrovně z karet nahoře zvyšují poškození a dosah — tohle je doplněk k nim.</p>
-    <div class="pb" id="accBody"></div></div>
-  <button class="big key" id="collBack">ZPĚT</button>
-  <div class="foot">Karty padají po každém měření. Vylepšení platí ve všech dalších hrách.</div>
-</div>
-
 <!-- ============ NASTAVENÍ ============ -->
 <div class="screen" id="opts">
   <div class="pgHead stick"><h2>Nastavení</h2><button class="xBtn" data-back="optBack">✕</button></div>
@@ -3580,6 +3711,42 @@ const STARREW=[
  {n:33,r:{crate:'legend',res:600,tower:'rotlaser'}}
 ];
 function starsTotal(){ return (SAVE.stars||[]).reduce((a,b)=>a+b,0); }
+// ---- VZHLEDY (skiny) ----
+// Pet hodnot na radek. Barva TELA i barva OBRYSU - kdyby se menila jen
+// vypln, vypadalo by to jako filtr pres ikonu, ne jako jiny material.
+const SKINS={
+ base:  {n:'Tovární',          col:null,      out:null,      lesk:'rgba(255,255,255,.52)', cena:0},
+ teren: {n:'Terénní oranžová', col:'#f0741a', out:'#7a2f05', lesk:'rgba(255,222,180,.55)', cena:80},
+ noc:   {n:'Noční šedá',       col:'#7f8aa6', out:'#0a0f22', lesk:'rgba(190,220,255,.60)', cena:80},
+ mosaz: {n:'Muzejní mosaz',    col:'#c99a2e', out:'#5c3f0a', lesk:'rgba(255,229,150,.62)', cena:180},
+ karbon:{n:'Karbon',           col:'#2c3040', out:'#05070e', lesk:'rgba(120,230,255,.66)', cena:180},
+ mez:   {n:'Kamenný mezník',   col:'#9d8f7a', out:'#3a3227', lesk:'rgba(255,248,230,.50)', cena:400}
+};
+// Vzhled se kupuje jednou a platí pro VŠECHNY přístroje - 21 zvlášť by byla
+// jen daň z trpělivosti.
+function skinAktivni(){ return SKINS[SAVE.skinOn]||SKINS.base; }
+function maSkin(id){ return id==='base'||!!(SAVE.skin&&SAVE.skin[id]); }
+
+// ---- MEZNÍKY ----
+// Připisují se JEN za výkon, nikdy z beden - proto zůstávají vzácné.
+// Denní příjem aktivního hráče je 8-15, aby cena 40 něco znamenala.
+function mezDej(kolik,duvod,jednouId){
+ if(jednouId){
+   SAVE.mezLog=SAVE.mezLog||[];
+   if(SAVE.mezLog.indexOf(jednouId)>=0)return 0;
+   SAVE.mezLog.push(jednouId);
+ }
+ SAVE.mez=(SAVE.mez||0)+kolik;
+ save();
+ try{ toast2('Mezník +'+kolik+(duvod?' · '+duvod:'')); }catch(e){}
+ try{ renderTitle(); }catch(e){}
+ return kolik;
+}
+function mezVezmi(kolik){
+ if((SAVE.mez||0)<kolik)return false;
+ SAVE.mez-=kolik; save(); try{ renderTitle(); }catch(e){}
+ return true;
+}
 function starRewReady(){ return STARREW.filter(x=>starsTotal()>=x.n&&!(SAVE.starRew||{})[x.n]).length; }
 
 const ACH=[
@@ -3753,9 +3920,10 @@ function usableTypes(){ const o=ORD.filter(ownsType); return o.length?o:ORD.filt
 function hasAbil(id){ return SAVE.testAll||SAVE.abils.indexOf(id)>=0; }
 function accOpen(){ return SAVE.testAll||SAVE.arena>=3; }
 let SAVE={v:5,res:0,unlocked:1,best:new Array(12).fill(0),stars:new Array(12).fill(0),endless:new Array(12).fill(0),won:new Array(12).fill(0),
- tut:0,run:null,opts:{snd:1,vib:1,spd:1,mus:1,auto:0,board:1,vol:2,theme:'day'},
+ tut:0,run:null,opts:{snd:1,vib:1,spd:1,mus:1,auto:0,board:1,vol:2,fs:0,theme:'day'},
  xp:0,step:0,types:BASE_TYPES.slice(),abils:BASE_ABILS.slice(),
  killed:{},presets:[[],[]],pslot:0,perk:{},ach:{},stats:{runs:0,waves:0,kills:0,merges:0,wins:0,best:0},cards:{tape:4,theo:4,nivel:3,edm:3},lvl:{},acc:{},spec:{},slots:[],deck:['tape','theo','nivel','edm'],abilDeck:['adjust','repair'],abilLvl:{},tr:0,arena:0,testAll:0,
+ mez:0,mezLog:[],mezDay:{d:'',res:0},skin:{},skinOn:'base',
  meta:{budget:0,cap:0,prec:0,acd:0,disc:0,resb:0}};
 const SKEY='geo:save:v2';
 const BKEY=SKEY+'.bak';   // kopie posledniho ctitelneho postupu
@@ -3771,7 +3939,7 @@ function normalize(s){
      s=s||{};
      SAVE=Object.assign(SAVE,s);
      SAVE.meta=Object.assign({budget:0,cap:0,prec:0,acd:0,disc:0,resb:0},s.meta||{});
-     SAVE.opts=Object.assign({snd:1,vib:1,spd:1,mus:1,auto:0,board:1,vol:2,theme:'day'},s.opts||{});
+     SAVE.opts=Object.assign({snd:1,vib:1,spd:1,mus:1,auto:0,board:1,vol:2,fs:0,theme:'day'},s.opts||{});
      ['best','stars','endless','won'].forEach(k=>{
        if(!Array.isArray(SAVE[k]))SAVE[k]=[];
        while(SAVE[k].length<MAPS.length)SAVE[k].push(0);});
@@ -3784,6 +3952,12 @@ function normalize(s){
      SAVE.season=SAVE.season||{};SAVE.hard=SAVE.hard||{};SAVE.killed=SAVE.killed||{};SAVE.goals=SAVE.goals||{};SAVE.starRew=SAVE.starRew||{};SAVE.perk=SAVE.perk||{};SAVE.ach=SAVE.ach||{};
      SAVE.stats=Object.assign({runs:0,waves:0,kills:0,merges:0,wins:0,best:0},SAVE.stats||{});
      SAVE.spec=SAVE.spec||{};SAVE.slots=SAVE.slots||[];SAVE.deck=SAVE.deck||[];
+     SAVE.mez=SAVE.mez||0;                       // mezníky
+     SAVE.mezLog=SAVE.mezLog||[];                // jednorázové výplaty, ať se neplatí dvakrát
+     SAVE.mezDay=SAVE.mezDay||{d:'',res:0};      // strop nákupu výzkumu na den
+     SAVE.skin=SAVE.skin||{};
+     SAVE.skinOn=SAVE.skinOn||'base';
+     if(!SAVE.mezMigr){SAVE.mezMigr=1;SAVE.mez+=25;}
      SAVE.abilLvl=SAVE.abilLvl||{};
      if(!Array.isArray(SAVE.abilDeck)||!SAVE.abilDeck.length)SAVE.abilDeck=['adjust','repair'];
      SAVE.tr=SAVE.tr||0;SAVE.arena=SAVE.arena||0;
@@ -4610,7 +4784,7 @@ function glyph(g,k,x,y,s,l,col){
  if(!GLIVE.has(k))GLIVE.set(k,glyphZiva(k));
  if(GLIVE.get(k)){ glyphKresli(g,k,x,y,s,l,col); return; }
  const sPx=Math.max(4,Math.round(s));
- const klic=k+'|'+l+'|'+col+'|'+sPx+'|'+DPR+'|'+((SAVE.opts&&SAVE.opts.theme)||'day')+'|'+(S&&S.pal||'');
+ const klic=k+'|'+l+'|'+col+'|'+sPx+'|'+DPR+'|'+((SAVE.opts&&SAVE.opts.theme)||'day')+'|'+(S&&S.pal||'')+'|'+(SAVE.skinOn||'base');
  let c=GSPR.get(klic);
  if(!c){
    const pad=Math.ceil(sPx*.95);
@@ -4626,12 +4800,15 @@ function glyph(g,k,x,y,s,l,col){
  g.drawImage(c,x-c.__pad,y-c.__pad,c.__pad*2,c.__pad*2);
 }
 function glyphKresli(g,k,x,y,s,l,col){
- const O=(P().outline)||'#0b1236';
+ const sk=(typeof skinAktivni==='function')?skinAktivni():null;
+ if(sk&&sk.col)col=sk.col;
+ const O=(sk&&sk.out)||(P().outline)||'#0b1236';
  // Odsazeni obrysu je zastropovane - u velkych znaku (logo) by z nej
  // jinak byl posunuty duplikat misto obruby.
  pruchod(O,                       Math.min(11,Math.max(3.2,s*.30)),  Math.min(1.8,s*.045));
  pruchod(col,                     Math.min(6.5,Math.max(1.9,s*.165)), 0);
- pruchod('rgba(255,255,255,.52)', Math.min(2.4,Math.max(.9,s*.052)), -Math.min(2.2,s*.055));
+ pruchod((sk&&sk.lesk)||'rgba(255,255,255,.52)',
+         Math.min(2.4,Math.max(.9,s*.052)), -Math.min(2.2,s*.055));
  function pruchod(c,w,dy){
    g.save();g.translate(x,y+(dy||0));
    g.lineWidth=w;g.strokeStyle=c;g.fillStyle=c;g.lineCap='round';g.lineJoin='round';
@@ -6318,6 +6495,8 @@ function endWave(){
 }
 function finish(win){
  if(S.over)return;
+ // nález v terénu: 6 % po dokončeném měření
+ if(win&&Math.random()<.06)mezDej(1,'nález ve výkopu');
  S.over=true;S.phase='done';S.paused=false;
  let r=Math.round((S.wave*3+(win?25:0))*(1+.2*SAVE.meta.resb));
  // Bezny den se dvema az tremi behy da 250-350 xp: sezona je dohratelna hranim.
@@ -6333,6 +6512,8 @@ function finish(win){
  }
  if(win&&!S.endless){
    SAVE.stars[S.map]=Math.max(SAVE.stars[S.map]||0,stars);
+   // tři hvězdy na území: 3 mezníky, jednou za území
+   if((SAVE.stars[S.map]||0)>=3)mezDej(3,'tři hvězdy','hv'+S.map);
    if(S.acc>=100)SAVE.perfect=(SAVE.perfect||0)+1;
    SAVE.goals=SAVE.goals||{};
    const gm=SAVE.goals[S.map]||{};
@@ -7822,7 +8003,7 @@ function taskFrame(){
  requestAnimationFrame(taskFrame);
 }
 
-const VERZE=84;
+const VERZE=85;
 /* ==================== ÚVOD ==================== */
 const INTRO=[
  {t:'Braň geodetickou síť',
@@ -8073,7 +8254,83 @@ function buyOffer(o){
  SAVE.shop.b.push(o.id);save();snd('coin');
  renderShop();renderTitle();
 }
+// Zalozka "Za mezniky": balicek vyzkumu se stropem 1x denne a vzhledy.
+function renderMez(){
+ const bal=$('mezRes'), sk=$('mezSkins');
+ if(!bal||!sk)return;
+ SAVE.mezDay=SAVE.mezDay||{d:'',res:0};
+ if(SAVE.mezDay.d!==today())SAVE.mezDay={d:today(),res:0};
+ const uz=SAVE.mezDay.res>0;
+ bal.innerHTML='';
+ {
+   const d=document.createElement('div');d.className='opt';
+   d.innerHTML='<div class="t">200 výzkumu<s>'+(uz?'dnes už vyčerpáno, vrátí se po půlnoci'
+     :'jednou za den · 40 mezníků')+'</s></div>';
+   const b=document.createElement('button');
+   b.className='b-buy';b.textContent=uz?'DNES HOTOVO':'40';
+   b.disabled=uz||(SAVE.mez||0)<40;
+   b.onclick=()=>{
+     if((SAVE.mez||0)<40)return;
+     SAVE.res+=200; SAVE.mezDay={d:today(),res:1};   // nejdriv pripsat
+     if(!mezVezmi(40)){SAVE.res-=200;return;}
+     save();
+     snd('coin'); toast2('+200 výzkumu'); renderMez(); renderTitle(); };
+   d.appendChild(b); bal.appendChild(d);
+ }
+ sk.innerHTML='';
+ Object.keys(SKINS).forEach(id=>{
+   const s2=SKINS[id], mam=maSkin(id), zvoleny=(SAVE.skinOn||'base')===id;
+   const d=document.createElement('div');d.className='opt'+(zvoleny?' on':'');
+   const nahled=document.createElement('canvas');
+   nahled.width=nahled.height=Math.round(46*Math.min(2,window.devicePixelRatio||1));
+   nahled.style.width=nahled.style.height='46px';nahled.className='skinNahled';
+   {
+     const g=nahled.getContext('2d'), dpr=Math.min(2,window.devicePixelRatio||1);
+     g.setTransform(dpr,0,0,dpr,0,0);
+     const zal=SAVE.skinOn; SAVE.skinOn=id;
+     if(typeof dropSprites==='function')dropSprites();
+     glyphKresli(g,'theo',23,23,26,3,T.theo.c);
+     SAVE.skinOn=zal;
+     if(typeof dropSprites==='function')dropSprites();
+   }
+   d.appendChild(nahled);
+   const t=document.createElement('div');t.className='t';
+   t.innerHTML=s2.n+'<s>'+(mam?(zvoleny?'právě používáš':'máš koupeno')
+     :(s2.cena+' mezníků'))+'</s>';
+   d.appendChild(t);
+   const b=document.createElement('button');
+   if(!mam){ b.className='b-buy';b.textContent=String(s2.cena);
+     b.disabled=(SAVE.mez||0)<s2.cena;
+     b.onclick=()=>{
+       if((SAVE.mez||0)<s2.cena)return;
+       SAVE.skin=SAVE.skin||{};
+       SAVE.skin[id]=1; SAVE.skinOn=id;   // nejdriv pripsat, pak strhnout
+       if(!mezVezmi(s2.cena))return;
+       save();
+       if(typeof dropSprites==='function')dropSprites();
+       snd('merge2'); toast2(s2.n+' · vzhled nasazen'); renderMez(); };
+   } else { b.className=zvoleny?'':'b-key';b.textContent=zvoleny?'NASAZENO':'NASADIT';
+     b.disabled=zvoleny;
+     b.onclick=()=>{ SAVE.skinOn=id; save();
+       if(typeof dropSprites==='function')dropSprites();
+       snd('ui'); renderMez(); }; }
+   d.appendChild(b); sk.appendChild(d);
+ });
+}
+function initShopTabs(){
+ const tabs=$('shopTabs'); if(!tabs||tabs.__init)return; tabs.__init=1;
+ [...tabs.children].forEach(b=>{ b.onclick=()=>{
+   [...tabs.children].forEach(x=>x.classList.toggle('on',x===b));
+   const mez=b.dataset.t==='mez';
+   $('shopMez').classList.toggle('hide',!mez);
+   $('shopGrid').classList.toggle('hide',mez);
+   $('shopNadpis').classList.toggle('hide',mez);
+   const f=$('shopFree'); if(f)f.classList.toggle('hide',mez);
+   snd('ui'); if(mez)renderMez();
+ };});
+}
 function renderShop(){
+ initShopTabs();
  const free=$('shopFree'), grid=$('shopGrid');
  if(!grid)return;
  ensureShop();
@@ -8215,6 +8472,8 @@ function goPage(n,anim){
  srovnejVysku();
  [...$('navBar').children].forEach((b,i)=>b.classList.toggle('on',i===PAGE));
  document.body.dataset.pg=PAGE;   // barva mistnosti podle stranky
+ // Sbirka uz neni za tlacitkem, ale primo na strance Vybaveni.
+ if(PAGE===1&&typeof renderColl==='function'){try{renderColl();}catch(e){}}
  if(typeof renderPlay==='function'){renderPlay();}
  requestAnimationFrame(srovnejVysku);   // listy uz maji svou vysku
  window.scrollTo(0,0);
@@ -8324,12 +8583,17 @@ function renderProfile(){
  const pct=nx?Math.min(100,Math.max(4,(SAVE.tr-r.tr)/Math.max(1,nx.tr-r.tr)*100)):100;
  el.innerHTML='<div class="pfIc"><svg viewBox="0 0 24 24">'+
    '<path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M10 14h4M9 20h6M12 14v6"/></svg></div>'+
-   '<div class="pfT"><div class="pfN">'+r.n+'</div>'+
+   '<div class="pfT">'+
+   '<div class="pfN">'+r.n+'</div>'+
+   '<span class="pfRank">'+SAVE.tr+' pohárů</span>'+
    '<div class="pfB"><i style="width:'+pct+'%"></i></div>'+
- '<div class="pfX">'+ORD.filter(ownsType).length+'/'+ORD.length+' přístrojů · '+
-   Object.keys(SAVE.lvl||{}).filter(k=>SAVE.lvl[k]>0).length+' vylepšených · '+
-   starsTotal()+' hvězd</div>'+
-   '<div class="pfS">'+SAVE.tr+' pohárů'+(nx?(' · další hodnost za '+(nx.tr-SAVE.tr)):' · nejvyšší hodnost')+'</div></div>';
+   '<div class="pfX">'+
+     '<i><b>'+ORD.filter(ownsType).length+'/'+ORD.length+'</b> přístrojů</i>'+
+     '<i><b>'+Object.keys(SAVE.lvl||{}).filter(k=>SAVE.lvl[k]>0).length+'</b> vylepšených</i>'+
+     '<i><b>'+starsTotal()+'</b> hvězd</i>'+
+   '</div>'+
+   '<div class="pfS">'+(nx?('do další hodnosti <b>'+(nx.tr-SAVE.tr)+'</b> pohárů')
+                         :'nejvyšší hodnost')+'</div></div>';
 }
 function msToMidnight(){
  const n=new Date(), m=new Date(n); m.setHours(24,0,0,0); return m-n;
@@ -9243,12 +9507,12 @@ function worldTap(ev){
 }
 function renderTitle(){
  $('tRes').textContent=SAVE.res;
- const tb1=$('tbRes'),tb2=$('tbTr'),tb3=$('tbCr');
+ const tb1=$('tbRes'),tb2=$('tbTr'),tb3=$('tbMez');
  const tn=$('tbName');
  if(tn)tn.querySelector('b').textContent=SAVE.name||'Geodet';
  if(tb1)tb1.textContent=SAVE.res;
  if(tb2)tb2.textContent=SAVE.tr;
- if(tb3)tb3.textContent=(SAVE.slots||[]).length+'/'+SLOTS;
+ if(tb3)tb3.textContent=SAVE.mez||0;
  $('tUnl').textContent=SAVE.unlocked+'/'+MAPS.length;
  $('tStep').textContent=SAVE.tr;
  drawWorld();
@@ -9350,7 +9614,16 @@ function renderLab(){
  });
  b.appendChild(grid);
 }
+// Velikost pisma: 100 / 115 / 130 %. Nic se neprepisuje po pravidlech,
+// jen se meni jedina promenna, kterou maji vsechny velikosti v CSS.
+const FS=[1,1.15,1.30];
+function applyFontScale(){
+ const i=(SAVE.opts&&SAVE.opts.fs)||0;
+ document.documentElement.style.setProperty('--fs',String(FS[i]||1));
+ if(typeof resize==='function'&&typeof cv!=='undefined'&&cv)resize();
+}
 function applyTheme(){
+ applyFontScale();
  TBGkey='';   // motiv se zmenil, titulni podklad se musi prekreslit
  if(typeof dropSprites==='function')dropSprites();   // i predkreslene znacky
  document.documentElement.setAttribute('data-theme',
@@ -9749,7 +10022,10 @@ function renderOpts(){
    labels:['Ticho','Tichá','Střední','Hlasitá']},
   {id:'mus',n:'Hudba v menu',d:'Klidná smyčka mimo měření'},
   {id:'auto',n:'Automatické etapy',d:'Další vlna se spustí sama po 4 s'},
-  {id:'board',n:'Velikost desky',d:'Kompaktní ovládání = větší mapa',cycle:[0,1,2],
+  {id:'fs',n:'Velikost písma',d:'Větší popisky v nabídkách i ve hře',cycle:[0,1,2],
+   labels:['Normální','Větší','Největší']},
+  {id:'board',n:'Velikost desky',d:'Velká přidá políčkům přes 20 % — lišta vybraného '+
+   'stanoviska pak leží přes spodní řadu',cycle:[0,1,2],
    labels:['Malá','Střední','Velká']},
   {id:'vib',n:'Vibrace',d:'Odezva při sloučení a průniku'},
   {id:'lowmo',n:'Omezit pohyb',d:'Vypne třes obrazovky, záblesky a odletující částice'},
@@ -9802,22 +10078,21 @@ function renderOpts(){
        if(it.act==='news'){
          showHint(
            'GeoGame '+VERZE+'\n\n'+
-           'CO SE ZMĚNILO PROTI 83\n'+
-           '• Tmavý povrch místo světlého. Barva zbyla tam, kam patří: na tlačítko, na měnu\n'+
-           '  a na vzácnost. Světlé plochy klesly z 53 % obrazovky na 16 %\n'+
-           '• Spodní lišta: ikony byly nečitelné (kontrast 2,6:1, v kontrastním motivu 1,7:1).\n'+
-           '  Vybraná záložka teď vystoupí nad lištu\n'+
-           '• Mapa světa je o dvě třetiny větší, jde ke krajům a je v soumraku. Zamčená území\n'+
-           '  už netahají oko a jméno se ukazuje jen tam, kam se dá jít\n'+
-           '• Karty v obchodě: ikona ležela na pozadí téže barvy (kontrast 1,00:1). Teď svítí\n'+
-           '  z tmavého kotouče a podtitulek je konečně čitelný\n'+
-           '• Bedny jsou jen ve Skladu a odpočet u nich konečně běží\n'+
-           '• Ukončit měření se přesunulo z křížku do nabídky pod ☰\n'+
-           '• Z hrací plochy zmizely souřadnice a nápis, které v ní ležely\n'+
-           '• Přesnost teď klesá plynule podle toho, kolik vlny projde — jedna etapa nesebere\n'+
-           '  všechno, takže je čas to spravit\n'+
-           '• Vlny nerostou na konci tak strmě a nejdelší etapy jsou kratší\n'+
-           '• Nastavení → Omezit pohyb vypne třes obrazovky, záblesky a částice\n');
+           'CO SE ZMĚNILO PROTI 84\n'+
+           '• Nová měna MEZNÍK. Nedá se koupit ani nepadá z beden — dostaneš ji za tři\n'+
+           '  hvězdy na území, za splněné denní úkoly, za zkoušku na plný počet a občas\n'+
+           '  ji najdeš ve výkopu. Kupuje čas a vzhled, nikdy sílu\n'+
+           '• Vzhledy přístrojů: šest materiálů, mění barvu těla, obrysu i lesku\n'+
+           '• V obchodě jde za mezníky koupit balíček výzkumu (jednou denně)\n'+
+           '• Sbírka je rovnou na stránce Vybavení pod sestavou, nemusíš nic rozklikávat\n'+
+           '• Stránky se jmenují podle toho, proč tam chodíš: Obchod, Vybavení, Terén,\n'+
+           '  Laborka, Kariéra. Trvalá vylepšení se přestěhovala do Laborky\n'+
+           '• Mapa světa je první věc na Terénu\n'+
+           '• Profil ožil: medaile, hodnost a tři údaje místo jednoho rozsypaného řádku\n'+
+           '• Nová volba Velikost písma — text jde zvětšit o 15 nebo 30 %\n'+
+           '• Velikost desky teď opravdu má tři stupně; Velká přidá políčkům přes 20 %\n'+
+           '• Na notebooku a tabletu se ovládání složí vedle desky, deska je skoro dvakrát větší\n'+
+           '• Písmo nikde neklesne pod 11 px\n');
          return; }
        if(it.act==='upd'){
          toast2('Hledám aktualizaci…');
@@ -9888,6 +10163,7 @@ function renderOpts(){
      btn.onclick=()=>{const i=it.cycle.indexOf(SAVE.opts[it.id]);
        SAVE.opts[it.id]=it.cycle[(i+1)%it.cycle.length];save();
        if(it.id==='vol')setMasterVolume();
+       if(it.id==='fs')applyFontScale();
        if(it.id==='board'){applyTheme();if(S)resize();}
        renderOpts();};
    }else{
@@ -10092,14 +10368,31 @@ function resize(){
  const dockH=(DOCK&&dk&&!dk.classList.contains('closed'))?dk.offsetHeight+7:0;
  // +46 px na rychlou listu nad deskou - jinak posledni rada policek lezi
  // presne pod ni a misto slouceni se trefi "zrusit" nebo "kalibrace".
- const bottom=Math.max(120,(lower?lower.offsetHeight:170)-dockH)+6+QUICK_H;
+ const bottom=Math.max(100,(lower?lower.offsetHeight:170)-dockH)+6+QUICK_H;
  const bz=(SAVE.opts&&SAVE.opts.board!==undefined)?SAVE.opts.board:1;
- const extra=bz===0?-24:0;   // velká deska = kompaktnější ovládání
- const availH=Math.max(160,VH-top-bottom+extra);
- const availW=Math.min(VW-8,560);
- CS=Math.max(18,Math.floor(Math.min(availW/COLS,availH/ROWS)));
- OX=Math.round((VW-COLS*CS)/2);
- OY=Math.round(top+(availH-ROWS*CS)/2);
+ // Malá / Střední / Velká. 'Velká' dělala do v83 přesně totéž co 'Střední' -
+ // tři polohy, dvě chování. Teď si bere i pruh, který je jinak držený pro rychlou
+ // lištu vybraného stanoviska; ta pak leží přes poslední řadu políček, což je
+ // přesně ta výměna, kterou si hráč tím nastavením volí.
+ const extra=bz===0?-24:(bz===2?QUICK_H:0);
+ // Sirka, od ktere se ovladani slozi do praveho sloupce vedle desky. Musi souhlasit
+ // s @media (min-width:900px) na konci stylu; sirka sloupce jde odsud do CSS.
+ const PANEL=420, DVA=VW>=900;
+ document.documentElement.style.setProperty('--panelW',PANEL+'px');
+ if(hudEl)document.documentElement.style.setProperty('--hudH',hudEl.offsetHeight+'px');
+ let availH,availW;
+ if(DVA){
+   // Deska dostane celou levou cast a skoro celou vysku - panely uz ji nekrouti.
+   availW=Math.max(200,VW-PANEL-72);
+   availH=Math.max(200,VH-32);
+ }else{
+   availH=Math.max(160,VH-top-bottom+extra);
+   availW=Math.min(VW-8,560);
+ }
+ // Strop velikosti policka, at deska na velkem monitoru nezhrubne.
+ CS=Math.max(18,Math.min(72,Math.floor(Math.min(availW/COLS,availH/ROWS))));
+ OX=DVA?Math.round((VW-PANEL-48-COLS*CS)/2)+12:Math.round((VW-COLS*CS)/2);
+ OY=DVA?Math.round((VH-ROWS*CS)/2):Math.round(top+(availH-ROWS*CS)/2);
  const tw=$('tCanvas').clientWidth||360;
  tc.width=tw*DPR;tc.height=Math.round(tw*.78)*DPR;
  tc.style.height=Math.round(tw*.78)+'px';
@@ -10303,8 +10596,6 @@ $('deckClear').onclick=()=>{SAVE.deck=[];save();snd('ui');renderDeck();
  toast2('Sestava bude náhodná při každém měření.');};
 
 
-$('bColl').onclick=()=>{snd('ui');renderColl();show('coll');};
-$('collBack').onclick=()=>{zpetDoMenu();};
 $('luOk').onclick=()=>{$('levelup').classList.remove('on');};
 $('crOk').onclick=()=>{$('crates').classList.remove('on');window.__crates=null;renderTitle();};
 $('tkClose').onclick=()=>{ if(TK&&TK.motion)window.removeEventListener('deviceorientation',TK.motion);
